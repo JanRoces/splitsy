@@ -1,0 +1,16 @@
+.create-event-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-receipt-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-form {
+  width: 80px;
+  text-align: right;
+}
