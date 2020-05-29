@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import EventName from "./componenets/EventName";
-import GatherReceipts from "./componenets/GatherReceipts";
+import EventName from "./components/EventName";
+import GatherReceipts from "./components/GatherReceipts";
+import ShowReceiptData from "./components/ShowReceiptData";
 
 class App extends Component {
-  state = { step: 2, title: "", participants: [] };
+  state = { step: 1, title: "", participants: [] };
 
   handleOnSubmit = (values) => {
     //console.log("values: ", v);
     console.log("title: ", values.title);
     console.log("participants: ", values.participants);
+    var s = this.state.step;
+    s++;
+
     this.setState({
-      step: 2,
+      step: s,
       title: values.title,
       participants: values.participants,
     });
@@ -38,12 +42,19 @@ class App extends Component {
               {this.state.title} Finance Organization
             </h2>
           </div>
+          <br />
           <div>
-            <h4 style={{ textAlign: "center" }}>Add Receipts</h4>
+            <GatherReceipts
+              members={this.state.participants}
+              onSubmit={this.handleOnSubmit}
+            />
           </div>
-          <div>
-            <GatherReceipts members={this.state.participants} />
-          </div>
+        </div>
+      );
+    } else if (this.state.step === 3) {
+      return (
+        <div>
+          <ShowReceiptData />
         </div>
       );
     } else {

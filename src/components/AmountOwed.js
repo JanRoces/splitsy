@@ -11,14 +11,7 @@ class AmountOwed extends Component {
       <tr key={x}>
         <td style={{ width: "80px" }}>{x}</td>
         <td style={{ align: "right" }}>$</td>
-        <td style={{ align: "right" }}>
-          <input
-            className="amount-form"
-            type="number"
-            step="0.01"
-            value={num}
-          ></input>
-        </td>
+        <td style={{ align: "right" }}>{num}</td>
       </tr>
     );
   };
@@ -34,14 +27,13 @@ class AmountOwed extends Component {
             type="number"
             placeholder="0.00"
             step="0.01"
-            onChange={(e) => this.getVals(e.target.value)}
-          ></input>
+            onChange={(e) => this.getVals(e.target.value)}></input>
         </td>
-        <td>
+        {/* <td>
           <button type="button" onClick={this.setVals}>
             enter
           </button>
-        </td>
+        </td> */}
       </tr>
     );
   };
