@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 
+var customAmounts = {
+  key: "",
+  amt: 0,
+};
+
 class AmountOwed extends Component {
   state = { evenAmt: 0, customAmt: [], value: 0 };
 
@@ -23,19 +28,22 @@ class AmountOwed extends Component {
         <td style={{ align: "right" }}>$</td>
         <td style={{ align: "right" }}>
           <input
+            key={x}
             className="amount-form"
             type="number"
             placeholder="0.00"
             step="0.01"
-            onChange={(e) => this.getVals(e.target.value)}></input>
+            onChange={(e) => this.getVals(e.target.value, x)}></input>
         </td>
       </tr>
     );
   };
 
-  getVals = (x) => {
-    this.setState({ value: x });
-    console.log(this.state);
+  getVals = (x, k) => {
+    customAmounts.key = k;
+    customAmounts.amt = x;
+    console.log("kcustomAmounts.key: ", k);
+    console.log("customAmounts.amt: ", x);
   };
 
   setVals = () => {

@@ -14,60 +14,60 @@ var receiptDetails = {
 };
 
 class ReceiptInput extends Component {
-  state = { receiptname: "", receiptAmount: 0, even: false, custom: false };
-
-  //   returnToParent = () => {
-  //     console.log(this.state);
-  //     this.props.onReturn(this.state);
-  //   };
+  state = {
+    details: [],
+    receiptname: "",
+    runningAmount: 0,
+    even: false,
+    custom: false,
+  };
 
   makeOption = function (x) {
     return <option key={x}>{x}</option>;
   };
 
   splitEven = () => {
+    receiptDetails.custom = [];
+    var n = receiptDetails.amount;
+    var m = n / this.props.members.length;
+    var num = m.toFixed(2);
+    receiptDetails.evenSplit = num;
+    console.log("receiptDetails.evenSplit: ", receiptDetails.evenSplit);
     this.setState({ even: true, custom: false });
   };
 
-  splitCustom = (value) => {
-    this.setState({ even: false, custom: true });
+  splitCustom = () => {
+    receiptDetails.evenSplit = 0;
+    this.setState({ runningAmount: 0, even: false, custom: true });
   };
 
   setName = (name) => {
     receiptDetails.name = name;
-    console.log("receiptDetails.name ", receiptDetails.name);
+    console.log("receiptDetails.name: ", receiptDetails.name);
   };
 
   setAmount = (amount) => {
     receiptDetails.amount = amount;
-    console.log("receiptDetails.amount ", receiptDetails.amount);
+    console.log("receiptDetails.amount: ", receiptDetails.amount);
+    this.setState({ runningAmount: amount });
   };
 
   setPayer = () => {
     var selected = ReactDOM.findDOMNode(this.refs.selector).value;
     receiptDetails.payer = selected;
-    console.log("receiptDetails.payer ", receiptDetails.payer);
+    console.log("receiptDetails.payer: ", receiptDetails.payer);
   };
-
-  //   componentDidMount() {
-  //     var selected = ReactDOM.findDOMNode(this.refs.selector).value;
-  //     this.setPayer(selected);
-  //   }
 
   render() {
     return (
       <div>
         <div className="add-receipt-form">
           <div>
-            {/* <i className={`${icon} icon`}></i> */}
+            <i className={`${icon} icon`}></i>
             <input
               type="text"
               placeholder="Receipt Name"
-              onChange={(e) => this.setName(e.target.value)}
-              //   onChange={(e) =>
-              //     this.setState({ receiptName: e.target.value })
-              //   }
-            ></input>
+              onChange={(e) => this.setName(e.target.value)}></input>
             $
             <input
               className="amount-form"
@@ -75,10 +75,7 @@ class ReceiptInput extends Component {
               placeholder="0.00"
               min="0.00"
               step="0.01"
-              onChange={(e) => this.setAmount(e.target.value)}
-              //   onChange={(e) =>
-              //     this.setState({ receiptAmount: e.target.value })}
-            ></input>
+              onChange={(e) => this.setAmount(e.target.value)}></input>
             <label>Paid By:</label>
             <select ref="selector" onChange={this.setPayer}>
               <option>-- select option --</option>
@@ -95,8 +92,7 @@ class ReceiptInput extends Component {
                 dispEven={this.state.even}
                 dispCust={this.state.custom}
                 members={this.props.members}
-                amt={receiptDetails.amount}
-                name={this.state.receiptName}
+                amt={this.state.runningAmount}
               />
             </div>
           </div>
