@@ -5,24 +5,32 @@ import "./Display.css";
 
 const dummyData = ["Jan", "Jeff", "Jorge", "Kyle"];
 
+var receiptDetails = {
+  name: "",
+  amount: 0,
+  payer: "",
+  evenSplit: 0,
+  custom: [],
+};
+
 class GatherReceipts extends Component {
   state = { receiptsIndex: ["receipt-0"] };
 
-  // handleOnSubmit = (e) => {
-  //   const { onSubmit } = this.props;
-  //   if (this.state.title !== "" && this.state.participants !== []) {
-  //     e.preventDefault();
+  handleOnSubmit = (e) => {
+    const { onSubmit } = this.props;
 
-  //     onSubmit(this.state);
-  //   }
-  // };
+    e.preventDefault();
+
+    onSubmit(this.state);
+  };
 
   appendForm = () => {
-    console.log("'+ New Receipt' was clicked");
-    var newReceipt = `input-${this.state.receiptsIndex.length}`;
+    console.log("+ New Receipt was clicked");
+    var newReceipt = `receipt-${this.state.receiptsIndex.length}`;
     this.setState((prevState) => ({
       receiptsIndex: prevState.receiptsIndex.concat([newReceipt]),
     }));
+    console.log(this.state);
   };
 
   render() {
@@ -31,15 +39,19 @@ class GatherReceipts extends Component {
         <form onSubmit={this.handleOnSubmit}>
           <div>
             {this.state.receiptsIndex.map((receiptsIndex) => (
-              // <ReceiptInput key={receiptsIndex} members={dummyData} />
-              <ReceiptInput key={receiptsIndex} members={this.props.members} />
+              <ReceiptInput
+                onReturn={this.handleOnSubmit}
+                key={receiptsIndex}
+                members={this.props.members}
+              />
+              // <ReceiptInput key={receiptsIndex} members={this.props.members} />
             ))}
           </div>
+          <br />
           <div>
             <button type="button" onClick={this.appendForm}>
               + New Receipt
             </button>
-
             <button>Submit</button>
           </div>
         </form>

@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   border-style: groove;
+  width: 100%;
 }
 
 .gather-receipts {

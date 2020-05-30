@@ -13,6 +13,7 @@ class EventName extends Component {
     if (this.state.title !== "" && this.state.participants !== []) {
       e.preventDefault();
 
+      console.log("from EventName - participants: ", this.state.participants);
       onSubmit(this.state);
     }
   };
@@ -42,16 +43,14 @@ class EventName extends Component {
           <input
             type="text"
             placeholder="Event Name"
-            onChange={(e) => this.setState({ title: e.target.value })}
-          ></input>
+            onChange={(e) => this.setState({ title: e.target.value })}></input>
           <br />
           <div>
             <input
               type="text"
               placeholder="Participant"
               value={this.state.name}
-              onChange={(e) => this.setState({ name: e.target.value })}
-            ></input>
+              onChange={(e) => this.setState({ name: e.target.value })}></input>
 
             <button type="button" onClick={this.addParticipant}>
               +
@@ -68,7 +67,7 @@ class EventName extends Component {
             <p>{this.state.participants.join(", ")}</p>
           </div>
           <br />
-          <button>create</button>
+          <button>Create</button>
         </form>
       </div>
     );

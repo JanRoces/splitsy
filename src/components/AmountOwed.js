@@ -29,17 +29,13 @@ class AmountOwed extends Component {
             step="0.01"
             onChange={(e) => this.getVals(e.target.value)}></input>
         </td>
-        {/* <td>
-          <button type="button" onClick={this.setVals}>
-            enter
-          </button>
-        </td> */}
       </tr>
     );
   };
 
   getVals = (x) => {
     this.setState({ value: x });
+    console.log(this.state);
   };
 
   setVals = () => {

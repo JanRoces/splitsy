@@ -4,12 +4,14 @@ import GatherReceipts from "./components/GatherReceipts";
 import ShowReceiptData from "./components/ShowReceiptData";
 
 class App extends Component {
-  state = { step: 1, title: "", participants: [] };
+  state = {
+    step: 1,
+    title: "",
+    participants: [],
+    receiptDetails: [],
+  };
 
   handleOnSubmit = (values) => {
-    //console.log("values: ", v);
-    console.log("title: ", values.title);
-    console.log("participants: ", values.participants);
     var s = this.state.step;
     s++;
 
@@ -22,6 +24,7 @@ class App extends Component {
 
   render() {
     if (this.state.step === 1) {
+      console.log("App.js Step 1: ", this.state);
       return (
         <div>
           <div>logo placement</div>
@@ -30,13 +33,18 @@ class App extends Component {
           </div>
           <br />
           <div>
-            <EventName onSubmit={this.handleOnSubmit} />
+            <EventName
+              onSubmit={this.handleOnSubmit}
+              // getMembers={this.retrieveMembers}
+            />
           </div>
         </div>
       );
     } else if (this.state.step === 2) {
+      console.log("App.js Step 2: ", this.state);
       return (
         <div>
+          <br />
           <div>
             <h2 style={{ textAlign: "center" }}>
               {this.state.title} Finance Organization
