@@ -5,16 +5,10 @@ import "./Display.css";
 
 const dummyData = ["Jan", "Jeff", "Jorge", "Kyle"];
 
-var receiptDetails = {
-  name: "",
-  amount: 0,
-  payer: "",
-  evenSplit: 0,
-  custom: [],
-};
-
 class GatherReceipts extends Component {
   state = { receiptsIndex: ["receipt-0"] };
+
+  //tmp = [];
 
   handleOnSubmit = (e) => {
     const { onSubmit } = this.props;
@@ -33,6 +27,12 @@ class GatherReceipts extends Component {
     console.log(this.state);
   };
 
+  getDetails = (details) => {
+    console.log("GatherReceipts-getDetails(): ", details);
+    this.props.toParent(details);
+  };
+
+  //members={this.props.members}
   render() {
     return (
       <div className="gather-receipts">
@@ -43,6 +43,7 @@ class GatherReceipts extends Component {
                 onReturn={this.handleOnSubmit}
                 key={receiptsIndex}
                 members={this.props.members}
+                onGatherReceiptsReturn={this.getDetails}
               />
               // <ReceiptInput key={receiptsIndex} members={this.props.members} />
             ))}

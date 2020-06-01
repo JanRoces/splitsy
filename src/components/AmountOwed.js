@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 
-var customAmounts = {
-  key: "",
-  amt: 0,
-};
-
 class AmountOwed extends Component {
-  state = { evenAmt: 0, customAmt: [], value: 0 };
+  state = { customAmt: [] };
+
+  curr = [];
 
   listEven = (x) => {
     var n = this.props.amt;
@@ -33,28 +30,51 @@ class AmountOwed extends Component {
             type="number"
             placeholder="0.00"
             step="0.01"
-            onChange={(e) => this.getVals(e.target.value, x)}></input>
+            onChange={(e) => this.setVals(e.target.value, x)}></input>
         </td>
       </tr>
     );
   };
 
-  getVals = (x, k) => {
-    customAmounts.key = k;
-    customAmounts.amt = x;
-    console.log("kcustomAmounts.key: ", k);
-    console.log("customAmounts.amt: ", x);
-  };
+  setVals = (x, k) => {
+    var amountObj = {
+      key: "",
+      amt: 0,
+    };
 
-  setVals = () => {
-    var tmp = this.state.customAmt.concat(this.state.value);
-    console.log("state.value: ", this.state.value);
-    this.setState({ customAmt: tmp });
-    console.log(this.state);
+    var match = false;
+    var len = this.curr.length;
+    var i = 0;
+
+    amountObj.key = k;
+    amountObj.amt = x;
+
+    if (len === 0) {
+      this.curr.push(amountObj);
+    } else {
+      while (i !== len) {
+        if (this.curr[i].key === k) {
+          match = true;
+          this.curr[i].amt = x;
+          break;
+        } else {
+          i++;
+        }
+      }
+      if (match === false) {
+        this.curr.push(amountObj);
+      }
+    }
+
+    this.setState({
+      customAmt: this.state.customAmt.splice(0, len, ...this.curr),
+    });
+    console.log("state.customAmt: ", this.state.customAmt);
+    this.props.onReceiptInputReturn(this.state.customAmt);
   };
 
   render() {
-    if (this.props.dispEven == true) {
+    if (this.props.dispEven === true) {
       console.log("split even was clicked");
       return (
         <div>
@@ -63,7 +83,7 @@ class AmountOwed extends Component {
           </table>
         </div>
       );
-    } else if (this.props.dispCust == true) {
+    } else if (this.props.dispCust === true) {
       console.log("custom was clicked");
       return (
         <div>

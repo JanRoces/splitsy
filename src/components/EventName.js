@@ -29,7 +29,7 @@ class EventName extends Component {
   };
 
   removeParticipant = () => {
-    if (this.state.participants != []) {
+    if (this.state.participants !== []) {
       let arr = this.state.participants;
       arr.pop();
       this.setState({ participants: arr });

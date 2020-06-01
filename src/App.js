@@ -22,7 +22,15 @@ class App extends Component {
     });
   };
 
+  getDetails = (details) => {
+    console.log("App-getDetails(): ", details);
+    var tmp = this.state.receiptDetails.concat(details);
+    this.setState({ receiptDetails: tmp });
+    console.log("state.receiptDetails: ", this.state.receiptDetails);
+  };
+
   render() {
+    console.clear();
     if (this.state.step === 1) {
       console.log("App.js Step 1: ", this.state);
       return (
@@ -55,6 +63,7 @@ class App extends Component {
             <GatherReceipts
               members={this.state.participants}
               onSubmit={this.handleOnSubmit}
+              toParent={this.getDetails}
             />
           </div>
         </div>
