@@ -5,11 +5,48 @@ import ShowReceiptData from "./components/ShowReceiptData";
 
 class App extends Component {
   state = {
-    step: 1,
-    title: "",
-    participants: [],
-    receiptDetails: [],
+    step: 3,
+    title: "The Boyz",
+    participants: ["Jan", "Jeff", "Jorge", "Kyle", "Myles"],
+    receiptDetails: [
+      {
+        name: "Air Bnb",
+        amount: 565.9,
+        payer: "Jan",
+        evenSplit: 113.18,
+        custom: [],
+      },
+      {
+        name: "Car Rental",
+        amount: 352.75,
+        payer: "Jeff",
+        evenSplit: 70.55,
+        custom: [],
+      },
+      {
+        name: "Bar",
+        amount: 81,
+        payer: "Jorge",
+        evenSplit: 0,
+        custom: [14, 17, 20, 17, 13],
+      },
+      {
+        name: "Gas",
+        amount: 14.6,
+        payer: "Kyle",
+        evenSplit: 2.92,
+        custom: [],
+      },
+    ],
   };
+
+  // receiptDetails = {
+  //   name: "",
+  //   amount: 0,
+  //   payer: "",
+  //   evenSplit: 0,
+  //   custom: [],
+  // };
 
   handleOnSubmit = (values) => {
     var s = this.state.step;
@@ -71,7 +108,18 @@ class App extends Component {
     } else if (this.state.step === 3) {
       return (
         <div>
-          <ShowReceiptData />
+          <br />
+          <div>
+            <h2 style={{ textAlign: "center" }}>
+              {this.state.title} Finance Breakdown
+            </h2>
+          </div>
+          <div>
+            <ShowReceiptData
+              allReceipts={this.state.receiptDetails}
+              members={this.state.participants}
+            />
+          </div>
         </div>
       );
     } else {
