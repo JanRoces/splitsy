@@ -6,7 +6,11 @@ import "./Display.css";
 const dummyData = ["Jan", "Jeff", "Jorge", "Kyle"];
 
 class GatherReceipts extends Component {
-  state = { receiptsIndex: ["receipt-0"] };
+  state = {
+    title: this.props.title,
+    participants: this.props.members,
+    receiptsIndex: ["receipt-0"],
+  };
 
   //tmp = [];
 
@@ -34,6 +38,7 @@ class GatherReceipts extends Component {
 
   //members={this.props.members}
   render() {
+    console.log("Gather Receipts state.title: ", this.state.title);
     return (
       <div className="gather-receipts">
         <form onSubmit={this.handleOnSubmit}>
