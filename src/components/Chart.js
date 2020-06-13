@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 
 class Chart extends Component {
+  //state = { data: this.props.data };
   render() {
     return (
       <div>

@@ -4,56 +4,55 @@ import GatherReceipts from "./components/GatherReceipts";
 import Breakdown from "./components/Breakdown";
 
 class App extends Component {
-  state = {
-    step: 1,
-    title: "",
-    participants: [],
-    receiptDetails: [],
-  };
-
-  //test data
   // state = {
-  //   step: 3,
-  //   title: "The Boyz",
-  //   participants: ["Jan", "Jeff", "Jorge", "Kyle", "Myles"],
-  //   receiptDetails: [
-  //     {
-  //       name: "Air Bnb",
-  //       amount: 565.9,
-  //       payer: "Jan",
-  //       evenSplit: 113.18,
-  //       custom: [],
-  //     },
-  //     {
-  //       name: "Car Rental",
-  //       amount: 352.75,
-  //       payer: "Jeff",
-  //       evenSplit: 70.55,
-  //       custom: [],
-  //     },
-  //     {
-  //       name: "Bar",
-  //       amount: 81,
-  //       payer: "Jorge",
-  //       evenSplit: 0,
-  //       custom: [14, 17, 20, 17, 13],
-  //     },
-  //     {
-  //       name: "Gas",
-  //       amount: 14.6,
-  //       payer: "Kyle",
-  //       evenSplit: 2.92,
-  //       custom: [],
-  //     },
-  //     {
-  //       name: "Food",
-  //       amount: 205.56,
-  //       payer: "Jan",
-  //       evenSplit: 0,
-  //       custom: [52.13, 31.24, 45.45, 36.7, 40.04],
-  //     },
-  //   ],
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
   // };
+
+  state = {
+    step: 3,
+    title: "Las Vegas",
+    participants: ["A", "B", "C", "D"],
+    receiptDetails: [
+      {
+        name: "Car Rental",
+        amount: 400,
+        payer: "A",
+        evenSplit: 100,
+        custom: [],
+      },
+      {
+        name: "Air Bnb",
+        amount: 200,
+        payer: "B",
+        evenSplit: 50,
+        custom: [],
+      },
+      {
+        name: "Bar",
+        amount: 40,
+        payer: "C",
+        evenSplit: 10,
+        custom: [],
+      },
+      {
+        name: "Gas",
+        amount: 32,
+        payer: "D",
+        evenSplit: 8,
+        custom: [],
+      },
+      {
+        name: "Food",
+        amount: 50,
+        payer: "B",
+        evenSplit: 0,
+        custom: [10, 20, 5, 15],
+      },
+    ],
+  };
 
   handleOnSubmit = (values) => {
     var s = this.state.step;
