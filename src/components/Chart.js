@@ -7,7 +7,13 @@ class Chart extends Component {
     return (
       <div>
         <div className="donut-chart">
-          <Doughnut data={this.props.data} />
+          <Doughnut
+            data={this.props.data}
+            options={{
+              height: "50%",
+              width: "50%",
+            }}
+          />
         </div>
       </div>
     );

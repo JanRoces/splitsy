@@ -54,24 +54,6 @@ class App extends Component {
     ],
   };
 
-  handleOnSubmit = (values) => {
-    var s = this.state.step;
-    s++;
-
-    this.setState({
-      step: s,
-      title: values.title,
-      participants: values.participants,
-    });
-  };
-
-  getDetails = (details) => {
-    console.log("App-getDetails(): ", details);
-    var tmp = this.state.receiptDetails.concat(details);
-    this.setState({ receiptDetails: tmp });
-    console.log("state.receiptDetails: ", this.state.receiptDetails);
-  };
-
   render() {
     //console.clear();
     if (this.state.step === 1) {
@@ -135,6 +117,26 @@ class App extends Component {
       return <div>Step Error</div>;
     }
   }
+
+  handleOnSubmit = (values) => {
+    var s = this.state.step;
+    s++;
+
+    this.setState({
+      step: s,
+      title: values.title,
+      participants: values.participants,
+    });
+  };
+
+  getDetails = (details) => {
+    console.log("App-getDetails(): ", details);
+    var tmp = this.state.receiptDetails.concat(details);
+    this.setState({ receiptDetails: tmp });
+    console.log("state.receiptDetails: ", this.state.receiptDetails);
+  };
+
+  
 }
 
 export default App;

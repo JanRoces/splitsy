@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Chart from "./Chart";
-import DebtDisplay from "./DebtDisplay";
+//import DebtDisplay from "./DebtDisplay";
 
 class Breakdown extends Component {
   state = {
@@ -8,35 +8,44 @@ class Breakdown extends Component {
     main: {},
     members: this.props.members,
     oweArr: [],
+    infoLoaded: false,
   };
-
-  //dataSet = [];
 
   componentDidMount() {
     this.mainData();
     this.determineDebt();
+    console.log(this.state);
   }
 
   render() {
     console.log(this.state);
-    return (
-      <div>
+
+    if (this.state.infoLoaded === true) {
+      return (
         <div>
-          <Chart data={this.state.main} />
           <div>
-            <button type="button" onClick={this.changeColor}>
-              Change Color
-            </button>
+            <Chart data={this.state.main} />
+            <div>
+              <button type="button" onClick={this.changeColor}>
+                Change Color
+              </button>
+            </div>
+            <br />
+            {/*<DebtDisplay
+              matrix={this.state.oweArr}
+              members={this.state.members}
+            />*/}
+            <div>{this.display()}</div>
           </div>
-          <br />
-          {/*<DebtDisplay
-            matrix={this.state.oweArr}
-            members={this.state.members}
-          />*/}
-          <div>{this.display()}</div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <h1>Loading...</h1>
+        </div>
+      );
+    }
   }
 
   //this function creates the data set that is used
@@ -137,7 +146,7 @@ class Breakdown extends Component {
       }
 
       //populate .amt with respective amounts
-      if (splitAmt != 0) {
+      if (splitAmt !== 0) {
         for (k = 0; k < len; k++) {
           rnum = objArr[j].member[k].amt;
           rnum = rnum + splitAmt;
@@ -158,17 +167,17 @@ class Breakdown extends Component {
 
     for (i = 0; i < len; i++) {
       payer = objArr[i].key;
-      console.log("payer: ", payer);
+      //console.log("payer: ", payer);
       for (j = 0; j < len; j++) {
         ower = objArr[i].member[j].name;
-        console.log("ower: ", ower);
-        if (payer == ower) {
+        //console.log("ower: ", ower);
+        if (payer === ower) {
           objArr[i].member[j].amt = 0;
         } else {
           pAmt = objArr[i].member[j].amt;
           oAmt = objArr[j].member[i].amt;
-          console.log("pAmt: ", pAmt);
-          console.log("oAmt: ", oAmt);
+          //console.log("pAmt: ", pAmt);
+          //console.log("oAmt: ", oAmt);
           weight = pAmt - oAmt;
           if (weight < 0) {
             weight = weight * -1;
@@ -185,13 +194,41 @@ class Breakdown extends Component {
         }
       }
     }
-    this.setState({ oweArr: objArr });
+
+    this.setState({ oweArr: objArr, infoLoaded: true });
   };
 
   display = () => {
     var m = this.state.oweArr;
-    console.log(m);
-    return <div>hello</div>;
+    var len = this.state.oweArr.length;
+    var i, j, x, y;
+    var amt = 0;
+    var oweList = [];
+
+    for (i = 0; i < len; i++) {
+      x = m[i].key;
+      console.log(x);
+      for (j = 0; j < len; j++) {
+        y = m[i].member[j].name;
+        amt = m[i].member[j].amt;
+        console.log(y);
+        console.log(amt);
+        if (amt !== 0) {
+          oweList.push(
+            <li>
+              <label>{y} </label>
+              owes
+              <label> {x} </label> $ {amt}
+            </li>
+          );
+        } else {
+          console.log("amt = 0");
+          console.log(j);
+        }
+      }
+    }
+
+    return <ul>{oweList}</ul>;
   };
 }
 
