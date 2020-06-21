@@ -31,7 +31,8 @@ class ReceiptInput extends Component {
     var n = this.receiptDetails.amount;
     var m = n / this.props.members.length;
     var num = m.toFixed(2);
-    this.receiptDetails.evenSplit = num;
+    var fNum = parseFloat(num);
+    this.receiptDetails.evenSplit = fNum;
     console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
     this.setState({ even: true, custom: false });
   };

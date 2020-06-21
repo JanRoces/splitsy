@@ -45,9 +45,10 @@ class AmountOwed extends Component {
     var match = false;
     var len = this.curr.length;
     var i = 0;
+    var xfloat = parseFloat(x);
 
     amountObj.key = k;
-    amountObj.amt = x;
+    amountObj.amt = xfloat;
 
     if (len === 0) {
       this.curr.push(amountObj);
@@ -55,7 +56,7 @@ class AmountOwed extends Component {
       while (i !== len) {
         if (this.curr[i].key === k) {
           match = true;
-          this.curr[i].amt = x;
+          this.curr[i].amt = xfloat;
           break;
         } else {
           i++;

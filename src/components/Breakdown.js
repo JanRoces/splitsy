@@ -204,6 +204,7 @@ class Breakdown extends Component {
     var i, j, x, y;
     var amt = 0;
     var oweList = [];
+    var keyIndex = 0;
 
     for (i = 0; i < len; i++) {
       x = m[i].key;
@@ -215,12 +216,13 @@ class Breakdown extends Component {
         console.log(amt);
         if (amt !== 0) {
           oweList.push(
-            <li>
+            <li key={keyIndex}>
               <label>{y} </label>
               owes
               <label> {x} </label> $ {amt}
             </li>
           );
+          keyIndex++;
         } else {
           console.log("amt = 0");
           console.log(j);

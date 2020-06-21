@@ -4,55 +4,55 @@ import GatherReceipts from "./components/GatherReceipts";
 import Breakdown from "./components/Breakdown";
 
 class App extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   receiptDetails: [],
-  // };
-
   state = {
-    step: 3,
-    title: "Las Vegas",
-    participants: ["A", "B", "C", "D"],
-    receiptDetails: [
-      {
-        name: "Car Rental",
-        amount: 400,
-        payer: "A",
-        evenSplit: 100,
-        custom: [],
-      },
-      {
-        name: "Air Bnb",
-        amount: 200,
-        payer: "B",
-        evenSplit: 50,
-        custom: [],
-      },
-      {
-        name: "Bar",
-        amount: 40,
-        payer: "C",
-        evenSplit: 10,
-        custom: [],
-      },
-      {
-        name: "Gas",
-        amount: 32,
-        payer: "D",
-        evenSplit: 8,
-        custom: [],
-      },
-      {
-        name: "Food",
-        amount: 50,
-        payer: "B",
-        evenSplit: 0,
-        custom: [10, 20, 5, 15],
-      },
-    ],
+    step: 1,
+    title: "",
+    participants: [],
+    receiptDetails: [],
   };
+
+  // state = {
+  //   step: 3,
+  //   title: "Las Vegas",
+  //   participants: ["A", "B", "C", "D"],
+  //   receiptDetails: [
+  //     {
+  //       name: "Car Rental",
+  //       amount: 400,
+  //       payer: "A",
+  //       evenSplit: 100,
+  //       custom: [],
+  //     },
+  //     {
+  //       name: "Air Bnb",
+  //       amount: 200,
+  //       payer: "B",
+  //       evenSplit: 50,
+  //       custom: [],
+  //     },
+  //     {
+  //       name: "Bar",
+  //       amount: 40,
+  //       payer: "C",
+  //       evenSplit: 10,
+  //       custom: [],
+  //     },
+  //     {
+  //       name: "Gas",
+  //       amount: 32,
+  //       payer: "D",
+  //       evenSplit: 8,
+  //       custom: [],
+  //     },
+  //     {
+  //       name: "Food",
+  //       amount: 50,
+  //       payer: "B",
+  //       evenSplit: 0,
+  //       custom: [10, 20, 5, 15],
+  //     },
+  //   ],
+  // };
 
   render() {
     //console.clear();
@@ -135,8 +135,6 @@ class App extends Component {
     this.setState({ receiptDetails: tmp });
     console.log("state.receiptDetails: ", this.state.receiptDetails);
   };
-
-  
 }
 
 export default App;
