@@ -4,38 +4,6 @@ import "./Display.css";
 class EventName extends Component {
   state = { title: "", name: "", participants: [] };
 
-  onInputChange = (e) => {
-    console.log(e.target.value);
-  };
-
-  handleOnSubmit = (e) => {
-    const { onSubmit } = this.props;
-    if (this.state.title !== "" && this.state.participants !== []) {
-      e.preventDefault();
-
-      console.log("from EventName - participants: ", this.state.participants);
-      onSubmit(this.state);
-    }
-  };
-
-  addParticipant = (e) => {
-    console.log("name: ", this.state.name);
-    if (this.state.name !== "") {
-      this.setState({
-        participants: [...this.state.participants, this.state.name],
-        name: "",
-      });
-    }
-  };
-
-  removeParticipant = () => {
-    if (this.state.participants !== []) {
-      let arr = this.state.participants;
-      arr.pop();
-      this.setState({ participants: arr });
-    }
-  };
-
   render() {
     return (
       <div>
@@ -72,6 +40,36 @@ class EventName extends Component {
       </div>
     );
   }
+
+  onInputChange = (e) => {
+    console.log(e.target.value);
+  };
+
+  handleOnSubmit = (e) => {
+    const { onSubmit } = this.props;
+    if (this.state.title !== "" && this.state.participants !== []) {
+      e.preventDefault();
+      onSubmit(this.state);
+    }
+  };
+
+  addParticipant = (e) => {
+    console.log("name: ", this.state.name);
+    if (this.state.name !== "") {
+      this.setState({
+        participants: [...this.state.participants, this.state.name],
+        name: "",
+      });
+    }
+  };
+
+  removeParticipant = () => {
+    if (this.state.participants !== []) {
+      let arr = this.state.participants;
+      arr.pop();
+      this.setState({ participants: arr });
+    }
+  };
 }
 
 export default EventName;

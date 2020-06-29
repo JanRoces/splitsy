@@ -6,13 +6,12 @@ class Chart extends Component {
   render() {
     return (
       <div>
-        <div className="donut-chart">
+        <div className="donut-chart-container">
           <Doughnut
             data={this.props.data}
-            options={{
-              height: "50%",
-              width: "50%",
-            }}
+            width={300}
+            height={300}
+            options={{ maintainAspectRatio: false }}
           />
         </div>
       </div>

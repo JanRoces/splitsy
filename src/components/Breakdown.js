@@ -31,10 +31,6 @@ class Breakdown extends Component {
               </button>
             </div>
             <br />
-            {/*<DebtDisplay
-              matrix={this.state.oweArr}
-              members={this.state.members}
-            />*/}
             <div>{this.display()}</div>
           </div>
         </div>
@@ -93,7 +89,6 @@ class Breakdown extends Component {
 
     for (i = 0; i < len; i++) {
       newColor = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
-      //console.log("newColor: ", newColor);
       data.datasets[0].backgroundColor[i] = newColor;
       data.datasets[0].hoverbackgroundColor[i] = newColor;
     }
@@ -182,9 +177,9 @@ class Breakdown extends Component {
           if (weight < 0) {
             weight = weight * -1;
             objArr[i].member[j].amt = 0;
-            objArr[j].member[i].amt = weight;
+            objArr[j].member[i].amt = weight.toFixed(2);
           } else if (weight > 0) {
-            objArr[i].member[j].amt = weight;
+            objArr[i].member[j].amt = weight.toFixed(2);
             objArr[j].member[i].amt = 0;
           } else if (weight == 0) {
             objArr[i].member[j].amt = 0;
@@ -208,12 +203,12 @@ class Breakdown extends Component {
 
     for (i = 0; i < len; i++) {
       x = m[i].key;
-      console.log(x);
+      //console.log(x);
       for (j = 0; j < len; j++) {
         y = m[i].member[j].name;
         amt = m[i].member[j].amt;
-        console.log(y);
-        console.log(amt);
+        //console.log(y);
+        //console.log(amt);
         if (amt !== 0) {
           oweList.push(
             <li key={keyIndex}>
@@ -224,8 +219,9 @@ class Breakdown extends Component {
           );
           keyIndex++;
         } else {
-          console.log("amt = 0");
-          console.log(j);
+          //console.log("amt = 0");
+          //console.log(j);
+          continue;
         }
       }
     }

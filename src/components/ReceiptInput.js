@@ -48,7 +48,7 @@ class ReceiptInput extends Component {
   };
 
   setAmount = (amount) => {
-    this.receiptDetails.amount = amount;
+    this.receiptDetails.amount = parseFloat(amount);
     console.log("receiptDetails.amount: ", this.receiptDetails.amount);
     this.setState({ runningAmount: amount });
   };

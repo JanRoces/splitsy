@@ -12,31 +12,6 @@ class GatherReceipts extends Component {
     receiptsIndex: ["receipt-0"],
   };
 
-  //tmp = [];
-
-  handleOnSubmit = (e) => {
-    const { onSubmit } = this.props;
-
-    e.preventDefault();
-
-    onSubmit(this.state);
-  };
-
-  appendForm = () => {
-    console.log("+ New Receipt was clicked");
-    var newReceipt = `receipt-${this.state.receiptsIndex.length}`;
-    this.setState((prevState) => ({
-      receiptsIndex: prevState.receiptsIndex.concat([newReceipt]),
-    }));
-    console.log(this.state);
-  };
-
-  getDetails = (details) => {
-    console.log("GatherReceipts-getDetails(): ", details);
-    this.props.toParent(details);
-  };
-
-  //members={this.props.members}
   render() {
     console.log("Gather Receipts state.title: ", this.state.title);
     return (
@@ -64,6 +39,26 @@ class GatherReceipts extends Component {
       </div>
     );
   }
+
+  handleOnSubmit = (e) => {
+    const { onSubmit } = this.props;
+
+    e.preventDefault();
+
+    onSubmit(this.state);
+  };
+
+  appendForm = () => {
+    var newReceipt = `receipt-${this.state.receiptsIndex.length}`;
+    this.setState((prevState) => ({
+      receiptsIndex: prevState.receiptsIndex.concat([newReceipt]),
+    }));
+    console.log(this.state);
+  };
+
+  getDetails = (details) => {
+    this.props.toParent(details);
+  };
 }
 
 export default GatherReceipts;
