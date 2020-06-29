@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import EventName from "./components/EventName";
 import GatherReceipts from "./components/GatherReceipts";
 import Breakdown from "./components/Breakdown";
+import "./App.css";
 
 class App extends Component {
   state = {
@@ -60,7 +61,13 @@ class App extends Component {
       console.log("App.js Step 1: ", this.state);
       return (
         <div>
-          <div>logo placement</div>
+          <div>
+            <img
+              className="main-logo"
+              src={process.env.PUBLIC_URL + "/splitsy_full_logo.png"}
+              alt="logo"
+            />
+          </div>
           <div>
             <h2 style={{ textAlign: "center" }}>Event Finance Organization</h2>
           </div>
