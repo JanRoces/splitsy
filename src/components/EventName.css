@@ -1,0 +1,19 @@
+.field {
+  width: 50%;
+  align-items: center;
+  padding: 10px;
+  margin: 0 auto !important;
+}
+
+input {
+  margin: 10px;
+}
+
+.generic-container {
+  display: flex;
+  justify-content: center;
+}
+
+h4 {
+  margin: 0 auto;
+}

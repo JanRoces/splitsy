@@ -1,41 +1,57 @@
 import React, { Component } from "react";
-import "./Display.css";
+import "./EventName.css";
+//import "./Display.css";
 
 class EventName extends Component {
   state = { title: "", name: "", participants: [] };
 
   render() {
     return (
-      <div>
-        <form className="create-event-form" onSubmit={this.handleOnSubmit}>
-          <input
-            type="text"
-            placeholder="Event Name"
-            onChange={(e) => this.setState({ title: e.target.value })}></input>
-          <br />
-          <div>
+      <div className="form-container">
+        <form className="ui form" onSubmit={this.handleOnSubmit}>
+          <div className="field">
+            <input
+              type="text"
+              placeholder="Event Name"
+              onChange={(e) =>
+                this.setState({ title: e.target.value })
+              }></input>
+          </div>
+          <div className="field">
             <input
               type="text"
               placeholder="Participant"
               value={this.state.name}
               onChange={(e) => this.setState({ name: e.target.value })}></input>
-
-            <button type="button" onClick={this.addParticipant}>
-              +
-            </button>
-            <button type="button" onClick={this.removeParticipant}>
-              -
-            </button>
-          </div>
-          <br />
-          <div className="participants-display">
-            <h4>Participants: </h4>
           </div>
           <div>
-            <p>{this.state.participants.join(", ")}</p>
+            <div className="generic-container">
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.addParticipant}>
+                Add
+              </button>
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.removeParticipant}>
+                Remove
+              </button>
+            </div>
+            <br />
+            <div className="generic-container">
+              <h4>Participants: </h4>
+              <br />
+            </div>
+            <div className="generic-container">
+              <p>{this.state.participants.join(", ")}</p>
+            </div>
+            <br />
+            <div className="generic-container">
+              <button className="ui button">Create</button>
+            </div>
           </div>
-          <br />
-          <button>Create</button>
         </form>
       </div>
     );
