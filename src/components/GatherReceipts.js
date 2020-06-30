@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-//import AmountOwed from "./AmountOwed";
 import ReceiptInput from "./ReceiptInput";
-import "./Display.css";
-
-const dummyData = ["Jan", "Jeff", "Jorge", "Kyle"];
 
 class GatherReceipts extends Component {
   state = {
@@ -13,10 +9,9 @@ class GatherReceipts extends Component {
   };
 
   render() {
-    console.log("Gather Receipts state.title: ", this.state.title);
     return (
-      <div className="gather-receipts">
-        <form onSubmit={this.handleOnSubmit}>
+      <div>
+        <form className="ui form" onSubmit={this.handleOnSubmit}>
           <div>
             {this.state.receiptsIndex.map((receiptsIndex) => (
               <ReceiptInput
@@ -25,15 +20,17 @@ class GatherReceipts extends Component {
                 members={this.props.members}
                 onGatherReceiptsReturn={this.getDetails}
               />
-              // <ReceiptInput key={receiptsIndex} members={this.props.members} />
             ))}
           </div>
           <br />
           <div>
-            <button type="button" onClick={this.appendForm}>
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.appendForm}>
               + New Receipt
             </button>
-            <button>Submit</button>
+            <button className="ui button">Submit</button>
           </div>
         </form>
       </div>

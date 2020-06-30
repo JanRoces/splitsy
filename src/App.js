@@ -9,7 +9,7 @@ class App extends Component {
         <div className="logo-container">
           <img
             className="logo-main"
-            src={process.env.PUBLIC_URL + "/splitsy_logo_v3.png"}
+            src={process.env.PUBLIC_URL + "/splitsy_logo_v7.png"}
             alt="logo"
           />
         </div>

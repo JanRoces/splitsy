@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import AmountOwed from "./AmountOwed";
+import "./ReceiptInput.css";
 import "./Display.css";
 
 const icon = "camera icon";
@@ -21,6 +22,75 @@ class ReceiptInput extends Component {
     evenSplit: 0,
     custom: [],
   };
+
+  render() {
+    return (
+      <div>
+        <div className="fields">
+          <div className="six wide field">
+            <label>Receipt Name</label>
+            <input
+              type="text"
+              placeholder="Receipt Name"
+              onChange={(e) => this.setName(e.target.value)}></input>
+          </div>
+          <div className="three wide field">
+            <label>Amount</label>
+            <input
+              className="amount-form"
+              type="number"
+              placeholder="0.00"
+              min="0.00"
+              step="0.01"
+              onChange={(e) => this.setAmount(e.target.value)}></input>
+          </div>
+          <div className="four wide field">
+            <label>Paid By:</label>
+            <select ref="selector" onChange={this.setPayer}>
+              <option>select option</option>
+              {this.props.members.map(this.makeOption)}
+            </select>
+          </div>
+          <div className="two wide field">
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.splitEven}>
+              split even
+            </button>
+          </div>
+          <div className="two wide field">
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.splitCustom}>
+              custom split
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <AmountOwed
+            dispEven={this.state.even}
+            dispCust={this.state.custom}
+            members={this.props.members}
+            amt={this.state.runningAmount}
+            onReceiptInputReturn={this.getCustomVals}
+          />
+        </div>
+
+        <button
+          className="ui button"
+          type="button"
+          ref="pushReceipt"
+          onClick={this.pushReceipt}>
+          done
+        </button>
+
+        <br />
+      </div>
+    );
+  }
 
   makeOption = function (x) {
     return <option key={x}>{x}</option>;
@@ -74,54 +144,6 @@ class ReceiptInput extends Component {
     console.log("ReceiptInput-pushReceipt(): ", this.receiptDetails);
     this.props.onGatherReceiptsReturn(this.receiptDetails);
   };
-
-  render() {
-    return (
-      <div>
-        <div className="add-receipt-form">
-          <div>
-            {/*<i className={`${icon} icon`}></i>*/}
-            <input
-              type="text"
-              placeholder="Receipt Name"
-              onChange={(e) => this.setName(e.target.value)}></input>
-            $
-            <input
-              className="amount-form"
-              type="number"
-              placeholder="0.00"
-              min="0.00"
-              step="0.01"
-              onChange={(e) => this.setAmount(e.target.value)}></input>
-            <label>Paid By:</label>
-            <select ref="selector" onChange={this.setPayer}>
-              <option>-- select option --</option>
-              {this.props.members.map(this.makeOption)}
-            </select>
-            <button type="button" onClick={this.splitEven}>
-              split even
-            </button>
-            <button type="button" onClick={this.splitCustom}>
-              custom
-            </button>
-            <div>
-              <AmountOwed
-                dispEven={this.state.even}
-                dispCust={this.state.custom}
-                members={this.props.members}
-                amt={this.state.runningAmount}
-                onReceiptInputReturn={this.getCustomVals}
-              />
-            </div>
-          </div>
-          <button type="button" ref="pushReceipt" onClick={this.pushReceipt}>
-            done
-          </button>
-        </div>
-        <br />
-      </div>
-    );
-  }
 }
 
 export default ReceiptInput;

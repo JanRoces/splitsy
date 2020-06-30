@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-style: groove;
+  /* border-style: groove; */
   width: 100%;
 }
 

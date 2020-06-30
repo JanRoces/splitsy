@@ -1,0 +1,16 @@
+label {
+  padding-left: 5px;
+}
+
+.six wide field {
+  margin: 0 auto !important;
+}
+
+.three wide field {
+  margin: 0 auto !important;
+}
+
+.fields {
+  padding-left: 10px;
+  padding-right: 10px;
+}
