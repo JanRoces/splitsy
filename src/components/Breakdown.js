@@ -26,7 +26,10 @@ class Breakdown extends Component {
           <div>
             <Chart data={this.state.main} />
             <div>
-              <button type="button" onClick={this.changeColor}>
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.changeColor}>
                 Change Color
               </button>
             </div>

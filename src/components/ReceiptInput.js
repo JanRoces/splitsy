@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import AmountOwed from "./AmountOwed";
 import "./ReceiptInput.css";
-import "./Display.css";
-
-const icon = "camera icon";
 
 class ReceiptInput extends Component {
   state = {
@@ -27,14 +24,14 @@ class ReceiptInput extends Component {
     return (
       <div>
         <div className="fields">
-          <div className="six wide field">
+          <div className="four wide field">
             <label>Receipt Name</label>
             <input
               type="text"
               placeholder="Receipt Name"
               onChange={(e) => this.setName(e.target.value)}></input>
           </div>
-          <div className="three wide field">
+          <div className="two wide field">
             <label>Amount</label>
             <input
               className="amount-form"
@@ -47,28 +44,30 @@ class ReceiptInput extends Component {
           <div className="four wide field">
             <label>Paid By:</label>
             <select ref="selector" onChange={this.setPayer}>
-              <option>select option</option>
+              <option>- select option -</option>
               {this.props.members.map(this.makeOption)}
             </select>
           </div>
-          <div className="two wide field">
+        </div>
+        <div className="inline fields">
+          <label>Split</label>
+          <div>
             <button
               className="ui button"
               type="button"
               onClick={this.splitEven}>
-              split even
+              Even
             </button>
           </div>
-          <div className="two wide field">
+          <div>
             <button
               className="ui button"
               type="button"
               onClick={this.splitCustom}>
-              custom split
+              Custom
             </button>
           </div>
         </div>
-
         <div>
           <AmountOwed
             dispEven={this.state.even}
@@ -78,16 +77,6 @@ class ReceiptInput extends Component {
             onReceiptInputReturn={this.getCustomVals}
           />
         </div>
-
-        <button
-          className="ui button"
-          type="button"
-          ref="pushReceipt"
-          onClick={this.pushReceipt}>
-          done
-        </button>
-
-        <br />
       </div>
     );
   }
@@ -105,6 +94,7 @@ class ReceiptInput extends Component {
     this.receiptDetails.evenSplit = fNum;
     console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
     this.setState({ even: true, custom: false });
+    this.pushReceipt();
   };
 
   splitCustom = () => {

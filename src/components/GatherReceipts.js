@@ -23,14 +23,14 @@ class GatherReceipts extends Component {
             ))}
           </div>
           <br />
-          <div>
+          <div className="inline fields">
             <button
               className="ui button"
               type="button"
               onClick={this.appendForm}>
               + New Receipt
             </button>
-            <button className="ui button">Submit</button>
+            <button className="ui submit button">Submit</button>
           </div>
         </form>
       </div>

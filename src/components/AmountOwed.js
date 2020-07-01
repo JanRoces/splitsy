@@ -5,13 +5,40 @@ class AmountOwed extends Component {
 
   curr = [];
 
+  render() {
+    if (this.props.dispEven === true) {
+      console.log("split even was clicked");
+      return (
+        <div className="field">
+          <table>
+            <tbody>{this.props.members.map(this.listEven)}</tbody>
+          </table>
+        </div>
+      );
+    } else if (this.props.dispCust === true) {
+      console.log("split custom was clicked");
+      return (
+        <div className="field">
+          <table>
+            <tbody>{this.props.members.map(this.listCustom)}</tbody>
+          </table>
+        </div>
+      );
+    } else {
+      console.log("nothing clicked");
+      return <div></div>;
+    }
+  }
+
   listEven = (x) => {
     var n = this.props.amt;
     var m = n / this.props.members.length;
     var num = m.toFixed(2);
     return (
       <tr key={x}>
-        <td style={{ width: "80px" }}>{x}</td>
+        <td style={{ width: "80px" }}>
+          <label>{x}</label>
+        </td>
         <td style={{ align: "right" }}>$</td>
         <td style={{ align: "right" }}>{num}</td>
       </tr>
@@ -73,30 +100,5 @@ class AmountOwed extends Component {
     console.log("state.customAmt: ", this.state.customAmt);
     this.props.onReceiptInputReturn(this.state.customAmt);
   };
-
-  render() {
-    if (this.props.dispEven === true) {
-      console.log("split even was clicked");
-      return (
-        <div>
-          <table>
-            <tbody>{this.props.members.map(this.listEven)}</tbody>
-          </table>
-        </div>
-      );
-    } else if (this.props.dispCust === true) {
-      console.log("custom was clicked");
-      return (
-        <div>
-          <table>
-            <tbody>{this.props.members.map(this.listCustom)}</tbody>
-          </table>
-        </div>
-      );
-    } else {
-      console.log("nothing clicked");
-      return <div></div>;
-    }
-  }
 }
 export default AmountOwed;

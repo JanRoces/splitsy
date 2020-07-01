@@ -4,12 +4,12 @@ import GatherReceipts from "./GatherReceipts";
 import Breakdown from "./Breakdown";
 
 class Main extends Component {
-  //   state = {
-  //     step: 1,
-  //     title: "",
-  //     participants: [],
-  //     receiptDetails: [],
-  //   };
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
+  // };
 
   state = {
     step: 2,
