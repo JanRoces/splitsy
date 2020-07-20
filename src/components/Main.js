@@ -4,19 +4,20 @@ import GatherReceipts from "./GatherReceipts";
 import Breakdown from "./Breakdown";
 
 class Main extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   receiptDetails: [],
-  // };
-
   state = {
-    step: 2,
-    title: "Test",
-    participants: ["Jan", "Jeff", "Jorge", "Kyle", "Myles"],
+    step: 1,
+    title: "",
+    participants: [],
     receiptDetails: [],
   };
+
+  //step 2 testing
+  // state = {
+  //   step: 2,
+  //   title: "Test",
+  //   participants: ["A", "B", "C", "D"],
+  //   receiptDetails: [],
+  // };
 
   render() {
     if (this.state.step === 1) {
@@ -60,8 +61,6 @@ class Main extends Component {
       console.log("App.js Step 3: ", this.state);
       return (
         <div>
-          <br />
-          breakdown step
           <div>
             <h2 style={{ textAlign: "center" }}>
               {this.state.title} Finance Breakdown

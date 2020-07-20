@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReceiptInput from "./ReceiptInput";
+import "./GatherReceipts.css";
 
 class GatherReceipts extends Component {
   state = {
@@ -10,9 +11,9 @@ class GatherReceipts extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <form className="ui form" onSubmit={this.handleOnSubmit}>
-          <div>
+          <div className="receipt-container">
             {this.state.receiptsIndex.map((receiptsIndex) => (
               <ReceiptInput
                 onReturn={this.handleOnSubmit}
@@ -33,7 +34,7 @@ class GatherReceipts extends Component {
             <button className="ui submit button">Submit</button>
           </div>
         </form>
-      </div>
+      </React.Fragment>
     );
   }
 

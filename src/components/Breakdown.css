@@ -1,0 +1,9 @@
+.fields {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ui.big.label {
+  margin-top: 5px;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Chart from "./Chart";
 //import DebtDisplay from "./DebtDisplay";
+import "./Breakdown.css";
 
 class Breakdown extends Component {
   state = {
@@ -25,7 +26,7 @@ class Breakdown extends Component {
         <div>
           <div>
             <Chart data={this.state.main} />
-            <div>
+            <div className="fields">
               <button
                 className="ui button"
                 type="button"
@@ -104,12 +105,15 @@ class Breakdown extends Component {
     var rec = this.state.allReceipts;
     var len = this.state.members.length;
     var len2 = this.state.allReceipts.length;
-    var i, j, k;
-    var rnum = 0;
+    var i, j, k, n;
+    var rnum,
+      rnum2 = 0;
     var splitAmt = 0;
     var objArr = [];
     var p;
 
+    //loop through list of members and create owe object
+    //populate owe.key with member
     for (i = 0; i < len; i++) {
       var owe = {
         key: "",
@@ -117,6 +121,8 @@ class Breakdown extends Component {
       };
 
       owe.key = mem[i];
+      //loop through list of members and create data object
+      //populate owe.member with data objects
       for (j = 0; j < len; j++) {
         var data = {
           name: "",
@@ -135,6 +141,8 @@ class Breakdown extends Component {
       p = rec[i].payer;
       splitAmt = rec[i].evenSplit;
 
+      console.log("evenSplit: ", splitAmt);
+
       //find index of payer within member array
       //index of payer: j
       for (j = 0; j < len; j++) {
@@ -145,16 +153,19 @@ class Breakdown extends Component {
 
       //populate .amt with respective amounts
       if (splitAmt !== 0) {
+        //when splitting evenly
         for (k = 0; k < len; k++) {
           rnum = objArr[j].member[k].amt;
           rnum = rnum + splitAmt;
-          objArr[j].member[k].amt = rnum;
+          objArr[j].member[k].amt = parseFloat(rnum);
         }
       } else {
+        //when splitting custom
         for (k = 0; k < len; k++) {
           rnum = objArr[j].member[k].amt;
-          rnum = rnum + rec[i].custom[k];
-          objArr[j].member[k].amt = rnum;
+          rnum2 = rec[i].custom[k].amt;
+          rnum = rnum + rnum2;
+          objArr[j].member[k].amt = parseFloat(rnum);
         }
       }
     }
@@ -163,20 +174,24 @@ class Breakdown extends Component {
     var pAmt; //amount owed to payer
     var oAmt; //amount to compare difference
 
+    //modify the 2D array
     for (i = 0; i < len; i++) {
       payer = objArr[i].key;
-      //console.log("payer: ", payer);
+      console.log("payer: ", payer);
       for (j = 0; j < len; j++) {
         ower = objArr[i].member[j].name;
-        //console.log("ower: ", ower);
+        console.log("ower: ", ower);
         if (payer === ower) {
+          //if payer == ower then set amt = 0
+          console.log("payer = ower, set amt to 0");
           objArr[i].member[j].amt = 0;
         } else {
           pAmt = objArr[i].member[j].amt;
           oAmt = objArr[j].member[i].amt;
-          //console.log("pAmt: ", pAmt);
-          //console.log("oAmt: ", oAmt);
           weight = pAmt - oAmt;
+          console.log("pAmt: ", pAmt);
+          console.log("oAmt: ", oAmt);
+          console.log("weight: ", weight);
           if (weight < 0) {
             weight = weight * -1;
             objArr[i].member[j].amt = 0;
@@ -206,30 +221,29 @@ class Breakdown extends Component {
 
     for (i = 0; i < len; i++) {
       x = m[i].key;
-      //console.log(x);
+      console.log(x);
       for (j = 0; j < len; j++) {
         y = m[i].member[j].name;
         amt = m[i].member[j].amt;
-        //console.log(y);
-        //console.log(amt);
+        console.log(y);
+        console.log(amt);
         if (amt !== 0) {
+          console.log("display amt: ", amt);
           oweList.push(
-            <li key={keyIndex}>
-              <label>{y} </label>
-              owes
-              <label> {x} </label> $ {amt}
-            </li>
+            <div className="ui big label" key={keyIndex}>
+              {y} owes {x} $ {amt}
+            </div>
           );
           keyIndex++;
         } else {
-          //console.log("amt = 0");
-          //console.log(j);
+          console.log("amt = 0");
+          console.log(j);
           continue;
         }
       }
     }
 
-    return <ul>{oweList}</ul>;
+    return <div className="fields">{oweList}</div>;
   };
 }
 

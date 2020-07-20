@@ -22,7 +22,7 @@ class ReceiptInput extends Component {
 
   render() {
     return (
-      <div>
+      <div className="receipt">
         <div className="fields">
           <div className="four wide field">
             <label>Receipt Name</label>
@@ -77,6 +77,15 @@ class ReceiptInput extends Component {
             onReceiptInputReturn={this.getCustomVals}
           />
         </div>
+        <div className="fields">
+          <button
+            className="ui button"
+            type="button"
+            ref="pushReceipt"
+            onClick={this.pushReceipt}>
+            Done with Receipt
+          </button>
+        </div>
       </div>
     );
   }
@@ -94,7 +103,6 @@ class ReceiptInput extends Component {
     this.receiptDetails.evenSplit = fNum;
     console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
     this.setState({ even: true, custom: false });
-    this.pushReceipt();
   };
 
   splitCustom = () => {
