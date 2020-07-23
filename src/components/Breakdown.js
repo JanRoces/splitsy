@@ -105,7 +105,7 @@ class Breakdown extends Component {
     var rec = this.state.allReceipts;
     var len = this.state.members.length;
     var len2 = this.state.allReceipts.length;
-    var i, j, k, n;
+    var i, j, k;
     var rnum,
       rnum2 = 0;
     var splitAmt = 0;
@@ -199,7 +199,7 @@ class Breakdown extends Component {
           } else if (weight > 0) {
             objArr[i].member[j].amt = weight.toFixed(2);
             objArr[j].member[i].amt = 0;
-          } else if (weight == 0) {
+          } else if (weight === 0) {
             objArr[i].member[j].amt = 0;
             objArr[j].member[i].amt = 0;
           }
