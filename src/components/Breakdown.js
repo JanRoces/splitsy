@@ -238,7 +238,10 @@ class Breakdown extends Component {
             objArr[i].member[j].amt = weight.toFixed(2);
             objArr[j].member[i].amt = 0;
           } else if (weight === 0) {
+<<<<<<< HEAD
             //situation where payer's and ower's amounts cancel out
+=======
+>>>>>>> 77191aafa98ed7402b599dfcda695d5be336c057
             objArr[i].member[j].amt = 0;
             objArr[j].member[i].amt = 0;
           }
