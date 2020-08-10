@@ -8,12 +8,14 @@ class Breakdown extends Component {
     allReceipts: this.props.allReceipts,
     main: {},
     members: this.props.members,
-    oweArr: [],
+    oweMatrix: [],
+    paidFor: [],
     infoLoaded: false,
   };
 
   componentDidMount() {
     this.mainData();
+    this.generateReceiptList();
     this.determineDebt();
     console.log(this.state);
   }
@@ -28,10 +30,10 @@ class Breakdown extends Component {
             <Chart data={this.state.main} />
             <div className="fields">
               <button
-                className="ui button"
+                className="ui icon button"
                 type="button"
                 onClick={this.changeColor}>
-                Change Color
+                <i className="paint brush icon"></i>
               </button>
             </div>
             <br />
@@ -100,12 +102,45 @@ class Breakdown extends Component {
     this.setState({ main: data });
   };
 
+  generateReceiptList = () => {
+    var rList = []; //list containing receipts that each participant paid for
+    var i;
+    var j = 0;
+
+    var mem = this.state.members;
+    var rec = this.state.allReceipts;
+    var len = this.state.members.length;
+    var len2 = this.state.allReceipts.length;
+
+    //loop through members and populate data.name for rList
+    for (i = 0; i < len; i++) {
+      var data = {
+        name: "",
+        paidFor: [],
+      };
+
+      data.name = mem[i];
+      rList.push(data);
+    }
+
+    //loop through all receipts to find receipts that member paid for
+    for (i = 0; i < len2; i++) {
+      while (rec[i].payer !== rList[j].name) {
+        j++;
+      }
+      rList[j].paidFor.push(rec[i].name);
+      j = 0;
+    }
+
+    this.setState({ paidFor: rList });
+  };
+
   determineDebt = () => {
     var mem = this.state.members;
     var rec = this.state.allReceipts;
     var len = this.state.members.length;
     var len2 = this.state.allReceipts.length;
-    var i, j, k, n;
+    var i, j, k;
     var rnum,
       rnum2 = 0;
     var splitAmt = 0;
@@ -186,6 +221,7 @@ class Breakdown extends Component {
           console.log("payer = ower, set amt to 0");
           objArr[i].member[j].amt = 0;
         } else {
+          //measure weight
           pAmt = objArr[i].member[j].amt;
           oAmt = objArr[j].member[i].amt;
           weight = pAmt - oAmt;
@@ -193,13 +229,16 @@ class Breakdown extends Component {
           console.log("oAmt: ", oAmt);
           console.log("weight: ", weight);
           if (weight < 0) {
+            //situation where ower still owes payer money
             weight = weight * -1;
             objArr[i].member[j].amt = 0;
             objArr[j].member[i].amt = weight.toFixed(2);
           } else if (weight > 0) {
+            //situation where payer still owes ower money
             objArr[i].member[j].amt = weight.toFixed(2);
             objArr[j].member[i].amt = 0;
-          } else if (weight == 0) {
+          } else if (weight === 0) {
+            //situation where payer's and ower's amounts cancel out
             objArr[i].member[j].amt = 0;
             objArr[j].member[i].amt = 0;
           }
@@ -208,12 +247,13 @@ class Breakdown extends Component {
       }
     }
 
-    this.setState({ oweArr: objArr, infoLoaded: true });
+    this.setState({ oweMatrix: objArr, infoLoaded: true });
   };
 
   display = () => {
-    var m = this.state.oweArr;
-    var len = this.state.oweArr.length;
+    var m = this.state.oweMatrix;
+    var pf = this.state.paidFor;
+    var len = this.state.oweMatrix.length;
     var i, j, x, y;
     var amt = 0;
     var oweList = [];

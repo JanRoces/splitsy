@@ -28,7 +28,6 @@ class AmountOwed extends Component {
   }
 
   listEven = (x) => {
-    var listArr = [];
     var n = this.props.amt;
     var m = n / this.props.members.length;
     var num = m.toFixed(2);
@@ -44,27 +43,9 @@ class AmountOwed extends Component {
   };
 
   listCustom = (x) => {
-    // return (
-    //   <tr key={x}>
-    //     <td style={{ width: "80px" }}>{x}</td>
-    //     <td style={{ align: "right" }}>$</td>
-    //     <td style={{ align: "right" }}>
-    // <input
-    //   key={x}
-    //   className="amount-form"
-    //   type="number"
-    //   placeholder="0.00"
-    //   step="0.01"
-    //   onChange={(e) => this.setVals(e.target.value, x)}></input>;
-    //     </td>
-    //   </tr>
-    // );
-
     return (
-      <div className="inline fields">
-        <label className="split-list" key={x}>
-          {x}
-        </label>
+      <div className="inline fields" key={x}>
+        <label className="split-list">{x}</label>
         <div>
           <input
             key={x}

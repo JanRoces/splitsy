@@ -1,27 +1,73 @@
 import React, { Component } from "react";
 import EventName from "./EventName";
 import GatherReceipts from "./GatherReceipts";
+import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
+import ReceiptList from "./ReceiptList";
+import "./Main.css";
 
 class Main extends Component {
-  state = {
-    step: 1,
-    title: "",
-    participants: [],
-    receiptDetails: [],
-  };
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
+  // };
+
+  //TEST DATA
 
   //step 2 testing
+  state = {
+    step: 2,
+    title: "Test",
+    participants: ["A", "B", "C", "D"],
+    receiptDetails: [],
+    count: 0,
+  };
+
+  //step 3 testing
   // state = {
-  //   step: 2,
+  //   step: 3,
   //   title: "Test",
   //   participants: ["A", "B", "C", "D"],
-  //   receiptDetails: [],
+  //   receiptDetails: [
+  //     {
+  //       name: "Air Bnb",
+  //       amount: 200,
+  //       payer: "A",
+  //       evenSplit: 33.33,
+  //       custom: [],
+  //     },
+
+  //     {
+  //       name: "Car Rental",
+  //       amount: 350,
+  //       payer: "B",
+  //       evenSplit: 116.66,
+  //       custom: [],
+  //     },
+
+  //     {
+  //       name: "Uber/Lyft",
+  //       amount: 75.5,
+  //       payer: "C",
+  //       evenSplit: 25.16,
+  //       custom: [],
+  //     },
+
+  //     {
+  //       name: "Tickets",
+  //       amount: 120,
+  //       payer: "A",
+  //       evenSplit: 40,
+  //       custom: [],
+  //     },
+  //   ],
   // };
 
   render() {
     if (this.state.step === 1) {
-      console.log("App.js Step 1: ", this.state);
+      console.log("Main.js Step 1: ", this.state);
       return (
         <div>
           <div>
@@ -29,15 +75,13 @@ class Main extends Component {
           </div>
           <br />
           <div>
-            <EventName
-              onSubmit={this.handleOnSubmit}
-              // getMembers={this.retrieveMembers}
-            />
+            <EventName onSubmit={this.handleOnSubmit} />
           </div>
         </div>
       );
     } else if (this.state.step === 2) {
-      console.log("App.js Step 2: ", this.state);
+      console.log("Main.js Step 2: ", this.state);
+      console.log("state.receiptDetails: ", this.state.receiptDetails);
       return (
         <div>
           <br />
@@ -47,18 +91,37 @@ class Main extends Component {
             </h2>
           </div>
           <br />
+          <div className="receipt-container">
+            <ReceiptInput
+              members={this.state.participants}
+              details={this.state.receiptDetails}
+              onSubmit={this.getDetails}
+            />
+          </div>
+          <br />
+          <div className="inline fields">
+            <button className="ui button" onClick={this.handleOnSubmit}>
+              Submit
+            </button>
+          </div>
+          <div>
+            <ReceiptList details={this.state.receiptDetails} />
+          </div>
+
+          {/*
           <div>
             <GatherReceipts
               members={this.state.participants}
-              onSubmit={this.handleOnSubmit}
-              toParent={this.getDetails}
+              //onSubmit={this.handleOnSubmit}
+              //toParent={this.getDetails}
               title={this.state.title}
             />
           </div>
+          */}
         </div>
       );
     } else if (this.state.step === 3) {
-      console.log("App.js Step 3: ", this.state);
+      console.log("Main.js Step 3: ", this.state);
       return (
         <div>
           <div>
@@ -75,6 +138,7 @@ class Main extends Component {
         </div>
       );
     } else {
+      console.log(this.state);
       return <div>Step Error</div>;
     }
   }
@@ -83,18 +147,14 @@ class Main extends Component {
     var s = this.state.step;
     s++;
 
-    this.setState({
-      step: s,
-      title: values.title,
-      participants: values.participants,
-    });
+    this.setState({ step: s });
   };
 
   getDetails = (details) => {
-    console.log("App-getDetails(): ", details);
-    var tmp = this.state.receiptDetails.concat(details);
-    this.setState({ receiptDetails: tmp });
-    console.log("state.receiptDetails: ", this.state.receiptDetails);
+    console.log("getDetails() values: ", details);
+    var d = this.state.receiptDetails;
+    d.push(details);
+    this.setState({ receiptDetails: d });
   };
 }
 

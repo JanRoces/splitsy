@@ -5,8 +5,13 @@ import "./ReceiptInput.css";
 
 class ReceiptInput extends Component {
   state = {
-    details: [],
-    receiptname: "",
+    details: {
+      name: "",
+      amount: 0,
+      payer: "",
+      evenSplit: 0,
+      custom: [],
+    },
     runningAmount: 0,
     even: false,
     custom: false,
@@ -21,72 +26,77 @@ class ReceiptInput extends Component {
   };
 
   render() {
+    console.log("details: ", this.state.details);
     return (
-      <div className="receipt">
-        <div className="fields">
-          <div className="four wide field">
-            <label>Receipt Name</label>
-            <input
-              type="text"
-              placeholder="Receipt Name"
-              onChange={(e) => this.setName(e.target.value)}></input>
+      <form className="ui form" onSubmit={this.pushReceipt}>
+        <div className="receipt">
+          <div className="fields">
+            <div className="four wide field">
+              <label>Receipt Name</label>
+              <input
+                type="text"
+                placeholder="Receipt Name"
+                onChange={(e) => this.setName(e.target.value)}></input>
+            </div>
+            <div className="two wide field">
+              <label>Amount</label>
+              <input
+                className="amount-form"
+                type="number"
+                placeholder="0.00"
+                min="0.00"
+                step="0.01"
+                onChange={(e) => this.setAmount(e.target.value)}></input>
+            </div>
+            <div className="four wide field">
+              <label>Paid By:</label>
+              <select ref="selector" onChange={this.setPayer}>
+                <option>- select option -</option>
+                {this.props.members.map(this.makeOption)}
+              </select>
+            </div>
           </div>
-          <div className="two wide field">
-            <label>Amount</label>
-            <input
-              className="amount-form"
-              type="number"
-              placeholder="0.00"
-              min="0.00"
-              step="0.01"
-              onChange={(e) => this.setAmount(e.target.value)}></input>
+          <div className="inline fields">
+            <label>Split</label>
+            <div>
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.splitEven}>
+                Even
+              </button>
+            </div>
+            <div>
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.splitCustom}>
+                Custom
+              </button>
+            </div>
           </div>
-          <div className="four wide field">
-            <label>Paid By:</label>
-            <select ref="selector" onChange={this.setPayer}>
-              <option>- select option -</option>
-              {this.props.members.map(this.makeOption)}
-            </select>
-          </div>
-        </div>
-        <div className="inline fields">
-          <label>Split</label>
           <div>
+            <AmountOwed
+              dispEven={this.state.even}
+              dispCust={this.state.custom}
+              members={this.props.members}
+              amt={this.state.runningAmount}
+              onReceiptInputReturn={this.getCustomVals}
+            />
+          </div>
+          <div className="fields">
             <button
               className="ui button"
               type="button"
-              onClick={this.splitEven}>
-              Even
+              onClick={this.pushReceipt}>
+              Done
             </button>
-          </div>
-          <div>
-            <button
-              className="ui button"
-              type="button"
-              onClick={this.splitCustom}>
-              Custom
+            <button className="ui button" type="reset">
+              Clear
             </button>
           </div>
         </div>
-        <div>
-          <AmountOwed
-            dispEven={this.state.even}
-            dispCust={this.state.custom}
-            members={this.props.members}
-            amt={this.state.runningAmount}
-            onReceiptInputReturn={this.getCustomVals}
-          />
-        </div>
-        <div className="fields">
-          <button
-            className="ui button"
-            type="button"
-            ref="pushReceipt"
-            onClick={this.pushReceipt}>
-            Done with Receipt
-          </button>
-        </div>
-      </div>
+      </form>
     );
   }
 
@@ -94,53 +104,73 @@ class ReceiptInput extends Component {
     return <option key={x}>{x}</option>;
   };
 
-  splitEven = () => {
-    this.receiptDetails.custom = [];
-    var n = this.receiptDetails.amount;
-    var m = n / this.props.members.length;
-    var num = m.toFixed(2);
-    var fNum = parseFloat(num);
-    this.receiptDetails.evenSplit = fNum;
-    console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
-    this.setState({ even: true, custom: false });
-  };
-
-  splitCustom = () => {
-    this.receiptDetails.evenSplit = 0;
-    this.setState({ even: false, custom: true });
-  };
-
   setName = (name) => {
-    this.receiptDetails.name = name;
-    console.log("receiptDetails.name: ", this.receiptDetails.name);
+    //this.receiptDetails.name = name;
+    // console.log("receiptDetails.name: ", this.receiptDetails.name);
+    var d = this.state.details;
+    d.name = name;
+    this.setState({ details: d });
   };
 
   setAmount = (amount) => {
-    this.receiptDetails.amount = parseFloat(amount);
-    console.log("receiptDetails.amount: ", this.receiptDetails.amount);
-    this.setState({ runningAmount: amount });
+    // this.receiptDetails.amount = parseFloat(amount);
+    // console.log("receiptDetails.amount: ", this.receiptDetails.amount);
+    // this.setState({ runningAmount: amount });
+    var d = this.state.details;
+    d.amount = amount;
+    this.setState({ details: d, runningAmount: amount });
   };
 
   setPayer = () => {
     var selected = ReactDOM.findDOMNode(this.refs.selector).value;
-    this.receiptDetails.payer = selected;
-    console.log("receiptDetails.payer: ", this.receiptDetails.payer);
+    // this.receiptDetails.payer = selected;
+    // console.log("receiptDetails.payer: ", this.receiptDetails.payer);
+    var d = this.state.details;
+    d.payer = selected;
+    this.setState({ details: d });
+  };
+
+  splitEven = () => {
+    //this.receiptDetails.custom = [];
+    //var n = this.receiptDetails.amount;
+    var d = this.state.details;
+    var n = d.amount;
+
+    var m = n / this.props.members.length;
+    var num = m.toFixed(2);
+    var fNum = parseFloat(num);
+
+    // this.receiptDetails.evenSplit = fNum;
+    // console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
+    // this.setState({ even: true, custom: false });
+    d.evenSplit = fNum;
+    this.setState({ details: d, even: true, custom: false });
+  };
+
+  splitCustom = () => {
+    // this.receiptDetails.evenSplit = 0;
+    // this.setState({ even: false, custom: true });
+    var d = this.state.details;
+    d.evenSplit = 0;
+    this.setState({ details: d, even: false, custom: true });
   };
 
   getCustomVals = (vals) => {
-    this.receiptDetails.custom = this.receiptDetails.custom.splice(
-      0,
-      vals.length,
-      ...vals
-    );
-
-    this.receiptDetails.custom = vals;
-    console.log("onReturn customVals: ", this.receiptDetails.custom);
+    // this.receiptDetails.custom = this.receiptDetails.custom.splice(
+    //   0,
+    //   vals.length,
+    //   ...vals
+    // );
+    // this.receiptDetails.custom = vals;
+    // console.log("onReturn customVals: ", this.receiptDetails.custom);
+    var d = this.state.details;
+    d.custom = d.custom.splice(0, vals.length, ...vals);
+    this.setState({ details: d });
   };
 
   pushReceipt = () => {
-    console.log("ReceiptInput-pushReceipt(): ", this.receiptDetails);
-    this.props.onGatherReceiptsReturn(this.receiptDetails);
+    var r = this.receiptDetails;
+    this.props.onSubmit(r);
   };
 }
 

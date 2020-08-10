@@ -16,7 +16,7 @@ class GatherReceipts extends Component {
           <div className="receipt-container">
             {this.state.receiptsIndex.map((receiptsIndex) => (
               <ReceiptInput
-                onReturn={this.handleOnSubmit}
+                //onReturn={this.handleOnSubmit}
                 key={receiptsIndex}
                 members={this.props.members}
                 onGatherReceiptsReturn={this.getDetails}
@@ -25,12 +25,14 @@ class GatherReceipts extends Component {
           </div>
           <br />
           <div className="inline fields">
+            {/*
             <button
               className="ui button"
               type="button"
               onClick={this.appendForm}>
               + New Receipt
             </button>
+            */}
             <button className="ui submit button">Submit</button>
           </div>
         </form>
@@ -43,7 +45,7 @@ class GatherReceipts extends Component {
 
     e.preventDefault();
 
-    onSubmit(this.state);
+    //onSubmit(this.state);
   };
 
   appendForm = () => {
