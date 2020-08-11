@@ -18,3 +18,7 @@ label {
 .receipt {
   border-bottom: 1px solid lightgray;
 }
+
+.receipt-container {
+  padding: 0px 50px;
+}

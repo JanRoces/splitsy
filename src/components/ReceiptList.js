@@ -17,7 +17,7 @@ class ReceiptList extends Component {
     for (i = 0; i < len; i++) {
       return (
         <div>
-          <button className="ui button">{d[i].name}</button>
+          <button className="ui secondary basic button">{d[i].name}</button>
         </div>
       );
     }

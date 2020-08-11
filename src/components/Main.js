@@ -91,22 +91,25 @@ class Main extends Component {
             </h2>
           </div>
           <br />
-          <div className="receipt-container">
-            <ReceiptInput
-              members={this.state.participants}
-              details={this.state.receiptDetails}
-              onSubmit={this.getDetails}
-            />
-          </div>
+
+          <ReceiptInput
+            members={this.state.participants}
+            details={this.state.receiptDetails}
+            onMainReturn={this.getDetails}
+          />
+
           <br />
           <div className="inline fields">
-            <button className="ui button" onClick={this.handleOnSubmit}>
+            <button className="ui primary button" onClick={this.handleOnSubmit}>
               Submit
             </button>
           </div>
+
+          {/*
           <div>
             <ReceiptList details={this.state.receiptDetails} />
           </div>
+          */}
 
           {/*
           <div>
