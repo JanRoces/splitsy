@@ -13,18 +13,19 @@ class ReceiptInput extends Component {
       custom: [],
     },
     receipts: [],
+    display: [],
     runningAmount: 0,
     even: false,
     custom: false,
   };
 
-  receiptDetails = {
-    name: "",
-    amount: 0,
-    payer: "",
-    evenSplit: 0,
-    custom: [],
-  };
+  // receiptDetails = {
+  //   name: "",
+  //   amount: 0,
+  //   payer: "",
+  //   evenSplit: 0,
+  //   custom: [],
+  // };
 
   render() {
     console.log("details: ", this.state.details);
@@ -117,7 +118,9 @@ class ReceiptInput extends Component {
           </form>
         </div>
         <br />
-        <div className="fields">{this.showList()}</div>
+        <div className="ui four column centered grid">
+          <div className="row">{this.showList()}</div>
+        </div>
       </div>
     );
   }
@@ -187,16 +190,12 @@ class ReceiptInput extends Component {
     // console.log("onReturn customVals: ", this.receiptDetails.custom);
     var d = this.state.details;
     d.custom = d.custom.splice(0, vals.length, ...vals);
+    d.custom = vals;
+    console.log("d.custom:", d.custom);
     this.setState({ details: d });
   };
 
   pushReceipt = () => {
-    // var r = this.receiptDetails;
-    // this.props.onSubmit(r);
-    //this.props.onMainReturn(this.state.details);
-    // var n = this.state.r;
-    // n.push(this.state.details);
-    // this.setState({ r: n });
     var d = this.state.details;
     var r = {
       name: "",
@@ -206,28 +205,29 @@ class ReceiptInput extends Component {
       custom: [],
     };
 
-    r.name = d.name;
-    r.amount = d.amount;
-    r.payer = d.payer;
-    r.evenSplit = d.evenSplit;
-    r.custom = d.custom;
-
+    Object.assign(r, d);
     this.setState({ receipts: [...this.state.receipts, r] });
   };
 
   showList = () => {
     console.log("showList() state: ", this.state);
+    var dispRec = [];
     var d = this.state.receipts;
     var len = this.state.receipts.length;
     console.log("len: ", len);
     var i;
     for (i = 0; i < len; i++) {
-      return (
-        <div>
+      dispRec.push(
+        <div
+          className="three wide column"
+          style={{ textAlign: "center" }}
+          key={i}>
           <button className="ui secondary basic button">{d[i].name}</button>
         </div>
       );
     }
+    //this.setState({ display: arr });
+    return <React.Fragment>{dispRec}</React.Fragment>;
   };
 }
 

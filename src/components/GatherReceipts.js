@@ -45,7 +45,7 @@ class GatherReceipts extends Component {
 
     e.preventDefault();
 
-    //onSubmit(this.state);
+    onSubmit(this.state);
   };
 
   appendForm = () => {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import EventName from "./EventName";
-import GatherReceipts from "./GatherReceipts";
+//import GatherReceipts from "./GatherReceipts";
 import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
-import ReceiptList from "./ReceiptList";
+//import ReceiptList from "./ReceiptList";
 import "./Main.css";
 
 class Main extends Component {

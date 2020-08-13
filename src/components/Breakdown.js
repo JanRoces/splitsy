@@ -251,7 +251,7 @@ class Breakdown extends Component {
 
   display = () => {
     var m = this.state.oweMatrix;
-    var pf = this.state.paidFor;
+    //var pf = this.state.paidFor;
     var len = this.state.oweMatrix.length;
     var i, j, x, y;
     var amt = 0;
