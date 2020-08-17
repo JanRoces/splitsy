@@ -12,6 +12,8 @@ class ReceiptInput extends Component {
       evenSplit: 0,
       custom: [],
     },
+    title: "",
+    members: [],
     receipts: [],
     display: [],
     runningAmount: 0,
@@ -27,12 +29,15 @@ class ReceiptInput extends Component {
   //   custom: [],
   // };
 
+  componentDidMount = () => {
+    this.setState({ title: this.props.title, members: this.props.members });
+  };
+
   render() {
-    console.log("details: ", this.state.details);
     return (
       <div>
         <div className="receipt-container">
-          <form className="ui form" onSubmit={this.pushReceipt}>
+          <form className="ui form" onSubmit={this.handleOnSubmit}>
             <div className="receipt">
               <div className="fields">
                 <div className="four wide field">
@@ -77,22 +82,6 @@ class ReceiptInput extends Component {
                     Custom
                   </button>
                 </div>
-                {/*<div>
-              <button
-                className="ui button"
-                type="button"
-                onClick={this.splitEven}>
-                Even
-              </button>
-            </div>
-            <div>
-              <button
-                className="ui button"
-                type="button"
-                onClick={this.splitCustom}>
-                Custom
-              </button>
-            </div>*/}
               </div>
               <div>
                 <AmountOwed
@@ -108,29 +97,42 @@ class ReceiptInput extends Component {
                   className="ui button"
                   type="button"
                   onClick={this.pushReceipt}>
-                  Done
+                  Done with Receipt
                 </button>
-                <button className="ui button" type="reset">
+                <button
+                  className="ui button"
+                  type="reset"
+                  onClick={this.resetForm}>
                   Clear
                 </button>
               </div>
             </div>
+            <br />
+            <div className="inline fields">
+              <button className="ui primary button">Submit</button>
+            </div>
           </form>
         </div>
         <br />
-        <div className="ui four column centered grid">
-          <div className="row">{this.showList()}</div>
+        <div className="card-container">
+          <div className="ui four cards">{this.showList()}</div>
         </div>
       </div>
     );
   }
+
+  handleOnSubmit = (e) => {
+    const { onSubmit } = this.props;
+
+    onSubmit(this.state);
+  };
 
   makeOption = function (x) {
     return <option key={x}>{x}</option>;
   };
 
   setName = (name) => {
-    //this.receiptDetails.name = name;
+    // this.receiptDetails.name = name;
     // console.log("receiptDetails.name: ", this.receiptDetails.name);
     var d = this.state.details;
     d.name = name;
@@ -156,8 +158,8 @@ class ReceiptInput extends Component {
   };
 
   splitEven = () => {
-    //this.receiptDetails.custom = [];
-    //var n = this.receiptDetails.amount;
+    // this.receiptDetails.custom = [];
+    // var n = this.receiptDetails.amount;
     var d = this.state.details;
     var n = d.amount;
 
@@ -169,6 +171,7 @@ class ReceiptInput extends Component {
     // console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
     // this.setState({ even: true, custom: false });
     d.evenSplit = fNum;
+    d.custom = [];
     this.setState({ details: d, even: true, custom: false });
   };
 
@@ -195,8 +198,14 @@ class ReceiptInput extends Component {
     this.setState({ details: d });
   };
 
+  resetForm = () => {
+    this.setState({ even: false, custom: false });
+  };
+
   pushReceipt = () => {
+    console.log("this.props.members: ", this.props.members);
     var d = this.state.details;
+    var a = this.state.receipts;
     var r = {
       name: "",
       amount: 0,
@@ -206,29 +215,54 @@ class ReceiptInput extends Component {
     };
 
     Object.assign(r, d);
-    this.setState({ receipts: [...this.state.receipts, r] });
+    r.custom = this.deepCopy(d.custom);
+    a = [...a, r];
+    console.log(a);
+    this.props.onMainReturn(a);
+    this.setState({ receipts: a });
+    //this.props.onMainReturn(this.state.receipts);
+    //this.setState({ receipts: [...this.state.receipts, r] });
+    // this.setState({ receipts: [...this.state.receipts, this.receiptDetails] });
   };
 
   showList = () => {
-    console.log("showList() state: ", this.state);
     var dispRec = [];
     var d = this.state.receipts;
     var len = this.state.receipts.length;
-    console.log("len: ", len);
     var i;
     for (i = 0; i < len; i++) {
       dispRec.push(
-        <div
-          className="three wide column"
-          style={{ textAlign: "center" }}
-          key={i}>
-          <button className="ui secondary basic button">{d[i].name}</button>
+        <div className="card" key={i}>
+          <div className="content">
+            <div className="header">{d[i].name}</div>
+            <div className="description">
+              Amount: ${d[i].amount}
+              <br />
+              Paid by: {d[i].payer}
+            </div>
+          </div>
+          <div className="ui bottom attached button">Edit</div>
         </div>
       );
     }
-    //this.setState({ display: arr });
     return <React.Fragment>{dispRec}</React.Fragment>;
   };
+
+  deepCopy(inObj) {
+    let outObj, value, key;
+
+    if (typeof inObj !== "object" || inObj === null) {
+      return inObj;
+    }
+
+    outObj = Array.isArray(inObj) ? [] : {};
+
+    for (key in inObj) {
+      value = inObj[key];
+      outObj[key] = this.deepCopy(value);
+    }
+    return outObj;
+  }
 }
 
 export default ReceiptInput;

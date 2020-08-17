@@ -81,7 +81,6 @@ class Main extends Component {
       );
     } else if (this.state.step === 2) {
       console.log("Main.js Step 2: ", this.state);
-      console.log("state.receiptDetails: ", this.state.receiptDetails);
       return (
         <div>
           <br />
@@ -91,34 +90,19 @@ class Main extends Component {
             </h2>
           </div>
           <br />
-
           <ReceiptInput
             members={this.state.participants}
             details={this.state.receiptDetails}
             onMainReturn={this.getDetails}
+            onSubmit={this.handleOnSubmit}
           />
-
           <br />
+
+          {/*
           <div className="inline fields">
             <button className="ui primary button" onClick={this.handleOnSubmit}>
               Submit
             </button>
-          </div>
-
-          {/*
-          <div>
-            <ReceiptList details={this.state.receiptDetails} />
-          </div>
-          */}
-
-          {/*
-          <div>
-            <GatherReceipts
-              members={this.state.participants}
-              //onSubmit={this.handleOnSubmit}
-              //toParent={this.getDetails}
-              title={this.state.title}
-            />
           </div>
           */}
         </div>
@@ -146,18 +130,23 @@ class Main extends Component {
     }
   }
 
-  handleOnSubmit = (values) => {
+  handleOnSubmit = (e) => {
     var s = this.state.step;
     s++;
 
-    this.setState({ step: s });
+    console.log("submit clicked: ", this.state);
+    console.log("e: ", e);
+
+    this.setState({
+      step: s,
+      title: e.title,
+      participants: e.members,
+      receiptDetails: e.receipts,
+    });
   };
 
   getDetails = (details) => {
-    console.log("getDetails() values: ", details);
-    var d = this.state.receiptDetails;
-    d.push(details);
-    this.setState({ receiptDetails: d });
+    this.setState({ receiptDetails: details });
   };
 }
 
