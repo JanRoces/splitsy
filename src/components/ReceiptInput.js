@@ -6,6 +6,7 @@ import "./ReceiptInput.css";
 class ReceiptInput extends Component {
   state = {
     details: {
+      id: 0,
       name: "",
       amount: 0,
       payer: "",
@@ -19,6 +20,7 @@ class ReceiptInput extends Component {
     runningAmount: 0,
     even: false,
     custom: false,
+    edit: false,
   };
 
   // receiptDetails = {
@@ -37,7 +39,10 @@ class ReceiptInput extends Component {
     return (
       <div>
         <div className="receipt-container">
-          <form className="ui form" onSubmit={this.handleOnSubmit}>
+          <form
+            className="ui form"
+            onSubmit={this.handleOnSubmit}
+            id="mainForm">
             <div className="receipt">
               <div className="fields">
                 <div className="four wide field">
@@ -194,7 +199,7 @@ class ReceiptInput extends Component {
     var d = this.state.details;
     d.custom = d.custom.splice(0, vals.length, ...vals);
     d.custom = vals;
-    console.log("d.custom:", d.custom);
+    //console.log("d.custom:", d.custom);
     this.setState({ details: d });
   };
 
@@ -203,10 +208,12 @@ class ReceiptInput extends Component {
   };
 
   pushReceipt = () => {
-    console.log("this.props.members: ", this.props.members);
+    //console.log("this.props.members: ", this.props.members);
     var d = this.state.details;
     var a = this.state.receipts;
+    var n = Math.floor(1000 + Math.random() * 9000);
     var r = {
+      id: 0,
       name: "",
       amount: 0,
       payer: "",
@@ -214,10 +221,16 @@ class ReceiptInput extends Component {
       custom: [],
     };
 
+    // if (this.state.edit === false ) {
+
+    // }
+
     Object.assign(r, d);
     r.custom = this.deepCopy(d.custom);
+    r.id = n;
+    console.log("random: ", n);
     a = [...a, r];
-    console.log(a);
+    //console.log(a);
     this.props.onMainReturn(a);
     this.setState({ receipts: a });
     //this.props.onMainReturn(this.state.receipts);
@@ -231,6 +244,8 @@ class ReceiptInput extends Component {
     var len = this.state.receipts.length;
     var i;
     for (i = 0; i < len; i++) {
+      var rID = d[i].id;
+      console.log("rID: ", rID);
       dispRec.push(
         <div className="card" key={i}>
           <div className="content">
@@ -241,11 +256,31 @@ class ReceiptInput extends Component {
               Paid by: {d[i].payer}
             </div>
           </div>
-          <div className="ui bottom attached button">Edit</div>
+          <div className="ui two bottom attached buttons">
+            <div className="ui button" onClick={this.getReceipt}>
+              Edit
+            </div>
+            <div
+              className="ui button"
+              onClick={this.removeReceipt.bind(this, rID)}>
+              Remove
+            </div>
+          </div>
         </div>
       );
     }
     return <React.Fragment>{dispRec}</React.Fragment>;
+  };
+
+  getReceipt = () => {
+    console.log("edit clicked");
+    this.setState({ edit: true });
+  };
+
+  removeReceipt = (i) => {
+    console.log("remove clicked");
+    console.log("receiptID: ", i);
+    this.setState({ edit: true });
   };
 
   deepCopy(inObj) {

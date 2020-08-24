@@ -74,7 +74,7 @@ class Breakdown extends Component {
       name = mem[i];
       for (j = 0; j < tmp.length; j++) {
         if (tmp[j].payer === name) {
-          rnum = rnum + tmp[j].amount;
+          rnum = rnum + parseFloat(tmp[j].amount);
         }
       }
       color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
