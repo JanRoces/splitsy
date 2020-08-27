@@ -280,6 +280,16 @@ class ReceiptInput extends Component {
   removeReceipt = (i) => {
     console.log("remove clicked");
     console.log("receiptID: ", i);
+    var r = this.state.receipts;
+    var len = r.length;
+    var j;
+
+    for (j = 0; j < len; j++) {
+      if (r[j].id == i) {
+        console.log("receipt found");
+      }
+    }
+
     this.setState({ edit: true });
   };
 
