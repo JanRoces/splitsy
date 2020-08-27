@@ -48,6 +48,7 @@ class AmountOwed extends Component {
         <label className="split-list">{x}</label>
         <div>
           <input
+            id="receiptCustom"
             key={x}
             className="amount-form"
             type="number"

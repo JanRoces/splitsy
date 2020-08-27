@@ -21,6 +21,7 @@ class ReceiptInput extends Component {
     even: false,
     custom: false,
     edit: false,
+    currID: 0,
   };
 
   // receiptDetails = {
@@ -48,6 +49,7 @@ class ReceiptInput extends Component {
                 <div className="four wide field">
                   <label>Receipt Name</label>
                   <input
+                    id="receiptName"
                     type="text"
                     placeholder="Receipt Name"
                     onChange={(e) => this.setName(e.target.value)}></input>
@@ -55,7 +57,7 @@ class ReceiptInput extends Component {
                 <div className="two wide field">
                   <label>Amount</label>
                   <input
-                    className="amount-form"
+                    id="receiptAmount"
                     type="number"
                     placeholder="0.00"
                     min="0.00"
@@ -64,7 +66,10 @@ class ReceiptInput extends Component {
                 </div>
                 <div className="four wide field">
                   <label>Paid By:</label>
-                  <select ref="selector" onChange={this.setPayer}>
+                  <select
+                    id="receiptPayer"
+                    ref="selector"
+                    onChange={this.setPayer}>
                     <option>- select option -</option>
                     {this.props.members.map(this.makeOption)}
                   </select>
@@ -257,7 +262,9 @@ class ReceiptInput extends Component {
             </div>
           </div>
           <div className="ui two bottom attached buttons">
-            <div className="ui button" onClick={this.getReceipt}>
+            <div
+              className="ui button"
+              onClick={this.editReceipt.bind(this, rID)}>
               Edit
             </div>
             <div
@@ -272,25 +279,44 @@ class ReceiptInput extends Component {
     return <React.Fragment>{dispRec}</React.Fragment>;
   };
 
-  getReceipt = () => {
+  editReceipt = (i) => {
     console.log("edit clicked");
-    this.setState({ edit: true });
-  };
-
-  removeReceipt = (i) => {
-    console.log("remove clicked");
-    console.log("receiptID: ", i);
     var r = this.state.receipts;
     var len = r.length;
     var j;
 
     for (j = 0; j < len; j++) {
-      if (r[j].id == i) {
-        console.log("receipt found");
+      if (r[j].id === i) {
+        document.getElementById("receiptName").value = r[j].name;
+        document.getElementById("receiptAmount").value = r[j].amount;
+        document.getElementById("receiptPayer").value = r[j].payer;
+        if (r[j].evenSplit === 0) {
+          this.setState({ custom: true });
+        } else {
+          this.setState({ even: true });
+        }
+
+        break;
       }
     }
 
     this.setState({ edit: true });
+  };
+
+  removeReceipt = (i) => {
+    var r = this.state.receipts;
+    var len = r.length;
+    var j;
+
+    for (j = 0; j < len; j++) {
+      if (r[j].id === i) {
+        r.splice(j, 1);
+        break;
+      }
+    }
+
+    this.setState({ receipts: r, edit: true });
+    console.log(this.state);
   };
 
   deepCopy(inObj) {
