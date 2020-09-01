@@ -5,23 +5,23 @@ import Breakdown from "./Breakdown";
 import "./Main.css";
 
 class Main extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   receiptDetails: [],
-  // };
+  state = {
+    step: 1,
+    title: "",
+    participants: [],
+    receiptDetails: [],
+  };
 
   //TEST DATA
 
   //step 2 testing
-  state = {
-    step: 2,
-    title: "Test",
-    participants: ["A", "B", "C", "D"],
-    receiptDetails: [],
-    count: 0,
-  };
+  // state = {
+  //   step: 2,
+  //   title: "Test",
+  //   participants: ["A", "B", "C", "D"],
+  //   receiptDetails: [],
+  //   count: 0,
+  // };
 
   //step 3 testing
   // state = {

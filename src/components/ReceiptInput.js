@@ -105,6 +105,7 @@ class ReceiptInput extends Component {
                   Clear
                 </button>
               </div>
+              <br />
             </div>
             <br />
             <div className="inline fields">
