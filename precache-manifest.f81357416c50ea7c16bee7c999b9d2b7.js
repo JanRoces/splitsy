@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a33be1ffb4dd39c34c87dcb7e9b8e3cc",
+    "revision": "e3601d943c42541ec15e69d4274c7da3",
     "url": "/splitsy/index.html"
   },
   {
-    "revision": "e185560498cea3a4a473",
-    "url": "/splitsy/static/css/main.45df5e87.chunk.css"
+    "revision": "a0eb4f973fe7b527d363",
+    "url": "/splitsy/static/css/main.9ce03383.chunk.css"
   },
   {
     "revision": "22210ea5a0f18e83e0c5",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/splitsy/static/js/2.21a511d1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e185560498cea3a4a473",
-    "url": "/splitsy/static/js/main.0062bd21.chunk.js"
+    "revision": "a0eb4f973fe7b527d363",
+    "url": "/splitsy/static/js/main.1022005b.chunk.js"
   },
   {
     "revision": "bf706ac5d4b70e1d6e36",
