@@ -54,10 +54,12 @@ class ReceiptInput extends Component {
                 <div className="four wide field">
                   <label>Paid By:</label>
                   <select
+                    className="ui dropdown"
                     id="receiptPayer"
                     ref="selector"
                     onChange={this.setPayer}>
-                    <option>- select option -</option>
+                    <i className="sort down icon"></i>
+                    <option value="">Choose</option>
                     {this.props.members.map(this.makeOption)}
                   </select>
                 </div>
