@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./EventName.css";
-//import "./Display.css";
 
 class EventName extends Component {
   state = { title: "", name: "", participants: [] };
@@ -57,10 +56,6 @@ class EventName extends Component {
     );
   }
 
-  onInputChange = (e) => {
-    console.log(e.target.value);
-  };
-
   handleOnSubmit = (e) => {
     const { onSubmit } = this.props;
     if (this.state.title !== "" && this.state.participants !== []) {
@@ -70,7 +65,7 @@ class EventName extends Component {
   };
 
   addParticipant = (e) => {
-    console.log("name: ", this.state.name);
+    console.log("Participant Name: ", this.state.name);
     if (this.state.name !== "") {
       this.setState({
         participants: [...this.state.participants, this.state.name],

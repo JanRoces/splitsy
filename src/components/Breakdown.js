@@ -17,12 +17,9 @@ class Breakdown extends Component {
     this.mainData();
     this.generateReceiptList();
     this.determineDebt();
-    console.log(this.state);
   }
 
   render() {
-    console.log(this.state);
-
     if (this.state.infoLoaded === true) {
       return (
         <div>
@@ -37,7 +34,10 @@ class Breakdown extends Component {
               </button>
             </div>
             <br />
-            <div>{this.display()}</div>
+            {/*<div>{this.display()}</div>*/}
+            <div className="card-container">
+              <div className="ui four cards">{this.cardDisplay()}</div>
+            </div>
           </div>
         </div>
       );
@@ -117,6 +117,7 @@ class Breakdown extends Component {
       var data = {
         name: "",
         paidFor: [],
+        //amt: 0,
       };
 
       data.name = mem[i];
@@ -129,6 +130,7 @@ class Breakdown extends Component {
         j++;
       }
       rList[j].paidFor.push(rec[i].name);
+      //rList[j].amt.push(rec[i].amount);
       j = 0;
     }
 
@@ -141,8 +143,8 @@ class Breakdown extends Component {
     var len = this.state.members.length;
     var len2 = this.state.allReceipts.length;
     var i, j, k;
-    var rnum,
-      rnum2 = 0;
+    var rnum = 0;
+    var rnum2 = 0;
     var splitAmt = 0;
     var objArr = [];
     var p;
@@ -175,8 +177,6 @@ class Breakdown extends Component {
     for (i = 0; i < len2; i++) {
       p = rec[i].payer;
       splitAmt = rec[i].evenSplit;
-
-      console.log("evenSplit: ", splitAmt);
 
       //find index of payer within member array
       //index of payer: j
@@ -212,22 +212,16 @@ class Breakdown extends Component {
     //modify the 2D array
     for (i = 0; i < len; i++) {
       payer = objArr[i].key;
-      console.log("payer: ", payer);
       for (j = 0; j < len; j++) {
         ower = objArr[i].member[j].name;
-        console.log("ower: ", ower);
         if (payer === ower) {
           //if payer == ower then set amt = 0
-          console.log("payer = ower, set amt to 0");
           objArr[i].member[j].amt = 0;
         } else {
           //measure weight
           pAmt = objArr[i].member[j].amt;
           oAmt = objArr[j].member[i].amt;
           weight = pAmt - oAmt;
-          console.log("pAmt: ", pAmt);
-          console.log("oAmt: ", oAmt);
-          console.log("weight: ", weight);
           if (weight < 0) {
             //situation where ower still owes payer money
             weight = weight * -1;
@@ -249,40 +243,73 @@ class Breakdown extends Component {
     this.setState({ oweMatrix: objArr, infoLoaded: true });
   };
 
-  display = () => {
+  cardDisplay = () => {
     var m = this.state.oweMatrix;
-    //var pf = this.state.paidFor;
     var len = this.state.oweMatrix.length;
-    var i, j, x, y;
-    var amt = 0;
-    var oweList = [];
+    var i, x;
     var keyIndex = 0;
+    var cards = [];
 
     for (i = 0; i < len; i++) {
       x = m[i].key;
-      console.log(x);
-      for (j = 0; j < len; j++) {
-        y = m[i].member[j].name;
-        amt = m[i].member[j].amt;
-        console.log(y);
-        console.log(amt);
-        if (amt !== 0) {
-          console.log("display amt: ", amt);
-          oweList.push(
-            <div className="ui big label" key={keyIndex}>
-              {y} owes {x} $ {amt}
-            </div>
-          );
-          keyIndex++;
-        } else {
-          console.log("amt = 0");
-          console.log(j);
-          continue;
-        }
-      }
+      cards.push(
+        <div className="card" key={keyIndex}>
+          <div className="content">
+            <div className="center aligned header">{x}'s Receipts</div>
+            <div className="description">{this.receiptDisplay(i)}</div>
+          </div>
+          <div className="extra content">
+            <div className="description">{this.oweDisplay(i, x)}</div>
+          </div>
+        </div>
+      );
+      keyIndex++;
     }
 
-    return <div className="fields">{oweList}</div>;
+    return <React.Fragment>{cards}</React.Fragment>;
+  };
+
+  receiptDisplay = (index) => {
+    var p = this.state.paidFor;
+    var len = p[index].paidFor.length;
+    var i;
+    var r = [];
+    var keyIndex = 0;
+
+    for (i = 0; i < len; i++) {
+      r.push(
+        <div className="item" key={keyIndex}>
+          {p[index].paidFor[i]}
+        </div>
+      );
+      keyIndex++;
+    }
+    return <div className="ui list">{r}</div>;
+  };
+
+  oweDisplay = (i, x) => {
+    var m = this.state.oweMatrix;
+    var len = m.length;
+    var y, j, amt;
+    var oweList = [];
+    var keyIndex = 0;
+
+    for (j = 0; j < len; j++) {
+      y = m[i].member[j].name;
+      amt = m[i].member[j].amt;
+      if (amt !== 0) {
+        oweList.push(
+          <div className="ui label" key={keyIndex}>
+            {y} owes {x} ${amt}
+          </div>
+        );
+      } else {
+        continue;
+      }
+      keyIndex++;
+    }
+
+    return <div className="ui large labels">{oweList}</div>;
   };
 }
 

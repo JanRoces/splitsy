@@ -13,8 +13,7 @@ class ReceiptInput extends Component {
       evenSplit: 0,
       custom: [],
     },
-    //title: "",
-    //members: [],
+
     receipts: [],
     display: [],
     runningAmount: 0,
@@ -22,18 +21,6 @@ class ReceiptInput extends Component {
     custom: false,
     edit: false,
     currID: 0,
-  };
-
-  // receiptDetails = {
-  //   name: "",
-  //   amount: 0,
-  //   payer: "",
-  //   evenSplit: 0,
-  //   custom: [],
-  // };
-
-  componentDidMount = () => {
-    //this.setState({ title: this.props.title, members: this.props.members });
   };
 
   render() {
@@ -133,8 +120,6 @@ class ReceiptInput extends Component {
 
   handleOnSubmit = (e) => {
     const { onSubmit } = this.props;
-    console.log(e);
-
     onSubmit(this.state);
   };
 
@@ -143,17 +128,12 @@ class ReceiptInput extends Component {
   };
 
   setName = (name) => {
-    // this.receiptDetails.name = name;
-    // console.log("receiptDetails.name: ", this.receiptDetails.name);
     var d = this.state.details;
     d.name = name;
     this.setState({ details: d });
   };
 
   setAmount = (amount) => {
-    // this.receiptDetails.amount = parseFloat(amount);
-    // console.log("receiptDetails.amount: ", this.receiptDetails.amount);
-    // this.setState({ runningAmount: amount });
     var d = this.state.details;
     d.amount = amount;
     this.setState({ details: d, runningAmount: amount });
@@ -161,51 +141,33 @@ class ReceiptInput extends Component {
 
   setPayer = () => {
     var selected = ReactDOM.findDOMNode(this.refs.selector).value;
-    // this.receiptDetails.payer = selected;
-    // console.log("receiptDetails.payer: ", this.receiptDetails.payer);
     var d = this.state.details;
     d.payer = selected;
     this.setState({ details: d });
   };
 
   splitEven = () => {
-    // this.receiptDetails.custom = [];
-    // var n = this.receiptDetails.amount;
     var d = this.state.details;
     var n = d.amount;
-
     var m = n / this.props.members.length;
     var num = m.toFixed(2);
     var fNum = parseFloat(num);
 
-    // this.receiptDetails.evenSplit = fNum;
-    // console.log("receiptDetails.evenSplit: ", this.receiptDetails.evenSplit);
-    // this.setState({ even: true, custom: false });
     d.evenSplit = fNum;
     d.custom = [];
     this.setState({ details: d, even: true, custom: false });
   };
 
   splitCustom = () => {
-    // this.receiptDetails.evenSplit = 0;
-    // this.setState({ even: false, custom: true });
     var d = this.state.details;
     d.evenSplit = 0;
     this.setState({ details: d, even: false, custom: true });
   };
 
   getCustomVals = (vals) => {
-    // this.receiptDetails.custom = this.receiptDetails.custom.splice(
-    //   0,
-    //   vals.length,
-    //   ...vals
-    // );
-    // this.receiptDetails.custom = vals;
-    // console.log("onReturn customVals: ", this.receiptDetails.custom);
     var d = this.state.details;
     d.custom = d.custom.splice(0, vals.length, ...vals);
     d.custom = vals;
-    //console.log("d.custom:", d.custom);
     this.setState({ details: d });
   };
 
@@ -214,7 +176,6 @@ class ReceiptInput extends Component {
   };
 
   pushReceipt = () => {
-    //console.log("this.props.members: ", this.props.members);
     var d = this.state.details;
     var a = this.state.receipts;
     var len = a.length;
@@ -234,12 +195,10 @@ class ReceiptInput extends Component {
       Object.assign(r, d);
       r.custom = this.deepCopy(d.custom);
       r.id = n;
-      console.log("random: ", n);
       a = [...a, r];
       this.props.onMainReturn(a);
       this.setState({ receipts: a });
     } else {
-      console.log("edit = true");
       for (i = 0; i < len; i++) {
         if (a[i].id === d.id) {
           a[i] = d;
@@ -248,18 +207,6 @@ class ReceiptInput extends Component {
         }
       }
     }
-
-    // Object.assign(r, d);
-    // r.custom = this.deepCopy(d.custom);
-    // r.id = n;
-    // console.log("random: ", n);
-    // a = [...a, r];
-    // //console.log(a);
-    // this.props.onMainReturn(a);
-    // this.setState({ receipts: a });
-    //this.props.onMainReturn(this.state.receipts);
-    //this.setState({ receipts: [...this.state.receipts, r] });
-    // this.setState({ receipts: [...this.state.receipts, this.receiptDetails] });
   };
 
   showList = () => {
@@ -298,7 +245,6 @@ class ReceiptInput extends Component {
   };
 
   editReceipt = (i) => {
-    console.log("edit clicked");
     var r = this.state.receipts;
     var len = r.length;
     var d = this.state.details;
@@ -310,7 +256,6 @@ class ReceiptInput extends Component {
         document.getElementById("receiptName").value = r[j].name;
         document.getElementById("receiptAmount").value = r[j].amount;
         document.getElementById("receiptPayer").value = r[j].payer;
-        console.log(r[j]);
         d.name = r[j].name;
         d.amount = r[j].amount;
         d.payer = r[j].payer;
@@ -322,7 +267,6 @@ class ReceiptInput extends Component {
         break;
       }
     }
-
     this.setState({ edit: true, details: d });
   };
 
@@ -339,7 +283,6 @@ class ReceiptInput extends Component {
     }
 
     this.setState({ receipts: r, edit: false });
-    console.log(this.state);
   };
 
   deepCopy(inObj) {

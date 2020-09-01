@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import EventName from "./EventName";
-//import GatherReceipts from "./GatherReceipts";
 import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
-//import ReceiptList from "./ReceiptList";
 import "./Main.css";
 
 class Main extends Component {
@@ -63,7 +61,7 @@ class Main extends Component {
   //       custom: [],
   //     },
   //   ],
-  // };
+  //};
 
   render() {
     if (this.state.step === 1) {
@@ -75,7 +73,7 @@ class Main extends Component {
           </div>
           <br />
           <div>
-            <EventName onSubmit={this.handleOnSubmit} />
+            <EventName onSubmit={this.eventNameSubmit} />
           </div>
         </div>
       );
@@ -94,17 +92,9 @@ class Main extends Component {
             members={this.state.participants}
             details={this.state.receiptDetails}
             onMainReturn={this.getDetails}
-            onSubmit={this.handleOnSubmit}
+            onSubmit={this.receiptInputSubmit}
           />
           <br />
-
-          {/*
-          <div className="inline fields">
-            <button className="ui primary button" onClick={this.handleOnSubmit}>
-              Submit
-            </button>
-          </div>
-          */}
         </div>
       );
     } else if (this.state.step === 3) {
@@ -130,19 +120,16 @@ class Main extends Component {
     }
   }
 
-  handleOnSubmit = (e) => {
+  eventNameSubmit = (e) => {
     var s = this.state.step;
     s++;
+    this.setState({ step: s, title: e.title, participants: e.participants });
+  };
 
-    console.log("submit clicked: ", this.state);
-    console.log("e: ", e);
-
-    this.setState({
-      step: s,
-      title: e.title,
-      participants: e.participants,
-      receiptDetails: e.receipts,
-    });
+  receiptInputSubmit = (e) => {
+    var s = this.state.step;
+    s++;
+    this.setState({ step: s, receiptDetails: e.receipts });
   };
 
   getDetails = (details) => {
