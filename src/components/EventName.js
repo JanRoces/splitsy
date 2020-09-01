@@ -9,32 +9,35 @@ class EventName extends Component {
       <div className="form-container">
         <form className="ui form" onSubmit={this.handleOnSubmit}>
           <div>
-            <div className="field">
-              <input
-                type="text"
-                placeholder="Event Name"
-                onChange={(e) =>
-                  this.setState({ title: e.target.value })
-                }></input>
+            <div className="fields">
+              <div className="six wide field">
+                <input
+                  type="text"
+                  placeholder="Event Name"
+                  onChange={(e) =>
+                    this.setState({ title: e.target.value })
+                  }></input>
+              </div>
             </div>
-
-            <div className="field">
-              <input
-                type="text"
-                placeholder="Participant"
-                value={this.state.name}
-                onChange={(e) =>
-                  this.setState({ name: e.target.value })
-                }></input>
-            </div>
-            <div className="field">
-              <button
-                className="ui button"
-                type="button"
-                onClick={this.addParticipant}>
-                <i className="user plus icon"></i>
-                Add
-              </button>
+            <div className="inline fields">
+              <div className="four wide field">
+                <input
+                  type="text"
+                  placeholder="Participant"
+                  value={this.state.name}
+                  onChange={(e) =>
+                    this.setState({ name: e.target.value })
+                  }></input>
+              </div>
+              <div className="two wide field">
+                <button
+                  className="ui button"
+                  type="button"
+                  onClick={this.addParticipant}>
+                  <i className="user plus icon"></i>
+                  Add
+                </button>
+              </div>
             </div>
           </div>
           <div>

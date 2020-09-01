@@ -17,7 +17,7 @@ class ReceiptInput extends Component {
     receipts: [],
     display: [],
     runningAmount: 0,
-    even: false,
+    even: true,
     custom: false,
     edit: false,
     currID: 0,
@@ -58,8 +58,7 @@ class ReceiptInput extends Component {
                     id="receiptPayer"
                     ref="selector"
                     onChange={this.setPayer}>
-                    <i className="sort down icon"></i>
-                    <option value="">Choose</option>
+                    <option value="">Select</option>
                     {this.props.members.map(this.makeOption)}
                   </select>
                 </div>
@@ -175,7 +174,7 @@ class ReceiptInput extends Component {
   };
 
   resetForm = () => {
-    this.setState({ even: false, custom: false });
+    this.setState({ even: true, custom: false });
   };
 
   pushReceipt = () => {
@@ -193,6 +192,14 @@ class ReceiptInput extends Component {
       custom: [],
     };
 
+    if (this.state.even === true) {
+      var n = d.amount;
+      var m = n / this.props.members.length;
+      var num = m.toFixed(2);
+      var fNum = parseFloat(num);
+      d.evenSplit = fNum;
+    }
+
     if (this.state.edit === false) {
       var n = Math.floor(1000 + Math.random() * 9000);
       Object.assign(r, d);
@@ -200,12 +207,17 @@ class ReceiptInput extends Component {
       r.id = n;
       a = [...a, r];
       this.props.onMainReturn(a);
-      this.setState({ receipts: a });
+      this.setState({ receipts: a, even: true, custom: false });
     } else {
       for (i = 0; i < len; i++) {
         if (a[i].id === d.id) {
           a[i] = d;
-          this.setState({ receipts: a, edit: false });
+          this.setState({
+            receipts: a,
+            edit: false,
+            even: true,
+            custom: false,
+          });
           break;
         }
       }
