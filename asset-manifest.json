@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/splitsy/static/css/main.73bca0dd.chunk.css",
-    "main.js": "/splitsy/static/js/main.e79b26d0.chunk.js",
-    "main.js.map": "/splitsy/static/js/main.e79b26d0.chunk.js.map",
+    "main.css": "/splitsy/static/css/main.9659d606.chunk.css",
+    "main.js": "/splitsy/static/js/main.d63b71b6.chunk.js",
+    "main.js.map": "/splitsy/static/js/main.d63b71b6.chunk.js.map",
     "runtime-main.js": "/splitsy/static/js/runtime-main.d357c11d.js",
     "runtime-main.js.map": "/splitsy/static/js/runtime-main.d357c11d.js.map",
     "static/js/2.cbfee823.chunk.js": "/splitsy/static/js/2.cbfee823.chunk.js",
     "static/js/2.cbfee823.chunk.js.map": "/splitsy/static/js/2.cbfee823.chunk.js.map",
     "index.html": "/splitsy/index.html",
-    "precache-manifest.45426bc8af405b8ad5253c6a3e2d64be.js": "/splitsy/precache-manifest.45426bc8af405b8ad5253c6a3e2d64be.js",
+    "precache-manifest.853589b01fba211625ccbf7c8e6af25d.js": "/splitsy/precache-manifest.853589b01fba211625ccbf7c8e6af25d.js",
     "service-worker.js": "/splitsy/service-worker.js",
-    "static/css/main.73bca0dd.chunk.css.map": "/splitsy/static/css/main.73bca0dd.chunk.css.map",
+    "static/css/main.9659d606.chunk.css.map": "/splitsy/static/css/main.9659d606.chunk.css.map",
     "static/js/2.cbfee823.chunk.js.LICENSE.txt": "/splitsy/static/js/2.cbfee823.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d357c11d.js",
     "static/js/2.cbfee823.chunk.js",
-    "static/css/main.73bca0dd.chunk.css",
-    "static/js/main.e79b26d0.chunk.js"
+    "static/css/main.9659d606.chunk.css",
+    "static/js/main.d63b71b6.chunk.js"
   ]
 }
