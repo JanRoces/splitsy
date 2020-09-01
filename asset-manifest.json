@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/splitsy/static/css/main.45df5e87.chunk.css",
-    "main.js": "/splitsy/static/js/main.8ea73b28.chunk.js",
-    "main.js.map": "/splitsy/static/js/main.8ea73b28.chunk.js.map",
+    "main.js": "/splitsy/static/js/main.0062bd21.chunk.js",
+    "main.js.map": "/splitsy/static/js/main.0062bd21.chunk.js.map",
     "runtime-main.js": "/splitsy/static/js/runtime-main.d357c11d.js",
     "runtime-main.js.map": "/splitsy/static/js/runtime-main.d357c11d.js.map",
     "static/js/2.21a511d1.chunk.js": "/splitsy/static/js/2.21a511d1.chunk.js",
     "static/js/2.21a511d1.chunk.js.map": "/splitsy/static/js/2.21a511d1.chunk.js.map",
     "index.html": "/splitsy/index.html",
-    "precache-manifest.827d45e538f8bcab73d300b1d20a3b35.js": "/splitsy/precache-manifest.827d45e538f8bcab73d300b1d20a3b35.js",
+    "precache-manifest.efbd948625f715c7f48964553b32e9e9.js": "/splitsy/precache-manifest.efbd948625f715c7f48964553b32e9e9.js",
     "service-worker.js": "/splitsy/service-worker.js",
     "static/css/main.45df5e87.chunk.css.map": "/splitsy/static/css/main.45df5e87.chunk.css.map",
     "static/js/2.21a511d1.chunk.js.LICENSE.txt": "/splitsy/static/js/2.21a511d1.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d357c11d.js",
     "static/js/2.21a511d1.chunk.js",
     "static/css/main.45df5e87.chunk.css",
-    "static/js/main.8ea73b28.chunk.js"
+    "static/js/main.0062bd21.chunk.js"
   ]
 }
