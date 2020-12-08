@@ -1,9 +1,6 @@
-/* .field {
-  width: 50%;
-  align-items: center;
-  padding: 10px;
-  margin: 0 auto !important;
-} */
+body {
+  background-color: #455486;
+}
 
 input {
   margin: 10px;
