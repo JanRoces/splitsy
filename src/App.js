@@ -5,14 +5,7 @@ import "./App.css";
 class App extends Component {
   render() {
     return (
-      <div className="app-content">
-        <div className="logo-container">
-          <img
-            className="logo-main"
-            src={process.env.PUBLIC_URL + "/splitsy_logo_v7.png"}
-            alt="logo"
-          />
-        </div>
+      <div>
         <Main />
       </div>
     );

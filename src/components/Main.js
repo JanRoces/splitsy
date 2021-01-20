@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import EventName from "./EventName";
-import ReceiptInput from "./ReceiptInput";
-import Breakdown from "./Breakdown";
-import "./Main.css";
+// import EventName from "./EventName";
+// import ReceiptInput from "./ReceiptInput";
+// import Breakdown from "./Breakdown";
+import "./style/Main.css";
+import logo from "./artwork/splitsy_logo_v7.png";
 
 class Main extends Component {
   state = {
@@ -64,77 +65,94 @@ class Main extends Component {
   //};
 
   render() {
-    if (this.state.step === 1) {
-      console.log("Main.js Step 1: ", this.state);
-      return (
-        <div>
-          <div>
-            <h1 style={{ textAlign: "center" }}>Event Finance Organization</h1>
-          </div>
-          <br />
-          <div>
-            <EventName onSubmit={this.eventNameSubmit} />
-          </div>
+    return (
+      <div>
+        <div className="logo-container">
+          <img className="logo" src={logo}></img>
+          <h3>Event Finance Organization</h3>
         </div>
-      );
-    } else if (this.state.step === 2) {
-      console.log("Main.js Step 2: ", this.state);
-      return (
-        <div>
-          <br />
-          <div>
-            <h2 style={{ textAlign: "center" }}>
-              {this.state.title} Finance Organization
-            </h2>
+        <div className="login-signup-container">
+          <div className="login-signup">
+            <h2>Log In</h2>
+            <input placeholder="User Name"></input>
+            <input placeholder="Password"></input>
+            <button></button>
           </div>
-          <br />
-          <ReceiptInput
-            members={this.state.participants}
-            details={this.state.receiptDetails}
-            onMainReturn={this.getDetails}
-            onSubmit={this.receiptInputSubmit}
-          />
-          <br />
+          {/* <div className="login-signup">sign up</div> */}
         </div>
-      );
-    } else if (this.state.step === 3) {
-      console.log("Main.js Step 3: ", this.state);
-      return (
-        <div>
-          <div>
-            <h2 style={{ textAlign: "center" }}>
-              {this.state.title} Finance Breakdown
-            </h2>
-          </div>
-          <div>
-            <Breakdown
-              allReceipts={this.state.receiptDetails}
-              members={this.state.participants}
-            />
-          </div>
-        </div>
-      );
-    } else {
-      console.log(this.state);
-      return <div>Step Error</div>;
-    }
+      </div>
+    );
+    // if (this.state.step === 1) {
+    //   console.log("Main.js Step 1: ", this.state);
+    //   return (
+    //     <div>
+    //       <div>
+    //         <h1 style={{ textAlign: "center" }}>Event Finance Organization</h1>
+    //       </div>
+    //       <br />
+    //       <div>
+    //         <EventName onSubmit={this.eventNameSubmit} />
+    //       </div>
+    //     </div>
+    //   );
+    // } else if (this.state.step === 2) {
+    //   console.log("Main.js Step 2: ", this.state);
+    //   return (
+    //     <div>
+    //       <br />
+    //       <div>
+    //         <h2 style={{ textAlign: "center" }}>
+    //           {this.state.title} Finance Organization
+    //         </h2>
+    //       </div>
+    //       <br />
+    //       <ReceiptInput
+    //         members={this.state.participants}
+    //         details={this.state.receiptDetails}
+    //         onMainReturn={this.getDetails}
+    //         onSubmit={this.receiptInputSubmit}
+    //       />
+    //       <br />
+    //     </div>
+    //   );
+    // } else if (this.state.step === 3) {
+    //   console.log("Main.js Step 3: ", this.state);
+    //   return (
+    //     <div>
+    //       <div>
+    //         <h2 style={{ textAlign: "center" }}>
+    //           {this.state.title} Finance Breakdown
+    //         </h2>
+    //       </div>
+    //       <div>
+    //         <Breakdown
+    //           allReceipts={this.state.receiptDetails}
+    //           members={this.state.participants}
+    //         />
+    //       </div>
+    //     </div>
+    //   );
+    // } else {
+    //   console.log(this.state);
+    //   return <div>Step Error</div>;
+    // }
   }
 
-  eventNameSubmit = (e) => {
-    var s = this.state.step;
-    s++;
-    this.setState({ step: s, title: e.title, participants: e.participants });
-  };
+  // eventNameSubmit = (e) => {
+  //   var s = this.state.step;
+  //   s++;
+  //   this.setState({ step: s, title: e.title, participants: e.participants });
+  // };
 
-  receiptInputSubmit = (e) => {
-    var s = this.state.step;
-    s++;
-    this.setState({ step: s, receiptDetails: e.receipts });
-  };
+  // receiptInputSubmit = (e) => {
+  //   var s = this.state.step;
+  //   s++;
+  //   this.setState({ step: s, receiptDetails: e.receipts });
+  // };
 
-  getDetails = (details) => {
-    this.setState({ receiptDetails: details });
-  };
+  // getDetails = (details) => {
+  //   this.setState({ receiptDetails: details });
+  // };
 }
 
 export default Main;
