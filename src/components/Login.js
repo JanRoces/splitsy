@@ -7,26 +7,43 @@ class Login extends Component {
         return (
             <div>
               <div className="logo-container">
-                <img className="logo" src={logo}></img>
+                <img className="logo" alt="logo" src={logo}></img>
                 <h3>Event Finance Organization</h3>
               </div>
               <div className="login-signup-container">
                 <div className="login-container">
-                  <h2 style={{color: "#455486"}}>Log In</h2>
-                  <input className="login-input" placeholder="User Name"></input>
-                  <input className="login-input" placeholder="Password"></input>
-                  <button className="login-button">Sign In</button>
+                  <form >
+                    <h2 style={{color: "#455486"}}>Log In</h2>
+                    <input required className="login-input" placeholder="Email"></input>
+                    <input required className="login-input" placeholder="Password" type="password"></input>
+                    <button className="login-button" onClick={this.checkLogin}>Sign In</button>
+                  </form>
+                  <button className="login-button" onClick={this.skipLogin}>Skip</button>
                 </div>
                 <div className="signup-container">
-                  <h2>Sign Up</h2>
-                  <input required className="login-input" placeholder="Create User Name"></input>
-                  <input required className="login-input" placeholder="Password (Atleast 6 Characters)" type="password" minLength="6"></input>
-                  <input required className="login-input" placeholder="Confirm Password" type="password" minLength="6"></input>
-                  <button className="signup-button">Sign Up</button>
+                  <form>
+                    <h2>Sign Up</h2>
+                    <input required className="login-input" placeholder="Email"></input>
+                    <input required className="login-input" placeholder="Password (Atleast 6 Characters)" type="password" minLength="6"></input>
+                    <input required className="login-input" placeholder="Confirm Password" type="password" minLength="6"></input>
+                    <button className="signup-button" onClick={this.checkSignup}>Sign Up</button>
+                  </form>
                 </div>
-              </div>
             </div>
+          </div>
           );
+    }
+
+    checkLogin = () => {
+        console.log("login clicked");
+    }
+
+    checkSignup = () => {
+        console.log("signup clicked");
+    }
+
+    skipLogin = () => {
+        console.log("skip clicked");
     }
 }
 
