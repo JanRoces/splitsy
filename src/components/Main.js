@@ -2,16 +2,18 @@ import React, { Component } from "react";
 // import EventName from "./EventName";
 // import ReceiptInput from "./ReceiptInput";
 // import Breakdown from "./Breakdown";
+import Login from "./Login";
 import "./style/Main.css";
-import logo from "./artwork/splitsy_logo_v7.png";
+//import logo from "./artwork/splitsy_logo_v7.png";
 
 class Main extends Component {
-  state = {
-    step: 1,
-    title: "",
-    participants: [],
-    receiptDetails: [],
-  };
+  state = {login: false}
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
+  // };
 
   //TEST DATA
 
@@ -65,29 +67,12 @@ class Main extends Component {
   //};
 
   render() {
-    return (
-      <div>
-        <div className="logo-container">
-          <img className="logo" src={logo}></img>
-          <h3>Event Finance Organization</h3>
-        </div>
-        <div className="login-signup-container">
-          <div className="login-container">
-            <h2>Log In</h2>
-            <input className="login-input" placeholder="User Name"></input>
-            <input className="login-input" placeholder="Password"></input>
-            <button className="login-button">Sign In</button>
-          </div>
-          <div className="signup-container">
-            <h2>Sign Up</h2>
-            <input className="login-input" placeholder="Create User Name"></input>
-            <input className="login-input" placeholder="Create Password"></input>
-            <button className="signup-button">Sign Up</button>
-          </div>
-          {/* <div className="login-signup">sign up</div> */}
-        </div>
-      </div>
-    );
+    if (!this.state.login) {
+      return (
+        <Login />
+      );
+    }
+    
     // if (this.state.step === 1) {
     //   console.log("Main.js Step 1: ", this.state);
     //   return (

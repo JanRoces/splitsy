@@ -1,0 +1,106 @@
+h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
+}
+
+h3 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+/*LOGO STYLE
+  /*------------------------------------*/
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  max-width: 30%;
+}
+
+/*LOGIN STYLE
+  /*------------------------------------*/
+.login-signup-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: #ebebeb;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: #7489d0;
+  margin-left: 10px;
+  width: 300px;
+}
+
+.login-input {
+  margin: 10px;
+  outline: none;
+  border: none;
+  padding: 10px;
+  width: 220px;
+}
+
+.login-button {
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  background-color: #7489d0;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  width: 100px;
+}
+
+.login-button:hover {
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  background-color: #455486;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  width: 100px;
+}
+
+.signup-button {
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  background-color: #455486;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  width: 100px;
+}
+
+.signup-button:hover {
+  height: 30px;
+  border-radius: 20px;
+  color: #455486;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  width: 100px;
+}
