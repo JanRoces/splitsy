@@ -1,11 +1,15 @@
-import React, { Component, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "./style/Login.css";
 import logo from "./artwork/splitsy_logo_v7.png";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const emailRef = useRef();
   const pwRef = useRef();
   const pwConRef = useRef();
+  const { signup, currentUser } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // checkLogin = () => {
   //   console.log("login clicked");
@@ -41,17 +45,14 @@ export default function Login() {
               placeholder="Password"
               type="password"
               ref={pwRef}></input>
-            <button className="login-button" onClick={this.checkLogin}>
-              Sign In
-            </button>
+            <button className="login-button">Sign In</button>
           </form>
-          <button className="login-button" onClick={this.skipLogin}>
-            Skip
-          </button>
+          <button className="login-button">Skip</button>
         </div>
         <div className="signup-container">
-          <form>
+          <form className="form-container" onSubmit={handleSubmit}>
             <h2>Sign Up</h2>
+            {showError()}
             <input
               required
               className="login-input"
@@ -72,7 +73,7 @@ export default function Login() {
               type="password"
               minLength="6"
               ref={pwConRef}></input>
-            <button className="signup-button" onClick={this.checkSignup}>
+            <button disabled={loading} className="signup-button">
               Sign Up
             </button>
           </form>
@@ -80,4 +81,27 @@ export default function Login() {
       </div>
     </div>
   );
+
+  function showError() {
+    if (error) {
+      return <div className="error-message">{error}</div>;
+    }
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (pwRef.current.value !== pwConRef.current.value) {
+      return setError("Passwords do not match");
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await signup(emailRef.current.value, pwRef.current.value);
+    } catch {
+      setError("Account already exists");
+    }
+    setLoading(false);
+  }
 }

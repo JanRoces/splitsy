@@ -108,3 +108,16 @@ form {
   margin-top: 10px;
   width: 100px;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-message {
+  color: crimson;
+  background-color: lightpink;
+  width: 220px;
+  padding: 5px;
+}
