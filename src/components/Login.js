@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-//import "./style/Login.css";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
@@ -30,8 +29,7 @@ export default function Login() {
           ref={pwRef}></input>
         <button className="login-button">Sign In</button>
       </form>
-
-      <button className="login-button">Skip</button>
+      {/*<button className="login-button">Skip</button>*/}
       <Link to="/forgot-password">Forgot Password?</Link>
     </div>
   );

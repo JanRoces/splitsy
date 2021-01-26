@@ -1,9 +1,9 @@
 import React, { Component, useState } from "react";
-import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+//import { AuthProvider } from "../contexts/AuthContext";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-//import Login from "./LoginV1";
+import NavigationBar from "./NavigationBar";
 import "./style/Main.css";
 // import EventName from "./EventName";
 // import ReceiptInput from "./ReceiptInput";
@@ -27,12 +27,13 @@ export default function Main() {
     }
   }
   return (
-    <div>
-      <h3>Email: {currentUser.email}</h3>
-      <button variant="link" onClick={handleLogOut}>
-        Log Out
-      </button>
-    </div>
+    <NavigationBar />
+    // <div>
+    //   <h3>Email: {currentUser.email}</h3>
+    //   <button variant="link" onClick={handleLogOut}>
+    //     Log Out
+    //   </button>
+    // </div>
   );
 }
 
