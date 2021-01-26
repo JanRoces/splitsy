@@ -121,3 +121,10 @@ form {
   width: 220px;
   padding: 5px;
 }
+
+.message {
+  color: green;
+  background-color: palegreen;
+  width: 220px;
+  padding: 5px;
+}

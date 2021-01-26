@@ -1,20 +1,21 @@
 import React, { useState, useRef } from "react";
 //import "./style/Login.css";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-export default function Login() {
+export default function SignUp() {
   const emailRef = useRef();
   const pwRef = useRef();
-  const { login } = useAuth();
+  const pwConRef = useRef();
+  const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   return (
-    <div className="login-container">
+    <div className="signup-container">
       <form className="form-container" onSubmit={handleSubmit}>
-        <h2 style={{ color: "#455486" }}>Log In</h2>
+        <h2>Sign Up</h2>
         {showError()}
         <input
           required
@@ -25,14 +26,21 @@ export default function Login() {
         <input
           required
           className="login-input"
-          placeholder="Password"
+          placeholder="Password (Atleast 6 Characters)"
           type="password"
+          minLength="6"
           ref={pwRef}></input>
-        <button className="login-button">Sign In</button>
+        <input
+          required
+          className="login-input"
+          placeholder="Confirm Password"
+          type="password"
+          minLength="6"
+          ref={pwConRef}></input>
+        <button disabled={loading} className="signup-button">
+          Sign Up
+        </button>
       </form>
-
-      <button className="login-button">Skip</button>
-      <Link to="/forgot-password">Forgot Password?</Link>
     </div>
   );
 
@@ -45,13 +53,17 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (pwRef.current.value !== pwConRef.current.value) {
+      return setError("Passwords do not match");
+    }
+
     try {
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, pwRef.current.value);
+      await signup(emailRef.current.value, pwRef.current.value);
       history.push("/");
     } catch {
-      setError("Log in failed");
+      setError("Account already exists");
     }
     setLoading(false);
   }

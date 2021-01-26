@@ -1,20 +1,19 @@
 import React, { useState, useRef } from "react";
-//import "./style/Login.css";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./style/LoginSignUp.css";
 
-export default function Login() {
+export default function ForgotPassword() {
   const emailRef = useRef();
-  const pwRef = useRef();
-  const { login } = useAuth();
+  const { login, resetPassword } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [message, setMessage] = useState("");
 
   return (
     <div className="login-container">
       <form className="form-container" onSubmit={handleSubmit}>
-        <h2 style={{ color: "#455486" }}>Log In</h2>
+        <h2 style={{ color: "#455486" }}>Password Reset</h2>
         {showError()}
         <input
           required
@@ -22,23 +21,17 @@ export default function Login() {
           placeholder="Email"
           type="email"
           ref={emailRef}></input>
-        <input
-          required
-          className="login-input"
-          placeholder="Password"
-          type="password"
-          ref={pwRef}></input>
-        <button className="login-button">Sign In</button>
+        <button className="login-button">Reset Password</button>
       </form>
-
-      <button className="login-button">Skip</button>
-      <Link to="/forgot-password">Forgot Password?</Link>
+      <Link to="/login-signup">Log In / Sign Up</Link>
     </div>
   );
 
   function showError() {
     if (error) {
       return <div className="error-message">{error}</div>;
+    } else if (message) {
+      return <div className="message">{message}</div>;
     }
   }
 
@@ -46,12 +39,13 @@ export default function Login() {
     e.preventDefault();
 
     try {
+      setMessage("");
       setError("");
       setLoading(true);
-      await login(emailRef.current.value, pwRef.current.value);
-      history.push("/");
+      await resetPassword(emailRef.current.value);
+      setMessage("Check your inbox for further instructions");
     } catch {
-      setError("Log in failed");
+      setError("Failed to reset password");
     }
     setLoading(false);
   }
