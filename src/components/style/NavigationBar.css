@@ -1,0 +1,30 @@
+/* ul {
+  list-style-type: none;
+} */
+
+.navigation-bar {
+  background-color: #455486;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.small-logo-container {
+  padding: 10px;
+}
+
+img {
+  width: 20%;
+}
+
+.nav-link {
+  padding-right: 10px;
+}
+
+.sign-out-button {
+  outline: none;
+  color: white;
+  font-weight: bold;
+  background: none;
+  border: none;
+}
