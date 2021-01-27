@@ -1,4 +1,8 @@
-/* div,
+div,
 form {
   border: 1px solid red;
-} */
+}
+
+.event-receipt-container {
+  display: flex;
+}

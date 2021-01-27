@@ -1,9 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component, Fragment, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //import { AuthProvider } from "../contexts/AuthContext";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
+import EventList from "./EventList";
+import ReceiptInput from "./ReceiptInput";
 import "./style/Main.css";
 // import EventName from "./EventName";
 // import ReceiptInput from "./ReceiptInput";
@@ -12,22 +14,18 @@ import "./style/Main.css";
 //import logo from "./artwork/splitsy_logo_v7.png";
 
 export default function Main() {
-  const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
+  //const [error, setError] = useState("");
+  //const { currentUser, logout } = useAuth();
   const history = useHistory();
 
-  async function handleLogOut() {
-    setError("");
-
-    try {
-      await logout();
-      history.pushState("/login-signup");
-    } catch {
-      setError("Failed to log out");
-    }
-  }
   return (
-    <NavigationBar />
+    <React.Fragment>
+      <NavigationBar />
+      <div className="event-receipt-container">
+        <EventList />
+        <ReceiptInput />
+      </div>
+    </React.Fragment>
     // <div>
     //   <h3>Email: {currentUser.email}</h3>
     //   <button variant="link" onClick={handleLogOut}>
@@ -36,6 +34,17 @@ export default function Main() {
     // </div>
   );
 }
+
+// async function handleLogOut() {
+//   setError("");
+
+//   try {
+//     await logout();
+//     history.pushState("/login-signup");
+//   } catch {
+//     setError("Failed to log out");
+//   }
+// }
 
 // state = {
 //   step: 1,
