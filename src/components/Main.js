@@ -1,7 +1,8 @@
-import React, { Component, Fragment, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+//import React, { Component, Fragment, useState } from "react";
+import React from "react";
+//import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //import { AuthProvider } from "../contexts/AuthContext";
-import { useAuth } from "../contexts/AuthContext";
+//import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import NavigationBar from "./NavigationBar";
 import EventList from "./EventList";
