@@ -14,7 +14,7 @@ export default function LoginSignUp() {
       <div className="login-signup-container">
         <Login />
         <div className="or-container">
-          <div className="or-circle">OR</div>
+          <div className="or">OR</div>
         </div>
         <SignUp />
       </div>

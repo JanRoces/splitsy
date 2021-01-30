@@ -20,6 +20,7 @@
 .login-signup-container {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .login-container {
@@ -99,6 +100,7 @@
 }
 
 .form-container {
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,7 +125,12 @@
   align-items: center;
 }
 
-.or-circle {
+.or {
+  color: #455486;
+  font-weight: bold;
+}
+
+/* .or-circle {
   border-radius: 50%;
   background-color: #ebebeb;
-}
+} */

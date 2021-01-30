@@ -29,8 +29,6 @@ export default function Login() {
           ref={pwRef}></input>
         <button className="login-button">Sign In</button>
       </form>
-      {/*<button className="login-button">Skip</button>*/}
-      <br />
       <Link to="/forgot-password">Forgot Password?</Link>
     </div>
   );
