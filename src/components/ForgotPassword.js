@@ -23,7 +23,7 @@ export default function ForgotPassword() {
           ref={emailRef}></input>
         <button className="login-button">Reset Password</button>
       </form>
-      <Link to="/login-signup">Log In / Sign Up</Link>
+      <Link to="/">Log In / Sign Up</Link>
     </div>
   );
 
