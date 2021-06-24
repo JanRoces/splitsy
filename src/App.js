@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
         <AuthProvider>
           <Switch>
-            <Route path="/login-signup" component={LoginSignUp} />
+            <Route path="/splitsy" component={LoginSignUp} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute exact path="/" component={Main} />
           </Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import logo from "./artwork/splitsy_logo_small_white.png";
@@ -6,7 +6,6 @@ import "./style/NavigationBar.css";
 
 export default function NavigationBar() {
   const history = useHistory();
-  const { error, setError } = useState("");
   const { logout } = useAuth();
 
   return (
@@ -27,9 +26,8 @@ export default function NavigationBar() {
 
   async function handleLogOut() {
     try {
-      console.log("BUTTON PRESSED!");
       await logout();
-      history.pushState("/login-signup");
+      history.pushState("/splitsy");
     } catch {}
   }
 }

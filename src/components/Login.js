@@ -7,7 +7,7 @@ export default function Login() {
   const pwRef = useRef();
   const { login } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
   const history = useHistory();
 
   return (

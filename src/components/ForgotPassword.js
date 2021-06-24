@@ -5,9 +5,9 @@ import "./style/LoginSignUp.css";
 
 export default function ForgotPassword() {
   const emailRef = useRef();
-  const { login, resetPassword } = useAuth();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   return (
