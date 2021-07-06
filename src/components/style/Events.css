@@ -1,0 +1,79 @@
+input,
+button {
+  outline: none;
+  border: none;
+}
+
+.event-title {
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.add-event-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.add-event-card {
+  background-color: lightgray;
+  border: 5px solid lightgray;
+  text-align: center;
+}
+
+.card-title {
+  border: none;
+  outline: none;
+  background-color: lightgray;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card-content {
+  background-color: white;
+  padding: 20px;
+}
+
+.card-participant-input-container {
+  border-bottom: 1px solid gray;
+}
+
+.card-participant {
+  outline: none;
+  border: none;
+}
+
+.participant-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.participant-list {
+  border-radius: 20px;
+  font-weight: bold;
+  background-color: lightgray;
+  border: none;
+  outline: none;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.label {
+}
+
+.icon-button {
+  background: none;
+}

@@ -1,20 +1,24 @@
 import React, { Component } from "react";
+import { AuthProvider } from "./contexts/AuthContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./components/Main";
+import LoginSignUp from "./components/LoginSignUp";
+import PrivateRoute from "./components/PrivateRoute";
+import ForgotPassword from "./components/ForgotPassword";
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div className="app-content">
-        <div className="logo-container">
-          <img
-            className="logo-main"
-            src={process.env.PUBLIC_URL + "/splitsy_logo_v7.png"}
-            alt="logo"
-          />
-        </div>
-        <Main />
-      </div>
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <Route path="/splitsy" component={LoginSignUp} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            <PrivateRoute exact path="/" component={Main} />
+          </Switch>
+        </AuthProvider>
+      </Router>
     );
   }
 }
