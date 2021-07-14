@@ -9,13 +9,13 @@ class AddEvent extends Component {
         <div className="add-event-card">
           <form>
             <div>
-              <input className="card-title" placeholder="Title"></input>
+              <input className="card-title" placeholder="Insert Title"></input>
             </div>
             <div className="card-content">
               <div className="card-participant-input-container">
                 <input
                   className="card-participant"
-                  placeholder="Participant"
+                  placeholder="Add Participant"
                   value={this.state.name}
                   onChange={(e) =>
                     this.setState({ name: e.target.value })
@@ -24,13 +24,13 @@ class AddEvent extends Component {
                   className="icon-button"
                   type="button"
                   onClick={this.addParticipant}>
-                  <i className="user plus icon"></i>
+                  <i className="plus icon"></i>
                 </button>
               </div>
               <div className="participant-container">
                 {this.showParticipants()}
               </div>
-              <button>Create</button>
+              <button className="login-button">Create Event</button>
             </div>
           </form>
         </div>

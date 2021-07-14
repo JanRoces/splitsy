@@ -8,14 +8,13 @@ export default function LoginSignUp() {
   return (
     <div>
       <div className="logo-container">
-        <img className="logo" alt="logo" src={logo}></img>
+        <div>
+          <img className="logo" src={logo}></img>
+        </div>
         <h3 className="title">Event Finance Organization</h3>
       </div>
       <div className="login-signup-container">
         <Login />
-        <div className="or-container">
-          <div className="or">OR</div>
-        </div>
         <SignUp />
       </div>
     </div>

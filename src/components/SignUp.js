@@ -26,7 +26,7 @@ export default function SignUp() {
         <input
           required
           className="login-input"
-          placeholder="Password (Atleast 6 Characters)"
+          placeholder="Password *Atleast 6 Characters"
           type="password"
           minLength="6"
           ref={pwRef}></input>
