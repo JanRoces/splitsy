@@ -1,6 +1,6 @@
 /*LOGO STYLE
   /*------------------------------------*/
-.logo-container {
+.container-logo {
   justify-content: center;
   text-align: center;
 }
@@ -16,7 +16,7 @@
 
 /*LOGIN STYLE
   /*------------------------------------*/
-.login-signup-container {
+.container-login-signup- {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0px 20px;
@@ -24,7 +24,7 @@
   margin-top: 20px;
 }
 
-.login-container {
+.container-login {
   justify-self: end;
   display: grid;
   padding: 20px;
@@ -33,7 +33,7 @@
   width: 300px;
 }
 
-.signup-container {
+.container-login {
   display: grid;
   padding: 20px;
   align-items: center;
@@ -41,7 +41,7 @@
   width: 300px;
 }
 
-.login-input {
+.input-login {
   margin: 10px;
   outline: none;
   border: none;
@@ -49,7 +49,7 @@
   width: 220px;
 }
 
-.login-button {
+.button-login {
   height: 30px;
   border-radius: 20px;
   color: white;
@@ -61,7 +61,7 @@
   width: 100px;
 }
 
-.login-button:hover {
+.button-login:hover {
   height: 30px;
   border-radius: 20px;
   color: white;
@@ -73,7 +73,7 @@
   width: 100px;
 }
 
-.signup-button {
+.button-signup {
   height: 30px;
   border-radius: 20px;
   color: white;
@@ -85,7 +85,7 @@
   width: 100px;
 }
 
-.signup-button:hover {
+.signup-signup:hover {
   height: 30px;
   border-radius: 20px;
   color: #455486;
@@ -97,7 +97,7 @@
   width: 100px;
 }
 
-.form-container {
+.container-form {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -117,18 +117,3 @@
   width: 220px;
   padding: 5px;
 }
-
-.or-container {
-  display: flex;
-  align-items: center;
-}
-
-.or {
-  color: #455486;
-  font-weight: bold;
-}
-
-/* .or-circle {
-  border-radius: 50%;
-  background-color: #ebebeb;
-} */

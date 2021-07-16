@@ -13,31 +13,31 @@ export default function SignUp() {
   const history = useHistory();
 
   return (
-    <div className="signup-container">
-      <form className="form-container" onSubmit={handleSubmit}>
+    <div className="container-signup">
+      <form className="container-form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         {showError()}
         <input
           required
-          className="login-input"
+          className="input-login"
           placeholder="Email"
           type="email"
           ref={emailRef}></input>
         <input
           required
-          className="login-input"
+          className="input-login"
           placeholder="Password *Atleast 6 Characters"
           type="password"
           minLength="6"
           ref={pwRef}></input>
         <input
           required
-          className="login-input"
+          className="input-login"
           placeholder="Confirm Password"
           type="password"
           minLength="6"
           ref={pwConRef}></input>
-        <button disabled={loading} className="signup-button">
+        <button disabled={loading} className="button-signup">
           Sign Up
         </button>
       </form>

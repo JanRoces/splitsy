@@ -6,16 +6,13 @@ class Events extends Component {
   render() {
     return (
       <div>
-        <div className="event-title">{this.renderTitle()}</div>
+        <div className="title-event">{this.renderTitle()}</div>
         <AddEvent />
       </div>
     );
   }
 
   renderTitle = () => {
-    // let msg = this.state.events === null ? "No Events" : "My Events";
-    // console.log("msg: ", msg);
-    // return msg;
     return this.state.events.length < 1 ? "You Have No Events" : "My Events:";
   };
 }

@@ -11,23 +11,23 @@ export default function Login() {
   const history = useHistory();
 
   return (
-    <div className="login-container">
-      <form className="form-container" onSubmit={handleSubmit}>
+    <div className="container-login">
+      <form className="container-form" onSubmit={handleSubmit}>
         <h2 style={{ color: "#455486" }}>Log In</h2>
         {showError()}
         <input
           required
-          className="login-input"
+          className="input-login"
           placeholder="Email"
           type="email"
           ref={emailRef}></input>
         <input
           required
-          className="login-input"
+          className="input-login"
           placeholder="Password"
           type="password"
           ref={pwRef}></input>
-        <button className="login-button">Sign In</button>
+        <button className="button-login">Sign In</button>
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
     </div>
