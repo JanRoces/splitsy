@@ -5,16 +5,9 @@
 }
 
 img {
-  max-width: 30%;
-  max-height: 30%;
+  max-width: 200px;
 }
 
-.app-content {
-  background-color: #ededed;
-  height: 100%;
-  max-width: 1080px;
-
-  margin: 0 auto;
-  width: 100%;
-  min-height: 100vh;
+.body {
+  background-color: white;
 }

@@ -1,0 +1,46 @@
+/* desktop */
+@media (min-width: 835px) {
+  .container-field {
+    width: 400px;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+
+  .container-participants {
+    width: 400px;
+    display: flex;
+    margin: auto;
+  }
+}
+
+/* mobile */
+@media (max-width: 834px) {
+  .container-field {
+    margin: 0 10px;
+    margin-bottom: 10px;
+  }
+
+  .container-participants {
+    width: 400px;
+    display: flex;
+    margin: 0 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.container-button-submit {
+  display: flex;
+  justify-content: center;
+}
+
+.container-label {
+}
+
+.container-participant-name {
+  text-align: center;
+}
+
+.label-participants {
+  font-size: 0.92857143em;
+  font-weight: 700;
+}
