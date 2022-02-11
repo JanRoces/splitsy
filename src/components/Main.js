@@ -42,13 +42,9 @@ class Main extends Component {
       case 2:
         return (
           <div>
-            <br />
             <div>
-              <h2 style={{ textAlign: "center" }}>
-                {this.state.title} Finance Organization
-              </h2>
+              <h2 className="title">{this.state.title} Finance Organization</h2>
             </div>
-            <br />
             <ReceiptInput
               members={this.state.participants}
               details={this.state.receiptDetails}
