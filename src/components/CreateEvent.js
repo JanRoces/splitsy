@@ -34,10 +34,10 @@ class CreateEvent extends Component {
   onFormComplete = (e) => {
     const { onSubmit } = this.props;
 
-    if (this.state.title === "" || this.state.participants.length > 2) {
-      this.setState({ error: true });
-    } else {
+    if (this.state.title !== "" && this.state.participants.length >= 2) {
       onSubmit(this.state);
+    } else {
+      this.setState({ error: true });
     }
   };
 
