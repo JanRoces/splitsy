@@ -33,13 +33,13 @@
   justify-content: center;
 }
 
-.container-label {
-}
-
 .container-participant-name {
   text-align: center;
 }
 
+.container-label-participants {
+  margin-bottom: 5px;
+}
 .label-participants {
   font-size: 0.92857143em;
   font-weight: 700;

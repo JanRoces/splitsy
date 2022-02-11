@@ -1,8 +1,27 @@
 import React, { Component } from "react";
 import "../styles/CreateEvent.css";
 
+const BUTTON_COLORS = [
+  "red",
+  "orange",
+  "yellow",
+  "olive",
+  "green",
+  "teal",
+  "blue",
+  "violet",
+  "purple",
+  "pink",
+  "brown",
+];
+
 class CreateEvent extends Component {
-  state = { title: "", name: "", participants: [] };
+  state = {
+    title: "",
+    name: "",
+    participants: [],
+    error: false,
+  };
 
   setTitle = (e) => {
     this.setState({ title: e.target.value });
@@ -14,14 +33,15 @@ class CreateEvent extends Component {
 
   onFormComplete = (e) => {
     const { onSubmit } = this.props;
-    if (this.state.title !== "" && this.state.participants !== []) {
-      e.preventDefault();
+
+    if (this.state.title === "" || this.state.participants.length > 2) {
+      this.setState({ error: true });
+    } else {
       onSubmit(this.state);
     }
   };
 
   addParticipant = (e) => {
-    console.log("Participant Name: ", this.state.name);
     if (this.state.name !== "") {
       this.setState({
         participants: [...this.state.participants, this.state.name],
@@ -31,7 +51,6 @@ class CreateEvent extends Component {
   };
 
   removeParticipant = (name) => {
-    console.log(name);
     var p = this.state.participants;
     var len = p.length;
     var i;
@@ -51,25 +70,28 @@ class CreateEvent extends Component {
     var len = p.length;
     var list = [];
     var i;
-    var num;
-    var name;
+    var j = 0;
 
     for (i = 0; i < len; i++) {
-      name = p[i];
-      num = Math.floor(1000 + Math.random() * 9000);
+      j = j > 10 ? 0 : j;
+
+      const name = p[i];
+      const id = Math.floor(1000 + Math.random() * 9000);
+
       list.push(
-        <div className="ui blue basic label" key={num}>
+        <div className={`ui ${BUTTON_COLORS[j]} basic label`} key={id}>
           {p[i]}{" "}
           <i
             className="delete icon"
             onClick={this.removeParticipant.bind(this, name)}></i>
         </div>
       );
+      j++;
     }
 
     return (
       <div>
-        <div className="container-label">
+        <div className="container-label-participants">
           <label className="label-participants">Participants:</label>
         </div>
         <div className="ui large labels">{list}</div>
@@ -77,12 +99,26 @@ class CreateEvent extends Component {
     );
   };
 
+  renderParticipants = () => {
+    return (
+      <div className="container-participants">
+        {this.state.participants.length ? this.showParticipants() : ""}
+      </div>
+    );
+  };
+
   render() {
     return (
       <div>
-        <form className="ui form" onSubmit={this.onFormComplete}>
+        <form
+          className={`ui form ${this.state.error ? "error" : ""}`}
+          onSubmit={this.onFormComplete}>
           <div>
             <div className="container-field">
+              <div className="ui error message">
+                <div className="header">Error</div>
+                <p>Need a title and at least 2 participants</p>
+              </div>
               <div className="field">
                 <label>Event Name</label>
                 <input
@@ -111,15 +147,13 @@ class CreateEvent extends Component {
               </div>
             </div>
           </div>
-          <div>
-            <div className="container-participants">
-              {this.state.participants.length ? this.showParticipants() : ""}
-            </div>
-            <div className="container-button-submit">
-              <button className="ui primary button">Create</button>
-            </div>
-          </div>
+          {this.renderParticipants()}
         </form>
+        <div className="container-button-submit">
+          <button className="ui primary button" onClick={this.onFormComplete}>
+            Create
+          </button>
+        </div>
       </div>
     );
   }
