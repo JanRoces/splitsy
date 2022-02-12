@@ -9,7 +9,8 @@ class ReceiptInput extends Component {
       id: 0,
       name: "",
       amount: 0,
-      payer: "",
+      // paidBy: "",
+      paidBy: this.props.participants[0],
       evenSplit: 0,
       custom: [],
     },
@@ -23,95 +24,147 @@ class ReceiptInput extends Component {
     currID: 0,
   };
 
+  setName = (name) => {
+    var d = this.state.details;
+    d.name = name;
+    this.setState({ details: d });
+  };
+
+  setAmount = (amount) => {
+    var d = this.state.details;
+    d.amount = amount;
+    this.setState({ details: d, runningAmount: amount });
+  };
+
+  setPaidBy = (event) => {
+    console.log("event.target.value :>> ", event.target.value);
+    var d = this.state.details;
+    var p = this.props.participants;
+    d.paidBy = "jan";
+    this.setState({ details: d });
+    console.log("details :>> ", this.state.details);
+  };
+
+  calculateReceiptTotal = () => {};
+  renderPaidByDropdown = () => {
+    var participants = this.props.participants;
+    var options = [];
+    var len = participants.length;
+    var i;
+
+    for (i = 0; i < len; i++) {
+      const name = participants[i];
+      const id = Math.floor(1000 + Math.random() * 9000);
+
+      options.push(
+        <option value={i} key={id}>
+          {name}
+        </option>
+      );
+    }
+
+    return (
+      <select
+        className="ui dropdown"
+        value={this.state.paidBy}
+        onChange={this.setPaidBy}>
+        {options}
+      </select>
+    );
+  };
+
   render() {
     return (
       <div>
-        <div className="receipt-container">
-          <form
-            className="ui form"
-            onSubmit={this.handleOnSubmit}
-            id="mainForm">
-            <div className="receipt">
-              <div className="fields">
-                <div className="four wide field">
-                  <label>Receipt Name</label>
-                  <input
-                    id="receiptName"
-                    type="text"
-                    placeholder="Receipt Name"
-                    onChange={(e) => this.setName(e.target.value)}></input>
-                </div>
-                <div className="two wide field">
-                  <label>Amount</label>
-                  <input
-                    id="receiptAmount"
-                    type="number"
-                    placeholder="0.00"
-                    min="0.00"
-                    step="0.01"
-                    onChange={(e) => this.setAmount(e.target.value)}></input>
-                </div>
-                <div className="four wide field">
-                  <label>Paid By:</label>
-                  <select
-                    className="ui dropdown"
-                    id="receiptPayer"
-                    ref="selector"
-                    onChange={this.setPayer}>
-                    <option value="">Select</option>
-                    {this.props.members.map(this.makeOption)}
-                  </select>
-                </div>
-              </div>
-              <div className="inline fields">
-                <label>Split</label>
-                <div className="ui buttons">
-                  <button
-                    className="ui button"
-                    type="button"
-                    onClick={this.splitEven}>
-                    Even
-                  </button>
-                  <div className="or"></div>
-                  <button
-                    className="ui button"
-                    type="button"
-                    onClick={this.splitCustom}>
-                    Custom
-                  </button>
-                </div>
-              </div>
-              <div>
-                <AmountOwed
-                  dispEven={this.state.even}
-                  dispCust={this.state.custom}
-                  members={this.props.members}
-                  amt={this.state.runningAmount}
-                  onReceiptInputReturn={this.getCustomVals}
-                />
-              </div>
-              <div className="fields">
-                <button
-                  className="ui button"
-                  type="button"
-                  onClick={this.pushReceipt}>
-                  Done with Receipt
-                </button>
-                <button
-                  className="ui button"
-                  type="reset"
-                  onClick={this.resetForm}>
-                  Clear
-                </button>
-              </div>
-              <br />
+        <form className="ui form">
+          <div className="container-field">
+            <div className="field">
+              <label>Receipt Name</label>
+              <input
+                id="receiptName"
+                type="text"
+                placeholder="Receipt Name"
+                onChange={(e) => this.setName(e.target.value)}></input>
             </div>
-            <br />
-            <div className="inline fields">
-              <button className="ui primary button">Submit</button>
+          </div>
+          <div className="container-fields">
+            <div className="field field-left">
+              <label>Amount</label>
+              <input
+                id="receiptAmount"
+                type="number"
+                placeholder="0.00"
+                min="0.00"
+                step="0.01"
+                onChange={(e) => this.setAmount(e.target.value)}></input>
             </div>
-          </form>
-        </div>
+            <div className="field field-right">
+              <label>Paid By</label>
+              {this.renderPaidByDropdown()}
+            </div>
+          </div>
+          <div className="container-fields">
+            <div className="field field-left">
+              <label>Tip</label>
+              <input
+                id="receiptTip"
+                type="number"
+                placeholder="0.00"
+                min="0.00"
+                step="0.01"></input>
+            </div>
+            <div className="field field-right">
+              <label>Tax</label>
+              <input
+                id="receiptTip"
+                type="number"
+                placeholder="0.00"
+                min="0.00"
+                step="0.01"></input>
+            </div>
+          </div>
+          <div className="container-fields">
+            <div className="ui tag label">
+              <a className="ui label">{this.calculateReceiptTotal()}</a>
+            </div>
+          </div>
+          {/*
+          <div className="inline fields">
+            <label>Split</label>
+            <div className="ui buttons">
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.splitEven}>
+                Even
+              </button>
+              <div className="or"></div>
+              <button
+                className="ui button"
+                type="button"
+                onClick={this.splitCustom}>
+                Custom
+              </button>
+            </div>
+          </div>
+          <div></div>
+          <div className="fields">
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.pushReceipt}>
+              Done with Receipt
+            </button>
+            <button className="ui button" type="reset" onClick={this.resetForm}>
+              Clear
+            </button>
+          </div>
+          <br />
+          <div className="inline fields">
+            <button className="ui primary button">Submit</button>
+          </div>
+            */}
+        </form>
         <br />
         <div className="card-container">
           <div className="ui four cards">{this.showList()}</div>
@@ -127,25 +180,6 @@ class ReceiptInput extends Component {
 
   makeOption = function (x) {
     return <option key={x}>{x}</option>;
-  };
-
-  setName = (name) => {
-    var d = this.state.details;
-    d.name = name;
-    this.setState({ details: d });
-  };
-
-  setAmount = (amount) => {
-    var d = this.state.details;
-    d.amount = amount;
-    this.setState({ details: d, runningAmount: amount });
-  };
-
-  setPayer = () => {
-    var selected = ReactDOM.findDOMNode(this.refs.selector).value;
-    var d = this.state.details;
-    d.payer = selected;
-    this.setState({ details: d });
   };
 
   splitEven = () => {

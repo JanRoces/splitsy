@@ -5,10 +5,16 @@ import Breakdown from "./Breakdown";
 import "../styles/Main.css";
 
 class Main extends Component {
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
+  // };
   state = {
-    step: 1,
-    title: "",
-    participants: [],
+    step: 2,
+    title: "Test",
+    participants: ["Jan", "Jeff", "Kyle", "Jorge", "Myles"],
     receiptDetails: [],
   };
 
@@ -28,6 +34,14 @@ class Main extends Component {
     this.setState({ receiptDetails: details });
   };
 
+  nextStep = () => {
+    this.setState({ step: 2 });
+  };
+
+  backStep = () => {
+    this.setState({ step: 1 });
+  };
+
   render() {
     switch (this.state.step) {
       case 1:
@@ -37,21 +51,25 @@ class Main extends Component {
             <div>
               <CreateEvent onSubmit={this.setEventNameAndParticipants} />
             </div>
+            <div>
+              <button onClick={this.nextStep}>STEP</button>
+            </div>
           </div>
         );
       case 2:
         return (
           <div>
-            <div>
-              <h2 className="title">{this.state.title} Finance Organization</h2>
-            </div>
+            <h2 className="title">{this.state.title} Finance Organization</h2>
             <ReceiptInput
-              members={this.state.participants}
+              participants={this.state.participants}
               details={this.state.receiptDetails}
               onMainReturn={this.getDetails}
               onSubmit={this.receiptInputSubmit}
             />
             <br />
+            <div>
+              <button onClick={this.backStep}>STEP</button>
+            </div>
           </div>
         );
       case 3:
