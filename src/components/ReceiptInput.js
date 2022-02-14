@@ -15,7 +15,7 @@ class ReceiptInput extends Component {
       splitCustomAmounts: [],
     },
 
-    even: true,
+    even: false,
     custom: false,
   };
 
@@ -111,6 +111,23 @@ class ReceiptInput extends Component {
     );
   };
 
+  renderAmountOwed = () => {
+    const { even, custom } = this.state;
+    const { splitEvenAmount, splitCustomAmounts } = this.state.details;
+
+    return even || custom ? (
+      <AmountOwed
+        participants={this.props.participants}
+        splitEvenAmount={splitEvenAmount}
+        splitCustomAmounts={splitCustomAmounts}
+        evenSplit={even}
+        customSplit={custom}
+      />
+    ) : (
+      ""
+    );
+  };
+
   render() {
     return (
       <div>
@@ -165,7 +182,6 @@ class ReceiptInput extends Component {
                 onChange={this.setTax}></input>
             </div>
           </div>
-
           <div className="container-buttons">
             <div className="field">
               <label>Split</label>
@@ -185,6 +201,7 @@ class ReceiptInput extends Component {
               </div>
             </div>
           </div>
+          {this.renderAmountOwed()}
         </form>
         <br />
       </div>

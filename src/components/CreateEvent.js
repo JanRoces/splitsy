@@ -1,19 +1,6 @@
 import React, { Component } from "react";
+import { LABEL_COLORS } from "../util";
 import "../styles/CreateEvent.css";
-
-const BUTTON_COLORS = [
-  "red",
-  "orange",
-  "yellow",
-  "olive",
-  "green",
-  "teal",
-  "blue",
-  "violet",
-  "purple",
-  "pink",
-  "brown",
-];
 
 class CreateEvent extends Component {
   state = {
@@ -80,7 +67,7 @@ class CreateEvent extends Component {
       console.log("id :>> ", id);
 
       list.push(
-        <div className={`ui ${BUTTON_COLORS[j]} basic label`} key={id}>
+        <div className={`ui ${LABEL_COLORS[j]} basic label`} key={id}>
           {p[i]}{" "}
           <i
             className="delete icon"

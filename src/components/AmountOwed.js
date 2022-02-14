@@ -1,30 +1,82 @@
 import React, { Component } from "react";
+import { LABEL_COLORS } from "../util";
 import "./AmountOwed.css";
 
 class AmountOwed extends Component {
-  state = { customAmt: [] };
+  state = {
+    splitEvenAmount: this.props.splitEvenAmount,
+    splitCustomAmounts: this.props.splitCustomAmounts,
+  };
 
-  curr = [];
+  renderEvenSplitList = () => {
+    const participants = this.props.participants;
+    const splitEvenAmount = this.state.splitEvenAmount;
+    const len = participants.length;
+
+    var splitList = [];
+    var j = 0;
+    var i;
+
+    console.log("splitEvenAmount :>> ", splitEvenAmount);
+
+    for (i = 0; i < len; i++) {
+      j = j > 10 ? 0 : j;
+
+      const name = participants[i];
+      const id = name + i;
+
+      splitList.push(
+        <div className="ui left labeled input container-label-split" key={id}>
+          <div className={`ui ${LABEL_COLORS[j]} label label-split`}>
+            {name}
+          </div>
+          <input type="number" value={splitEvenAmount} readOnly></input>
+        </div>
+      );
+      j++;
+    }
+
+    return splitList;
+    // <div class="ui right labeled input">
+    //   <input type="text" placeholder="Enter weight..">
+    //   <div class="ui basic label">
+    //     kg
+    //   </div>
+    // </div>
+  };
+
+  renderCustomInputs = () => {
+    return "custom";
+  };
 
   render() {
-    if (this.props.dispEven === true) {
-      console.log("split even was clicked");
+    if (this.props.evenSplit) {
       return (
-        <div className="field">
-          <div>{this.props.members.map(this.listEven)}</div>
-        </div>
+        <div className="container-split-list">{this.renderEvenSplitList()}</div>
       );
-    } else if (this.props.dispCust === true) {
-      console.log("split custom was clicked");
-      return (
-        <div className="field">
-          <div>{this.props.members.map(this.listCustom)}</div>
-        </div>
-      );
-    } else {
-      console.log("nothing clicked");
-      return <div></div>;
     }
+
+    if (this.props.customSplit) {
+      return <div>{this.renderCustomInputs()}</div>;
+    }
+    // if (this.props.dispEven === true) {
+    //   console.log("split even was clicked");
+    //   return (
+    //     <div className="field">
+    //       <div>{this.props.members.map(this.listEven)}</div>
+    //     </div>
+    //   );
+    // } else if (this.props.dispCust === true) {
+    //   console.log("split custom was clicked");
+    //   return (
+    //     <div className="field">
+    //       <div>{this.props.members.map(this.listCustom)}</div>
+    //     </div>
+    //   );
+    // } else {
+    //   console.log("nothing clicked");
+    //   return <div></div>;
+    // }
   }
 
   listEven = (x) => {

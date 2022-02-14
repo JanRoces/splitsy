@@ -5,10 +5,17 @@ import Breakdown from "./Breakdown";
 import "../styles/Main.css";
 
 class Main extends Component {
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   receiptDetails: [],
+  // };
+
   state = {
-    step: 1,
-    title: "",
-    participants: [],
+    step: 2,
+    title: "Test",
+    participants: ["Jan", "Brenda", "Gayle"],
     receiptDetails: [],
   };
 
@@ -49,7 +56,6 @@ class Main extends Component {
             <ReceiptInput
               participants={this.state.participants}
               details={this.state.receiptDetails}
-              onMainReturn={this.getDetails}
               onSubmit={this.receiptInputSubmit}
             />
             <br />
