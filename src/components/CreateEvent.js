@@ -76,7 +76,8 @@ class CreateEvent extends Component {
       j = j > 10 ? 0 : j;
 
       const name = p[i];
-      const id = Math.floor(1000 + Math.random() * 9000);
+      const id = name + i;
+      console.log("id :>> ", id);
 
       list.push(
         <div className={`ui ${BUTTON_COLORS[j]} basic label`} key={id}>

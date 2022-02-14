@@ -5,16 +5,10 @@ import Breakdown from "./Breakdown";
 import "../styles/Main.css";
 
 class Main extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   receiptDetails: [],
-  // };
   state = {
-    step: 2,
-    title: "Test",
-    participants: ["Jan", "Jeff", "Kyle", "Jorge", "Myles"],
+    step: 1,
+    title: "",
+    participants: [],
     receiptDetails: [],
   };
 
@@ -32,14 +26,6 @@ class Main extends Component {
 
   getDetails = (details) => {
     this.setState({ receiptDetails: details });
-  };
-
-  nextStep = () => {
-    this.setState({ step: 2 });
-  };
-
-  backStep = () => {
-    this.setState({ step: 1 });
   };
 
   render() {
@@ -93,6 +79,15 @@ class Main extends Component {
         return <div>u don goof'd</div>;
     }
   }
+
+  //temp methods
+  nextStep = () => {
+    this.setState({ step: 2 });
+  };
+
+  backStep = () => {
+    this.setState({ step: 1 });
+  };
 }
 
 export default Main;
