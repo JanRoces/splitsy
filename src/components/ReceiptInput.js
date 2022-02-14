@@ -118,11 +118,13 @@ class ReceiptInput extends Component {
           <div className="container-field">
             <div className="field">
               <label>Receipt Name</label>
-              <input
-                id="receiptName"
-                type="text"
-                placeholder="Receipt Name"
-                onChange={this.setName}></input>
+              <div className="ui right labeled icon input">
+                <input
+                  type="text"
+                  placeholder="Receipt Name"
+                  onChange={this.setName}></input>
+                <a className="ui tag label">{this.calculateReceiptTotal()}</a>
+              </div>
             </div>
           </div>
           <div className="container-fields">
@@ -163,23 +165,17 @@ class ReceiptInput extends Component {
                 onChange={this.setTax}></input>
             </div>
           </div>
-          <div className="container-fields">
-            <div className="field field-left">
-              <label>Receipt Total</label>
-              <div className="ui tag label">
-                <a className="ui label">{this.calculateReceiptTotal()}</a>
-              </div>
-            </div>
-            <div className="field field-right">
+
+          <div className="container-buttons">
+            <div className="field">
               <label>Split</label>
-              <div className="ui buttons container-buttons">
+              <div className="two ui buttons">
                 <button
                   className="ui button button-even"
                   type="button"
                   onClick={this.splitEven}>
                   Even
                 </button>
-                <div className="or"></div>
                 <button
                   className="ui button button-custom"
                   type="button"

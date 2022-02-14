@@ -22,11 +22,13 @@
 .button-custom {
   color: white !important;
   background-color: #455486 !important;
+  width: 100px;
 }
 
 .button-even {
   color: white !important;
   background-color: #7489d0 !important ;
+  width: 100px;
 }
 
 .container-tag {
@@ -34,7 +36,9 @@
 }
 
 .container-buttons {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
 .field-left {
   width: 100%;
