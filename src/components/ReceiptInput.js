@@ -80,7 +80,7 @@ class ReceiptInput extends Component {
 
   splitCustom = () => {
     var d = this.state.details;
-    d.evenSplit = 0;
+    d.splitEvenAmount = 0;
     this.setState({ details: d, even: false, custom: true });
   };
 

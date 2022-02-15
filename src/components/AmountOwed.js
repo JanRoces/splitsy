@@ -12,12 +12,10 @@ class AmountOwed extends Component {
     const participants = this.props.participants;
     const splitEvenAmount = this.state.splitEvenAmount;
     const len = participants.length;
+    const splitList = [];
 
-    var splitList = [];
     var j = 0;
     var i;
-
-    console.log("splitEvenAmount :>> ", splitEvenAmount);
 
     for (i = 0; i < len; i++) {
       j = j > 10 ? 0 : j;
@@ -37,16 +35,38 @@ class AmountOwed extends Component {
     }
 
     return splitList;
-    // <div class="ui right labeled input">
-    //   <input type="text" placeholder="Enter weight..">
-    //   <div class="ui basic label">
-    //     kg
-    //   </div>
-    // </div>
   };
 
   renderCustomInputs = () => {
-    return "custom";
+    const participants = this.props.participants;
+    const len = participants.length;
+
+    var splitList = [];
+    var j = 0;
+    var i;
+
+    for (i = 0; i < len; i++) {
+      j = j > 10 ? 0 : j;
+
+      const name = participants[i];
+      const id = "custom" + name + i;
+
+      splitList.push(
+        <div className="ui left labeled input container-label-split" key={id}>
+          <div className={`ui ${LABEL_COLORS[j]} label label-split`}>
+            {name}
+          </div>
+          <input
+            type="number"
+            placeholder="$ 0.00"
+            min="0.00"
+            step="0.01"></input>
+        </div>
+      );
+      j++;
+    }
+
+    return splitList;
   };
 
   render() {
@@ -54,10 +74,12 @@ class AmountOwed extends Component {
       return (
         <div className="container-split-list">{this.renderEvenSplitList()}</div>
       );
-    }
-
-    if (this.props.customSplit) {
-      return <div>{this.renderCustomInputs()}</div>;
+    } else if (this.props.customSplit) {
+      return (
+        <div className="container-split-list">{this.renderCustomInputs()}</div>
+      );
+    } else {
+      return "";
     }
     // if (this.props.dispEven === true) {
     //   console.log("split even was clicked");
