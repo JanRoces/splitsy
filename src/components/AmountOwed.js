@@ -10,8 +10,11 @@ class AmountOwed extends Component {
 
   allocateIcon = () => {
     const allocateAmount = this.state.allocate;
+    var zeroAmount = 0;
 
-    if (allocateAmount === 0.0) {
+    zeroAmount = zeroAmount.toFixed(2);
+
+    if (allocateAmount === zeroAmount) {
       return "green check circle icon";
     } else if (allocateAmount < 0) {
       return "red exclamation circle icon";
