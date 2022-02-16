@@ -1,19 +1,34 @@
 import React, { Component } from "react";
+import { TEST_AMOUNT } from "../util";
 import AmountOwed from "./AmountOwed";
 import "./ReceiptInput.css";
 
 class ReceiptInput extends Component {
   state = {
+    // TEST DETAILS
     details: {
       id: 0,
       name: "",
-      amount: 0,
+      amount: TEST_AMOUNT.amount,
       paidBy: this.props.participants[0],
-      tip: 0,
-      tax: 0,
-      splitEvenAmount: 0,
-      splitCustomAmounts: [],
+      tip: TEST_AMOUNT.tip,
+      tax: TEST_AMOUNT.tax,
+      total: TEST_AMOUNT.total,
+      splitEvenAmount: TEST_AMOUNT.splitEven,
+      splitCustomAmounts: this.props.customAmounts,
     },
+
+    // details: {
+    //   id: 0,
+    //   name: "",
+    //   amount: 0,
+    //   paidBy: this.props.participants[0],
+    //   tip: 0,
+    //   tax: 0,
+    //   total: 0,
+    //   splitEvenAmount: 0,
+    //   splitCustomAmounts: this.props.customAmounts,
+    // },
 
     even: false,
     custom: false,
@@ -33,6 +48,8 @@ class ReceiptInput extends Component {
   setAmount = (e) => {
     var d = this.state.details;
     d.amount = e.target.value;
+    d.total = +d.amount + +d.tip + +d.tax;
+    d.total = d.total.toFixed(2);
     this.setState({ details: d });
   };
 
@@ -46,22 +63,17 @@ class ReceiptInput extends Component {
   setTip = (e) => {
     var d = this.state.details;
     d.tip = e.target.value;
+    d.total = +d.amount + +d.tip + +d.tax;
+    d.total = d.total.toFixed(2);
     this.setState({ details: d });
   };
 
   setTax = (e) => {
     var d = this.state.details;
     d.tax = e.target.value;
+    d.total = +d.amount + +d.tip + +d.tax;
+    d.total = d.total.toFixed(2);
     this.setState({ details: d });
-  };
-
-  calculateReceiptTotal = () => {
-    const { amount, tip, tax } = this.state.details;
-
-    var total = +amount + +tip + +tax;
-    total = total.toFixed(2);
-
-    return `$ ${total}`;
   };
 
   splitEven = () => {
@@ -112,8 +124,8 @@ class ReceiptInput extends Component {
   };
 
   renderAmountOwed = () => {
+    const { splitEvenAmount, splitCustomAmounts, total } = this.state.details;
     const { even, custom } = this.state;
-    const { splitEvenAmount, splitCustomAmounts } = this.state.details;
 
     return even || custom ? (
       <AmountOwed
@@ -122,6 +134,7 @@ class ReceiptInput extends Component {
         splitCustomAmounts={splitCustomAmounts}
         evenSplit={even}
         customSplit={custom}
+        total={total}
       />
     ) : (
       ""
@@ -140,7 +153,7 @@ class ReceiptInput extends Component {
                   type="text"
                   placeholder="Receipt Name"
                   onChange={this.setName}></input>
-                <a className="ui tag label">{this.calculateReceiptTotal()}</a>
+                <a className="ui tag label">$ {this.state.details.total}</a>
               </div>
             </div>
           </div>

@@ -40,9 +40,8 @@ class CreateEvent extends Component {
   removeParticipant = (name) => {
     var p = this.state.participants;
     var len = p.length;
-    var i;
 
-    for (i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       if (p[i] === name) {
         p.splice(i, 1);
         break;
@@ -56,15 +55,13 @@ class CreateEvent extends Component {
     var p = this.state.participants;
     var len = p.length;
     var list = [];
-    var i;
     var j = 0;
 
-    for (i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       j = j > 10 ? 0 : j;
 
       const name = p[i];
       const id = name + i;
-      console.log("id :>> ", id);
 
       list.push(
         <div className={`ui ${LABEL_COLORS[j]} basic label`} key={id}>

@@ -26,3 +26,11 @@ export const DEMO_NAMES = [
   "Beto",
   "Rudy",
 ];
+
+export const TEST_AMOUNT = {
+  amount: 1000,
+  tip: 260,
+  tax: 83.85,
+  total: 1343.85,
+  splitEven: 447.95,
+};

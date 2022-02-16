@@ -9,6 +9,7 @@ class Main extends Component {
   //   step: 1,
   //   title: "",
   //   participants: [],
+  //   customAmounts: [],
   //   receiptDetails: [],
   // };
 
@@ -16,13 +17,26 @@ class Main extends Component {
     step: 2,
     title: "Test",
     participants: ["Jan", "Brenda", "Gayle"],
+    customAmounts: [0, 0, 0],
     receiptDetails: [],
   };
 
   setEventNameAndParticipants = (e) => {
+    const customAmounts = [];
+    const len = e.participants.length;
     var s = this.state.step;
+
+    for (var i = 0; i < len; i++) {
+      customAmounts.push(0);
+    }
+
     s++;
-    this.setState({ step: s, title: e.title, participants: e.participants });
+    this.setState({
+      step: s,
+      title: e.title,
+      participants: e.participants,
+      customAmounts: customAmounts,
+    });
   };
 
   receiptInputSubmit = (e) => {
@@ -55,6 +69,7 @@ class Main extends Component {
             <h2 className="title">{this.state.title} Finance Organization</h2>
             <ReceiptInput
               participants={this.state.participants}
+              customAmounts={this.state.customAmounts}
               details={this.state.receiptDetails}
               onSubmit={this.receiptInputSubmit}
             />

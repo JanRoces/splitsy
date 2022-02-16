@@ -4,13 +4,44 @@ import "./AmountOwed.css";
 
 class AmountOwed extends Component {
   state = {
-    splitEvenAmount: this.props.splitEvenAmount,
-    splitCustomAmounts: this.props.splitCustomAmounts,
+    allocate: this.props.total,
+    customAmounts: this.props.splitCustomAmounts,
+  };
+
+  allocateIcon = () => {
+    const allocateAmount = this.state.allocate;
+
+    if (allocateAmount === 0.0) {
+      return "green check circle icon";
+    } else if (allocateAmount < 0) {
+      return "red exclamation circle icon";
+    } else {
+      return "";
+    }
+  };
+
+  setCustomSplitValue = (e) => {
+    const total = this.props.total;
+    var { allocate, customAmounts } = this.state;
+    var len = customAmounts.length;
+    var id = e.target.id;
+    var customAmountsSum = 0;
+
+    id = id.split("-")[1];
+    customAmounts[id] = e.target.value;
+
+    for (var i = 0; i < len; i++) {
+      customAmountsSum += +customAmounts[i];
+    }
+
+    allocate = +total - +customAmountsSum;
+    allocate = allocate.toFixed(2);
+
+    this.setState({ allocate: allocate, customAmounts: customAmounts });
   };
 
   renderEvenSplitList = () => {
-    const participants = this.props.participants;
-    const splitEvenAmount = this.state.splitEvenAmount;
+    const { participants, splitEvenAmount } = this.props;
     const len = participants.length;
     const splitList = [];
 
@@ -49,7 +80,7 @@ class AmountOwed extends Component {
       j = j > 10 ? 0 : j;
 
       const name = participants[i];
-      const id = "custom" + name + i;
+      const id = name + "-" + i;
 
       splitList.push(
         <div className="ui left labeled input container-label-split" key={id}>
@@ -57,16 +88,34 @@ class AmountOwed extends Component {
             {name}
           </div>
           <input
+            id={id}
             type="number"
             placeholder="$ 0.00"
             min="0.00"
-            step="0.01"></input>
+            step="0.01"
+            onChange={this.setCustomSplitValue}></input>
         </div>
       );
       j++;
     }
 
-    return splitList;
+    return (
+      <div>
+        <div className="inline field field-allocate">
+          <div className="ui right pointing label">Amount to Allocate</div>
+          <div className="ui icon input">
+            <input
+              className="input-allocate"
+              value={`$ ${this.state.allocate}`}
+              readOnly></input>
+            <i className={this.allocateIcon()}></i>
+          </div>
+        </div>
+        <div className="container-split-list">
+          <div className="field field-center">{splitList}</div>
+        </div>
+      </div>
+    );
   };
 
   render() {
@@ -75,103 +124,11 @@ class AmountOwed extends Component {
         <div className="container-split-list">{this.renderEvenSplitList()}</div>
       );
     } else if (this.props.customSplit) {
-      return (
-        <div className="container-split-list">{this.renderCustomInputs()}</div>
-      );
+      return <div>{this.renderCustomInputs()}</div>;
     } else {
       return "";
     }
-    // if (this.props.dispEven === true) {
-    //   console.log("split even was clicked");
-    //   return (
-    //     <div className="field">
-    //       <div>{this.props.members.map(this.listEven)}</div>
-    //     </div>
-    //   );
-    // } else if (this.props.dispCust === true) {
-    //   console.log("split custom was clicked");
-    //   return (
-    //     <div className="field">
-    //       <div>{this.props.members.map(this.listCustom)}</div>
-    //     </div>
-    //   );
-    // } else {
-    //   console.log("nothing clicked");
-    //   return <div></div>;
-    // }
   }
-
-  listEven = (x) => {
-    var n = this.props.amt;
-    var m = n / this.props.members.length;
-    var num = m.toFixed(2);
-
-    return (
-      <div className="inline fields" key={x}>
-        <label className="split-list">{x}</label>
-        <div>
-          <input value={num} type="number" readOnly></input>
-        </div>
-      </div>
-    );
-  };
-
-  listCustom = (x) => {
-    return (
-      <div className="inline fields" key={x}>
-        <label className="split-list">{x}</label>
-        <div>
-          <input
-            id="receiptCustom"
-            key={x}
-            className="amount-form"
-            type="number"
-            placeholder="0.00"
-            step="0.01"
-            onChange={(e) => this.setVals(e.target.value, x)}></input>
-        </div>
-      </div>
-    );
-  };
-
-  setVals = (x, k) => {
-    var amountObj = {
-      key: "",
-      amt: 0,
-    };
-
-    var match = false;
-    var len = this.curr.length;
-    var i = 0;
-    var xfloat = parseFloat(x);
-    console.log("xfloat: ", xfloat);
-
-    amountObj.key = k;
-    amountObj.amt = xfloat;
-
-    if (len === 0) {
-      this.curr.push(amountObj);
-    } else {
-      while (i !== len) {
-        if (this.curr[i].key === k) {
-          match = true;
-          this.curr[i].amt = xfloat;
-          break;
-        } else {
-          i++;
-        }
-      }
-      if (match === false) {
-        this.curr.push(amountObj);
-      }
-    }
-
-    this.setState({
-      customAmt: this.state.customAmt.splice(0, len, ...this.curr),
-    });
-    console.log("state.customAmt: ", this.state.customAmt);
-    this.props.onReceiptInputReturn(this.state.customAmt);
-  };
 }
 
 export default AmountOwed;
