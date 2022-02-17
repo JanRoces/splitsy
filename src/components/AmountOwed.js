@@ -4,12 +4,11 @@ import "./AmountOwed.css";
 
 class AmountOwed extends Component {
   state = {
-    allocate: this.props.total,
     customAmounts: this.props.splitCustomAmounts,
   };
 
   allocateIcon = () => {
-    const allocateAmount = this.state.allocate;
+    const allocateAmount = this.calculateAllocation();
     var zeroAmount = 0;
 
     zeroAmount = zeroAmount.toFixed(2);
@@ -23,24 +22,32 @@ class AmountOwed extends Component {
     }
   };
 
-  setCustomSplitValue = (e) => {
-    const total = this.props.total;
-    var { allocate, customAmounts } = this.state;
-    var len = customAmounts.length;
-    var id = e.target.id;
-    var customAmountsSum = 0;
+  calculateAllocation = () => {
+    const { customAmounts } = this.state;
+    const { total } = this.props;
+    const len = customAmounts.length;
 
-    id = id.split("-")[1];
-    customAmounts[id] = e.target.value;
+    var customAmountsSum = 0;
+    var allocateAmount = 0;
 
     for (var i = 0; i < len; i++) {
       customAmountsSum += +customAmounts[i];
     }
 
-    allocate = +total - +customAmountsSum;
-    allocate = allocate.toFixed(2);
+    allocateAmount = +total - +customAmountsSum;
+    allocateAmount = allocateAmount.toFixed(2);
 
-    this.setState({ allocate: allocate, customAmounts: customAmounts });
+    return allocateAmount;
+  };
+
+  setCustomSplitValue = (e) => {
+    var { customAmounts } = this.state;
+    var id = e.target.id;
+
+    id = id.split("-")[1];
+    customAmounts[id] = e.target.value;
+
+    this.setState({ customAmounts: customAmounts });
   };
 
   renderEvenSplitList = () => {
@@ -109,7 +116,7 @@ class AmountOwed extends Component {
           <div className="ui icon input">
             <input
               className="input-allocate"
-              value={`$ ${this.state.allocate}`}
+              value={`$ ${this.calculateAllocation()}`}
               readOnly></input>
             <i className={this.allocateIcon()}></i>
           </div>
