@@ -6,29 +6,29 @@ import "./ReceiptInput.css";
 class ReceiptInput extends Component {
   state = {
     // TEST DETAILS
-    details: {
-      id: 0,
-      name: "",
-      amount: TEST_AMOUNT.amount,
-      paidBy: this.props.participants[0],
-      tip: TEST_AMOUNT.tip,
-      tax: TEST_AMOUNT.tax,
-      total: TEST_AMOUNT.total,
-      splitEvenAmount: TEST_AMOUNT.splitEven,
-      splitCustomAmounts: this.props.customAmounts,
-    },
-
     // details: {
     //   id: 0,
     //   name: "",
-    //   amount: 0,
+    //   amount: TEST_AMOUNT.amount,
     //   paidBy: this.props.participants[0],
-    //   tip: 0,
-    //   tax: 0,
-    //   total: 0,
-    //   splitEvenAmount: 0,
+    //   tip: TEST_AMOUNT.tip,
+    //   tax: TEST_AMOUNT.tax,
+    //   total: TEST_AMOUNT.total,
+    //   splitEvenAmount: TEST_AMOUNT.splitEven,
     //   splitCustomAmounts: this.props.customAmounts,
     // },
+
+    details: {
+      id: 0,
+      name: "",
+      amount: 0,
+      paidBy: this.props.participants[0],
+      tip: 0,
+      tax: 0,
+      total: 0,
+      splitEvenAmount: 0,
+      splitCustomAmounts: this.props.customAmounts,
+    },
 
     even: false,
     custom: false,
@@ -46,10 +46,13 @@ class ReceiptInput extends Component {
   };
 
   setAmount = (e) => {
+    const numberOfParticipants = this.props.participants.length;
     var d = this.state.details;
     d.amount = e.target.value;
     d.total = +d.amount + +d.tip + +d.tax;
     d.total = d.total.toFixed(2);
+    d.splitEvenAmount = d.total / numberOfParticipants;
+    d.splitEvenAmount = d.splitEvenAmount.toFixed(2);
     this.setState({ details: d });
   };
 
@@ -61,39 +64,33 @@ class ReceiptInput extends Component {
   };
 
   setTip = (e) => {
+    const numberOfParticipants = this.props.participants.length;
     var d = this.state.details;
     d.tip = e.target.value;
     d.total = +d.amount + +d.tip + +d.tax;
     d.total = d.total.toFixed(2);
+    d.splitEvenAmount = d.total / numberOfParticipants;
+    d.splitEvenAmount = d.splitEvenAmount.toFixed(2);
     this.setState({ details: d });
   };
 
   setTax = (e) => {
+    const numberOfParticipants = this.props.participants.length;
     var d = this.state.details;
     d.tax = e.target.value;
     d.total = +d.amount + +d.tip + +d.tax;
     d.total = d.total.toFixed(2);
+    d.splitEvenAmount = d.total / numberOfParticipants;
+    d.splitEvenAmount = d.splitEvenAmount.toFixed(2);
     this.setState({ details: d });
   };
 
   splitEven = () => {
-    const { amount, tip, tax } = this.state.details;
-    const total = +amount + +tip + +tax;
-    const numberOfParticipants = this.props.participants.length;
-
-    var d = this.state.details;
-    var splitEven = total / numberOfParticipants;
-
-    splitEven = splitEven.toFixed(2);
-    d.splitEvenAmount = splitEven;
-
-    this.setState({ details: d, even: true, custom: false });
+    this.setState({ even: true, custom: false });
   };
 
   splitCustom = () => {
-    var d = this.state.details;
-    d.splitEvenAmount = 0;
-    this.setState({ details: d, even: false, custom: true });
+    this.setState({ even: false, custom: true });
   };
 
   renderPaidByDropdown = () => {
