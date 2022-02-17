@@ -79,6 +79,7 @@ class AmountOwed extends Component {
   };
 
   renderCustomInputs = () => {
+    const { customAmounts } = this.state;
     const participants = this.props.participants;
     const len = participants.length;
 
@@ -101,6 +102,7 @@ class AmountOwed extends Component {
             id={id}
             type="number"
             placeholder="$ 0.00"
+            value={customAmounts[i]}
             min="0.00"
             step="0.01"
             onChange={this.setCustomSplitValue}></input>

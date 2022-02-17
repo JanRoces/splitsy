@@ -17,7 +17,7 @@ class Main extends Component {
     step: 2,
     title: "Test",
     participants: ["Jan", "Brenda", "Gayle"],
-    customAmounts: [0, 0, 0],
+    customAmounts: ["", "", ""],
     receiptDetails: [],
   };
 
