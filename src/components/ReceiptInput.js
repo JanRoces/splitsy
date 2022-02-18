@@ -126,11 +126,11 @@ class ReceiptInput extends Component {
 
     return even || custom ? (
       <AmountOwed
+        evenSplit={even}
+        customSplit={custom}
         participants={this.props.participants}
         splitEvenAmount={splitEvenAmount}
         splitCustomAmounts={splitCustomAmounts}
-        evenSplit={even}
-        customSplit={custom}
         total={total}
       />
     ) : (

@@ -9,11 +9,10 @@ class AmountOwed extends Component {
 
   allocateIcon = () => {
     const allocateAmount = this.calculateAllocation();
-    var zeroAmount = 0;
+    const zeroAmount = 0;
+    const zeroFixed = zeroAmount.toFixed(2);
 
-    zeroAmount = zeroAmount.toFixed(2);
-
-    if (allocateAmount === zeroAmount) {
+    if (allocateAmount === zeroFixed) {
       return "green check circle icon";
     } else if (allocateAmount < 0) {
       return "red exclamation circle icon";
@@ -75,7 +74,7 @@ class AmountOwed extends Component {
       j++;
     }
 
-    return splitList;
+    return <div className="container-split-list">{splitList}</div>;
   };
 
   renderCustomInputs = () => {
@@ -130,13 +129,37 @@ class AmountOwed extends Component {
     );
   };
 
+  renderAddReceiptButton = (splitType) => {
+    const zeroAmount = 0;
+    const zeroFixed = zeroAmount.toFixed(2);
+    const allocateAmount = this.calculateAllocation();
+    const isDisabled =
+      splitType === "even" || allocateAmount === zeroFixed ? false : true;
+
+    return (
+      <div className="container-button-add-receipt">
+        <button className="ui button" type="button" disabled={isDisabled}>
+          <i className="paperclip icon"></i>Add Receipt
+        </button>
+      </div>
+    );
+  };
+
   render() {
     if (this.props.evenSplit) {
       return (
-        <div className="container-split-list">{this.renderEvenSplitList()}</div>
+        <div>
+          {this.renderEvenSplitList()}
+          {this.renderAddReceiptButton("even")}
+        </div>
       );
     } else if (this.props.customSplit) {
-      return <div>{this.renderCustomInputs()}</div>;
+      return (
+        <div>
+          {this.renderCustomInputs()}
+          {this.renderAddReceiptButton("custom")}
+        </div>
+      );
     } else {
       return "";
     }

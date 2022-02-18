@@ -1,3 +1,8 @@
+.container-button-add-receipt {
+  text-align: center;
+  margin-top: 10px;
+}
+
 .container-split-list {
   display: flex;
   flex-direction: column;
