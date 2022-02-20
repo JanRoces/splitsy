@@ -7,12 +7,23 @@ class AmountOwed extends Component {
     customAmounts: this.props.splitCustomAmounts,
   };
 
+  addReceipt = () => {
+    this.props.onAddReceipt();
+  };
+
   allocateIcon = () => {
     const allocateAmount = this.calculateAllocation();
     const zeroAmount = 0;
     const zeroFixed = zeroAmount.toFixed(2);
+    const { customAmounts } = this.state;
+    const len = customAmounts.length;
+    var customAmountsSum = 0;
 
-    if (allocateAmount === zeroFixed) {
+    for (var i = 0; i < len; i++) {
+      customAmountsSum += +customAmounts[i];
+    }
+
+    if (allocateAmount === zeroFixed && customAmountsSum !== 0) {
       return "green check circle icon";
     } else if (allocateAmount < 0) {
       return "red exclamation circle icon";
@@ -130,15 +141,24 @@ class AmountOwed extends Component {
   };
 
   renderAddReceiptButton = (splitType) => {
+    const { splitEvenAmount } = this.props;
     const zeroAmount = 0;
     const zeroFixed = zeroAmount.toFixed(2);
     const allocateAmount = this.calculateAllocation();
     const isDisabled =
-      splitType === "even" || allocateAmount === zeroFixed ? false : true;
+      (splitType === "even" || allocateAmount === zeroFixed) &&
+      splitEvenAmount !== 0 &&
+      splitEvenAmount !== zeroFixed
+        ? false
+        : true;
 
     return (
       <div className="container-button-add-receipt">
-        <button className="ui button" type="button" disabled={isDisabled}>
+        <button
+          className="ui button"
+          type="button"
+          disabled={isDisabled}
+          onClick={this.addReceipt}>
           <i className="paperclip icon"></i>Add Receipt
         </button>
       </div>

@@ -26,12 +26,29 @@ class ReceiptInput extends Component {
       tip: 0,
       tax: 0,
       total: 0,
+      splitEven: false,
       splitEvenAmount: 0,
       splitCustomAmounts: this.props.customAmounts,
     },
 
     even: false,
     custom: false,
+
+    receipts: [],
+    // receipts: [
+    //   {
+    //     id: 123,
+    //     name: "Car Rental",
+    //     amount: 100,
+    //     paidBy: this.props.participants[0],
+    //     tip: 20,
+    //     tax: 3,
+    //     total: 123,
+    //     splitEven: true,
+    //     splitEvenAmount: 41,
+    //     splitCustomAmounts: this.props.customAmounts,
+    //   },
+    // ],
   };
 
   onFormComplete = (e) => {
@@ -39,10 +56,34 @@ class ReceiptInput extends Component {
     onSubmit(this.state);
   };
 
-  setName = (e) => {
-    var d = this.state.details;
-    d.name = e.target.value;
-    this.setState({ details: d });
+  pushReceipt = () => {
+    const { receipts, details } = this.state;
+    const customAmounts = details.splitCustomAmounts.slice();
+
+    details.splitCustomAmounts = customAmounts;
+    receipts.push(details);
+    this.receiptForm.reset();
+    this.resetDetails();
+  };
+
+  resetDetails = () => {
+    const { customAmounts } = this.props;
+    customAmounts.fill("");
+
+    const blankDetails = {
+      id: 0,
+      name: "",
+      amount: 0,
+      paidBy: this.props.participants[0],
+      tip: 0,
+      tax: 0,
+      total: 0,
+      splitEven: false,
+      splitEvenAmount: 0,
+      splitCustomAmounts: customAmounts,
+    };
+
+    this.setState({ details: blankDetails, even: false, custom: false });
   };
 
   setAmount = (e) => {
@@ -56,22 +97,17 @@ class ReceiptInput extends Component {
     this.setState({ details: d });
   };
 
+  setName = (e) => {
+    var d = this.state.details;
+    d.name = e.target.value;
+    this.setState({ details: d });
+  };
+
   setPaidBy = (e) => {
     var d = this.state.details;
     var name = e.target.value;
     d.paidBy = name;
     this.setState({ paidBy: name, details: d });
-  };
-
-  setTip = (e) => {
-    const numberOfParticipants = this.props.participants.length;
-    var d = this.state.details;
-    d.tip = e.target.value;
-    d.total = +d.amount + +d.tip + +d.tax;
-    d.total = d.total.toFixed(2);
-    d.splitEvenAmount = d.total / numberOfParticipants;
-    d.splitEvenAmount = d.splitEvenAmount.toFixed(2);
-    this.setState({ details: d });
   };
 
   setTax = (e) => {
@@ -85,12 +121,46 @@ class ReceiptInput extends Component {
     this.setState({ details: d });
   };
 
-  splitEven = () => {
-    this.setState({ even: true, custom: false });
+  setTip = (e) => {
+    const numberOfParticipants = this.props.participants.length;
+    var d = this.state.details;
+    d.tip = e.target.value;
+    d.total = +d.amount + +d.tip + +d.tax;
+    d.total = d.total.toFixed(2);
+    d.splitEvenAmount = d.total / numberOfParticipants;
+    d.splitEvenAmount = d.splitEvenAmount.toFixed(2);
+    this.setState({ details: d });
   };
 
   splitCustom = () => {
-    this.setState({ even: false, custom: true });
+    var d = this.state.details;
+    d.splitEven = false;
+    this.setState({ details: d, even: false, custom: true });
+  };
+
+  splitEven = () => {
+    var d = this.state.details;
+    d.splitEven = true;
+    this.setState({ details: d, even: true, custom: false });
+  };
+
+  renderAmountOwed = () => {
+    const { splitEvenAmount, splitCustomAmounts, total } = this.state.details;
+    const { even, custom } = this.state;
+
+    return even || custom ? (
+      <AmountOwed
+        evenSplit={even}
+        customSplit={custom}
+        participants={this.props.participants}
+        splitEvenAmount={splitEvenAmount}
+        splitCustomAmounts={splitCustomAmounts}
+        total={total}
+        onAddReceipt={this.pushReceipt}
+      />
+    ) : (
+      ""
+    );
   };
 
   renderPaidByDropdown = () => {
@@ -120,28 +190,13 @@ class ReceiptInput extends Component {
     );
   };
 
-  renderAmountOwed = () => {
-    const { splitEvenAmount, splitCustomAmounts, total } = this.state.details;
-    const { even, custom } = this.state;
-
-    return even || custom ? (
-      <AmountOwed
-        evenSplit={even}
-        customSplit={custom}
-        participants={this.props.participants}
-        splitEvenAmount={splitEvenAmount}
-        splitCustomAmounts={splitCustomAmounts}
-        total={total}
-      />
-    ) : (
-      ""
-    );
-  };
-
   render() {
     return (
       <div>
-        <form className="ui form" onSubmit={this.onFormComplete}>
+        <form
+          className="ui form"
+          ref={(ref) => (this.receiptForm = ref)}
+          onSubmit={this.onFormComplete}>
           <div className="container-field">
             <div className="field">
               <label>Receipt Name</label>
