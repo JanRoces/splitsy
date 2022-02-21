@@ -1,0 +1,34 @@
+/* desktop */
+@media (min-width: 835px) {
+  .container-list {
+    width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* mobile */
+@media (max-width: 834px) {
+  .container-list {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.divider-receipts {
+  margin: 10px 10px;
+}
+
+.header-title {
+  color: #455486 !important;
+}
+
+.icon-receipts {
+  color: #455486;
+}
+
+.list-item {
+  margin-bottom: 5px;
+}

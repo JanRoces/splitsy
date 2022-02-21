@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TEST_AMOUNT } from "../util";
 import AmountOwed from "./AmountOwed";
+import ReceiptList from "./ReceiptList";
 import "./ReceiptInput.css";
 
 class ReceiptInput extends Component {
@@ -37,7 +38,7 @@ class ReceiptInput extends Component {
     receipts: [],
     // receipts: [
     //   {
-    //     id: 123,
+    //     id: 1,
     //     name: "Car Rental",
     //     amount: 100,
     //     paidBy: this.props.participants[0],
@@ -46,7 +47,19 @@ class ReceiptInput extends Component {
     //     total: 123,
     //     splitEven: true,
     //     splitEvenAmount: 41,
-    //     splitCustomAmounts: this.props.customAmounts,
+    //     splitCustomAmounts: ["", "", ""],
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Air Bnb",
+    //     amount: 250,
+    //     paidBy: this.props.participants[1],
+    //     tip: 0,
+    //     tax: 8.5,
+    //     total: 258.5,
+    //     splitEven: false,
+    //     splitEvenAmount: 86.7,
+    //     splitCustomAmounts: [100, 75, 83.5],
     //   },
     // ],
   };
@@ -190,6 +203,11 @@ class ReceiptInput extends Component {
     );
   };
 
+  renderReceiptList = () => {
+    const hasReceipts = this.state.receipts.length;
+    return hasReceipts ? <ReceiptList receipts={this.state.receipts} /> : "";
+  };
+
   render() {
     return (
       <div>
@@ -268,7 +286,7 @@ class ReceiptInput extends Component {
           </div>
           {this.renderAmountOwed()}
         </form>
-        <br />
+        {this.renderReceiptList()}
       </div>
     );
   }
