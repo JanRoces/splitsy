@@ -8,7 +8,7 @@ class ReceiptInput extends Component {
   state = {
     // TEST DETAILS
     // details: {
-    //   id: 0,
+    //   id: "",
     //   name: "",
     //   amount: TEST_AMOUNT.amount,
     //   paidBy: this.props.participants[0],
@@ -20,48 +20,56 @@ class ReceiptInput extends Component {
     // },
 
     details: {
-      id: 0,
+      id: "",
       name: "",
-      amount: 0,
+      amount: "",
       paidBy: this.props.participants[0],
-      tip: 0,
-      tax: 0,
-      total: 0,
+      tip: "",
+      tax: "",
+      total: "",
       splitEven: false,
       splitEvenAmount: 0,
       splitCustomAmounts: this.props.customAmounts,
     },
 
+    editMode: false,
     even: false,
     custom: false,
 
-    receipts: [],
-    // receipts: [
-    //   {
-    //     id: 1,
-    //     name: "Car Rental",
-    //     amount: 100,
-    //     paidBy: this.props.participants[0],
-    //     tip: 20,
-    //     tax: 3,
-    //     total: 123,
-    //     splitEven: true,
-    //     splitEvenAmount: 41,
-    //     splitCustomAmounts: ["", "", ""],
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Air Bnb",
-    //     amount: 250,
-    //     paidBy: this.props.participants[1],
-    //     tip: 0,
-    //     tax: 8.5,
-    //     total: 258.5,
-    //     splitEven: false,
-    //     splitEvenAmount: 86.7,
-    //     splitCustomAmounts: [100, 75, 83.5],
-    //   },
-    // ],
+    // receipts: [],
+    receipts: [
+      {
+        id: "Car Rental100",
+        name: "Car Rental",
+        amount: 100,
+        paidBy: this.props.participants[1],
+        tip: 20,
+        tax: 3,
+        total: 123,
+        splitEven: true,
+        splitEvenAmount: 41,
+        splitCustomAmounts: ["", "", ""],
+      },
+      {
+        id: "Air Bnb250",
+        name: "Air Bnb",
+        amount: 250,
+        paidBy: this.props.participants[2],
+        tip: 0,
+        tax: 8.5,
+        total: 258.5,
+        splitEven: false,
+        splitEvenAmount: 86.7,
+        splitCustomAmounts: [100, 75, 83.5],
+      },
+    ],
+  };
+
+  editReceipt = (id) => {
+    const { receipts } = this.state;
+    const d = receipts.find((receipt) => receipt.id === id);
+
+    this.setState({ editMode: true, details: d });
   };
 
   onFormComplete = (e) => {
@@ -70,11 +78,18 @@ class ReceiptInput extends Component {
   };
 
   pushReceipt = () => {
-    const { receipts, details } = this.state;
+    const { receipts, details, editMode } = this.state;
     const customAmounts = details.splitCustomAmounts.slice();
 
-    details.splitCustomAmounts = customAmounts;
-    receipts.push(details);
+    if (editMode) {
+      const index = receipts.findIndex((receipt) => receipt.id === details.id);
+      receipts[index] = details;
+    } else {
+      details.id = details.name + details.amount;
+      details.splitCustomAmounts = customAmounts;
+      receipts.push(details);
+    }
+
     this.receiptForm.reset();
     this.resetDetails();
   };
@@ -84,7 +99,7 @@ class ReceiptInput extends Component {
     customAmounts.fill("");
 
     const blankDetails = {
-      id: 0,
+      id: "",
       name: "",
       amount: 0,
       paidBy: this.props.participants[0],
@@ -96,7 +111,12 @@ class ReceiptInput extends Component {
       splitCustomAmounts: customAmounts,
     };
 
-    this.setState({ details: blankDetails, even: false, custom: false });
+    this.setState({
+      details: blankDetails,
+      editMode: false,
+      even: false,
+      custom: false,
+    });
   };
 
   setAmount = (e) => {
@@ -120,7 +140,7 @@ class ReceiptInput extends Component {
     var d = this.state.details;
     var name = e.target.value;
     d.paidBy = name;
-    this.setState({ paidBy: name, details: d });
+    this.setState({ details: d });
   };
 
   setTax = (e) => {
@@ -159,10 +179,11 @@ class ReceiptInput extends Component {
 
   renderAmountOwed = () => {
     const { splitEvenAmount, splitCustomAmounts, total } = this.state.details;
-    const { even, custom } = this.state;
+    const { editMode, even, custom } = this.state;
 
     return even || custom ? (
       <AmountOwed
+        editMode={editMode}
         evenSplit={even}
         customSplit={custom}
         participants={this.props.participants}
@@ -177,6 +198,8 @@ class ReceiptInput extends Component {
   };
 
   renderPaidByDropdown = () => {
+    const { details } = this.state;
+
     var participants = this.props.participants;
     var options = [];
     var len = participants.length;
@@ -187,7 +210,7 @@ class ReceiptInput extends Component {
       const id = name + i;
 
       options.push(
-        <option value={i} key={id}>
+        <option value={name} key={id}>
           {name}
         </option>
       );
@@ -196,7 +219,7 @@ class ReceiptInput extends Component {
     return (
       <select
         className="ui dropdown"
-        value={this.state.paidBy}
+        value={details.paidBy}
         onChange={this.setPaidBy}>
         {options}
       </select>
@@ -205,10 +228,19 @@ class ReceiptInput extends Component {
 
   renderReceiptList = () => {
     const hasReceipts = this.state.receipts.length;
-    return hasReceipts ? <ReceiptList receipts={this.state.receipts} /> : "";
+    return hasReceipts ? (
+      <ReceiptList
+        receipts={this.state.receipts}
+        onEditReceipt={this.editReceipt}
+      />
+    ) : (
+      ""
+    );
   };
 
   render() {
+    const { details } = this.state;
+
     return (
       <div>
         <form
@@ -222,6 +254,7 @@ class ReceiptInput extends Component {
                 <input
                   type="text"
                   placeholder="Receipt Name"
+                  value={details.name}
                   onChange={this.setName}></input>
                 <a className="ui tag label">$ {this.state.details.total}</a>
               </div>
@@ -236,6 +269,7 @@ class ReceiptInput extends Component {
                 placeholder="0.00"
                 min="0.00"
                 step="0.01"
+                value={details.amount}
                 onChange={this.setAmount}></input>
             </div>
             <div className="field field-right">
@@ -252,6 +286,7 @@ class ReceiptInput extends Component {
                 placeholder="0.00"
                 min="0.00"
                 step="0.01"
+                value={details.tip}
                 onChange={this.setTip}></input>
             </div>
             <div className="field field-right">
@@ -262,6 +297,7 @@ class ReceiptInput extends Component {
                 placeholder="0.00"
                 min="0.00"
                 step="0.01"
+                value={details.tax}
                 onChange={this.setTax}></input>
             </div>
           </div>

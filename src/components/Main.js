@@ -27,7 +27,7 @@ class Main extends Component {
     var s = this.state.step;
 
     for (var i = 0; i < len; i++) {
-      customAmounts.push(0);
+      customAmounts.push("");
     }
 
     s++;

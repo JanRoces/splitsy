@@ -141,10 +141,11 @@ class AmountOwed extends Component {
   };
 
   renderAddReceiptButton = (splitType) => {
-    const { splitEvenAmount } = this.props;
+    const { editMode, splitEvenAmount } = this.props;
     const zeroAmount = 0;
     const zeroFixed = zeroAmount.toFixed(2);
     const allocateAmount = this.calculateAllocation();
+    const buttonText = editMode ? "Update Receipt" : "Add Receipt";
     const isDisabled =
       (splitType === "even" || allocateAmount === zeroFixed) &&
       splitEvenAmount !== 0 &&
@@ -159,7 +160,8 @@ class AmountOwed extends Component {
           type="button"
           disabled={isDisabled}
           onClick={this.addReceipt}>
-          <i className="paperclip icon"></i>Add Receipt
+          <i className="paperclip icon"></i>
+          {buttonText}
         </button>
       </div>
     );
