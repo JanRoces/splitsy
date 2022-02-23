@@ -5,21 +5,21 @@ import Breakdown from "./Breakdown";
 import "../styles/Main.css";
 
 class Main extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   customAmounts: [],
-  //   receiptDetails: [],
-  // };
-
   state = {
-    step: 2,
-    title: "Test",
-    participants: ["Jan", "Brenda", "Gayle"],
-    customAmounts: ["", "", ""],
+    step: 1,
+    title: "",
+    participants: [],
+    customAmounts: [],
     receiptDetails: [],
   };
+
+  // state = {
+  //   step: 2,
+  //   title: "Test",
+  //   participants: ["Jan", "Brenda", "Gayle"],
+  //   customAmounts: ["", "", ""],
+  //   receiptDetails: [],
+  // };
 
   setEventNameAndParticipants = (e) => {
     const customAmounts = [];

@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import "./ReceiptList.css";
 
 class ReceiptList extends Component {
+  deleteReceipt = (e) => {
+    this.props.onDeleteReceipt(e.target.id);
+  };
+
   editReceipt = (e) => {
-    const id = e.target.id;
-    this.props.onEditReceipt(id);
+    this.props.onEditReceipt(e.target.id);
   };
 
   renderReceipts = () => {
@@ -18,9 +21,7 @@ class ReceiptList extends Component {
       const id = receipts[i].id;
 
       receiptList.push(
-        <div
-          className="ui left action right labeled icon input list-item"
-          key={i}>
+        <div className="ui left action right labeled input list-item" key={i}>
           <button
             className="ui icon button"
             type="button"
@@ -30,6 +31,13 @@ class ReceiptList extends Component {
           </button>
           <input type="text" value={name} readOnly></input>
           <a className="ui tag label">$ {total}</a>
+          <button
+            className="ui icon button button-delete"
+            type="button"
+            id={id}
+            onClick={this.deleteReceipt}>
+            <i className="trash alternate outline icon" id={id}></i>
+          </button>
         </div>
       );
     }

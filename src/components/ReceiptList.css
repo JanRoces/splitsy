@@ -17,6 +17,10 @@
   }
 }
 
+.button-delete {
+  margin-left: 5px !important;
+}
+
 .divider-receipts {
   margin: 10px 10px;
 }

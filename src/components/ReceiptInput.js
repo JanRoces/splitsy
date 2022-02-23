@@ -36,33 +36,45 @@ class ReceiptInput extends Component {
     even: false,
     custom: false,
 
-    // receipts: [],
-    receipts: [
-      {
-        id: "Car Rental100",
-        name: "Car Rental",
-        amount: 100,
-        paidBy: this.props.participants[1],
-        tip: 20,
-        tax: 3,
-        total: 123,
-        splitEven: true,
-        splitEvenAmount: 41,
-        splitCustomAmounts: ["", "", ""],
-      },
-      {
-        id: "Air Bnb250",
-        name: "Air Bnb",
-        amount: 250,
-        paidBy: this.props.participants[2],
-        tip: 0,
-        tax: 8.5,
-        total: 258.5,
-        splitEven: false,
-        splitEvenAmount: 86.7,
-        splitCustomAmounts: [100, 75, 83.5],
-      },
-    ],
+    receipts: [],
+    // receipts: [
+    //   {
+    //     id: "Car Rental100",
+    //     name: "Car Rental",
+    //     amount: 100,
+    //     paidBy: this.props.participants[1],
+    //     tip: 20,
+    //     tax: 3,
+    //     total: 123,
+    //     splitEven: true,
+    //     splitEvenAmount: 41,
+    //     splitCustomAmounts: ["", "", ""],
+    //   },
+    //   {
+    //     id: "Air Bnb250",
+    //     name: "Air Bnb",
+    //     amount: 250,
+    //     paidBy: this.props.participants[2],
+    //     tip: 0,
+    //     tax: 8.5,
+    //     total: 258.5,
+    //     splitEven: false,
+    //     splitEvenAmount: 86.7,
+    //     splitCustomAmounts: [100, 75, 83.5],
+    //   },
+    // ],
+  };
+
+  deleteReceipt = (id) => {
+    const { details, receipts } = this.state;
+    const index = receipts.findIndex((receipt) => receipt.id === id);
+
+    if (id === details.id) {
+      this.setState({ editMode: false });
+    }
+
+    receipts.splice(index, 1);
+    this.setState({ receipts: receipts });
   };
 
   editReceipt = (id) => {
@@ -101,11 +113,11 @@ class ReceiptInput extends Component {
     const blankDetails = {
       id: "",
       name: "",
-      amount: 0,
+      amount: "",
       paidBy: this.props.participants[0],
-      tip: 0,
-      tax: 0,
-      total: 0,
+      tip: "",
+      tax: "",
+      total: "",
       splitEven: false,
       splitEvenAmount: 0,
       splitCustomAmounts: customAmounts,
@@ -231,6 +243,7 @@ class ReceiptInput extends Component {
     return hasReceipts ? (
       <ReceiptList
         receipts={this.state.receipts}
+        onDeleteReceipt={this.deleteReceipt}
         onEditReceipt={this.editReceipt}
       />
     ) : (
