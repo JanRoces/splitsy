@@ -5,21 +5,21 @@ import Breakdown from "./Breakdown";
 import "../styles/Main.css";
 
 class Main extends Component {
-  state = {
-    step: 1,
-    title: "",
-    participants: [],
-    customAmounts: [],
-    receiptDetails: [],
-  };
-
   // state = {
-  //   step: 2,
-  //   title: "Test",
-  //   participants: ["Jan", "Brenda", "Gayle"],
-  //   customAmounts: ["", "", ""],
-  //   receiptDetails: [],
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   customAmounts: [],
+  //   receipts: [],
   // };
+
+  state = {
+    step: 2,
+    title: "Test",
+    participants: ["Jan", "Brenda", "Gayle"],
+    customAmounts: ["", "", ""],
+    receipts: [],
+  };
 
   setEventNameAndParticipants = (e) => {
     const customAmounts = [];
@@ -39,14 +39,10 @@ class Main extends Component {
     });
   };
 
-  receiptInputSubmit = (e) => {
+  setReceipts = (e) => {
     var s = this.state.step;
     s++;
-    this.setState({ step: s, receiptDetails: e.receipts });
-  };
-
-  getDetails = (details) => {
-    this.setState({ receiptDetails: details });
+    this.setState({ step: s, receips: e.receipts });
   };
 
   render() {
@@ -71,7 +67,7 @@ class Main extends Component {
               participants={this.state.participants}
               customAmounts={this.state.customAmounts}
               details={this.state.receiptDetails}
-              onSubmit={this.receiptInputSubmit}
+              onSubmit={this.setReceipts}
             />
             <br />
             <div>
@@ -87,12 +83,7 @@ class Main extends Component {
                 {this.state.title} Finance Breakdown
               </h2>
             </div>
-            <div>
-              <Breakdown
-                allReceipts={this.state.receiptDetails}
-                members={this.state.participants}
-              />
-            </div>
+            <div>Render Breakdown</div>
           </div>
         );
       default:

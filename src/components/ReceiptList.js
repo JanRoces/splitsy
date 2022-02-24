@@ -29,7 +29,11 @@ class ReceiptList extends Component {
             onClick={this.editReceipt}>
             <i className="edit icon" id={id}></i>
           </button>
-          <input type="text" value={name} readOnly></input>
+          <input
+            className="input-item"
+            type="text"
+            value={name}
+            readOnly></input>
           <a className="ui tag label">$ {total}</a>
           <button
             className="ui icon button button-delete"

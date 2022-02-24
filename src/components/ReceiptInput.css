@@ -35,6 +35,12 @@
   text-align: center;
 }
 
+.container-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
 .container-buttons {
   display: flex;
   justify-content: center;
