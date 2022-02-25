@@ -4,102 +4,84 @@ import Chart from "./Chart";
 import "./Breakdown.css";
 
 class Breakdown extends Component {
-  state = {
-    allReceipts: this.props.allReceipts,
-    main: {},
-    members: this.props.members,
-    oweMatrix: [],
-    paidFor: [],
-    infoLoaded: false,
-  };
-
-  componentDidMount() {
-    this.mainData();
-    this.generateReceiptList();
-    this.determineDebt();
-  }
-
   render() {
-    if (this.state.infoLoaded === true) {
-      return (
-        <div>
-          <div>
-            <Chart data={this.state.main} />
-            <div className="fields">
-              <button
-                className="ui icon button"
-                type="button"
-                onClick={this.changeColor}>
-                <i className="paint brush icon"></i>
-              </button>
-            </div>
-            <br />
-            {/*<div>{this.display()}</div>*/}
-            <div className="card-container">
-              <div className="ui four cards">{this.cardDisplay()}</div>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
-    }
+    return <div>Breakdown Page</div>;
   }
+  //   if (this.state.infoLoaded === true) {
+  //     return (
+  //       <div>
+  //         <div>
+  //           <Chart data={this.state.main} />
+  //           <div className="fields">
+  //             <button
+  //               className="ui icon button"
+  //               type="button"
+  //               onClick={this.changeColor}>
+  //               <i className="paint brush icon"></i>
+  //             </button>
+  //           </div>
+  //           <br />
+  //           {/*<div>{this.display()}</div>*/}
+  //           <div className="card-container">
+  //             <div className="ui four cards">{this.cardDisplay()}</div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     );
+  //   } else {
+  //     return (
+  //       <div>
+  //         <h1>Loading...</h1>
+  //       </div>
+  //     );
+  //   }
+  // }
 
   //this function creates the data set that is used
   //to display the doughnut chart
   mainData = () => {
-    var data = {
-      labels: [],
-      datasets: [
-        {
-          data: [],
-          backgroundColor: [],
-          hoverbackgroundColor: [],
-        },
-      ],
-    };
-
-    var mem = this.state.members;
-    var tmp = this.state.allReceipts;
-    var rnum = 0;
-    var i, j, color, name;
-
-    for (i = 0; i < mem.length; i++) {
-      data.labels.push(mem[i]);
-      name = mem[i];
-      for (j = 0; j < tmp.length; j++) {
-        if (tmp[j].payer === name) {
-          rnum = rnum + parseFloat(tmp[j].amount);
-        }
-      }
-      color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
-      rnum = parseFloat(rnum);
-      data.datasets[0].data.push(rnum);
-      data.datasets[0].backgroundColor.push(color);
-      data.datasets[0].hoverbackgroundColor.push(color);
-      rnum = 0;
-    }
-
-    this.setState({ main: data });
+    // var data = {
+    //   labels: [],
+    //   datasets: [
+    //     {
+    //       data: [],
+    //       backgroundColor: [],
+    //       hoverbackgroundColor: [],
+    //     },
+    //   ],
+    // };
+    // var mem = this.state.members;
+    // var tmp = this.state.allReceipts;
+    // var rnum = 0;
+    // var i, j, color, name;
+    // for (i = 0; i < mem.length; i++) {
+    //   data.labels.push(mem[i]);
+    //   name = mem[i];
+    //   for (j = 0; j < tmp.length; j++) {
+    //     if (tmp[j].payer === name) {
+    //       rnum = rnum + parseFloat(tmp[j].amount);
+    //     }
+    //   }
+    //   color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
+    //   rnum = parseFloat(rnum);
+    //   data.datasets[0].data.push(rnum);
+    //   data.datasets[0].backgroundColor.push(color);
+    //   data.datasets[0].hoverbackgroundColor.push(color);
+    //   rnum = 0;
+    // }
+    // this.setState({ main: data });
   };
 
   changeColor = () => {
-    var data = this.state.main;
-    var len = this.state.members.length;
-    var i, newColor;
-
-    for (i = 0; i < len; i++) {
-      newColor = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
-      data.datasets[0].backgroundColor[i] = newColor;
-      data.datasets[0].hoverbackgroundColor[i] = newColor;
-    }
-
-    this.setState({ main: data });
+    // var data = this.state.main;
+    // var len = this.state.members.length;
+    // var i, newColor;
+    // for (i = 0; i < len; i++) {
+    //   newColor = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
+    //   data.datasets[0].backgroundColor[i] = newColor;
+    //   data.datasets[0].hoverbackgroundColor[i] = newColor;
+    // }
+    // this.setState({ main: data });
   };
 
   generateReceiptList = () => {
@@ -244,73 +226,68 @@ class Breakdown extends Component {
   };
 
   cardDisplay = () => {
-    var m = this.state.oweMatrix;
-    var len = this.state.oweMatrix.length;
-    var i, x;
-    var keyIndex = 0;
-    var cards = [];
-
-    for (i = 0; i < len; i++) {
-      x = m[i].key;
-      cards.push(
-        <div className="card" key={keyIndex}>
-          <div className="content">
-            <div className="center aligned header">{x}'s Receipts</div>
-            <div className="description">{this.receiptDisplay(i)}</div>
-          </div>
-          <div className="extra content">
-            <div className="description">{this.oweDisplay(i, x)}</div>
-          </div>
-        </div>
-      );
-      keyIndex++;
-    }
-
-    return <React.Fragment>{cards}</React.Fragment>;
+    // var m = this.state.oweMatrix;
+    // var len = this.state.oweMatrix.length;
+    // var i, x;
+    // var keyIndex = 0;
+    // var cards = [];
+    // for (i = 0; i < len; i++) {
+    //   x = m[i].key;
+    //   cards.push(
+    //     <div className="card" key={keyIndex}>
+    //       <div className="content">
+    //         <div className="center aligned header">{x}'s Receipts</div>
+    //         <div className="description">{this.receiptDisplay(i)}</div>
+    //       </div>
+    //       <div className="extra content">
+    //         <div className="description">{this.oweDisplay(i, x)}</div>
+    //       </div>
+    //     </div>
+    //   );
+    //   keyIndex++;
+    // }
+    // return <React.Fragment>{cards}</React.Fragment>;
   };
 
   receiptDisplay = (index) => {
-    var p = this.state.paidFor;
-    var len = p[index].paidFor.length;
-    var i;
-    var r = [];
-    var keyIndex = 0;
-
-    for (i = 0; i < len; i++) {
-      r.push(
-        <div className="item" key={keyIndex}>
-          {p[index].paidFor[i]}
-        </div>
-      );
-      keyIndex++;
-    }
-    return <div className="ui list">{r}</div>;
+    // var p = this.state.paidFor;
+    // var len = p[index].paidFor.length;
+    // var i;
+    // var r = [];
+    // var keyIndex = 0;
+    // for (i = 0; i < len; i++) {
+    //   r.push(
+    //     <div className="item" key={keyIndex}>
+    //       {p[index].paidFor[i]}
+    //     </div>
+    //   );
+    //   keyIndex++;
+    // }
+    // return <div className="ui list">{r}</div>;
   };
 
   oweDisplay = (i, x) => {
-    var m = this.state.oweMatrix;
-    var len = m.length;
-    var y, j, amt;
-    var oweList = [];
-    var keyIndex = 0;
-
-    for (j = 0; j < len; j++) {
-      y = m[i].member[j].name;
-      amt = m[i].member[j].amt;
-      if (amt !== 0) {
-        oweList.push(
-          <div className="ui label" key={keyIndex}>
-            {y} owes {x} ${amt}
-          </div>
-        );
-      } else {
-        continue;
-      }
-      keyIndex++;
-    }
-
-    return <div className="ui large labels">{oweList}</div>;
+    //   var m = this.state.oweMatrix;
+    //   var len = m.length;
+    //   var y, j, amt;
+    //   var oweList = [];
+    //   var keyIndex = 0;
+    //   for (j = 0; j < len; j++) {
+    //     y = m[i].member[j].name;
+    //     amt = m[i].member[j].amt;
+    //     if (amt !== 0) {
+    //       oweList.push(
+    //         <div className="ui label" key={keyIndex}>
+    //           {y} owes {x} ${amt}
+    //         </div>
+    //       );
+    //     } else {
+    //       continue;
+    //     }
+    //     keyIndex++;
+    //   }
+    //   return <div className="ui large labels">{oweList}</div>;
+    // };
   };
 }
-
 export default Breakdown;

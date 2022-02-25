@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CreateEvent from "./CreateEvent";
 import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
+import { buildMatrix } from "./MatrixBuilder";
 import "../styles/Main.css";
 
 class Main extends Component {
@@ -19,34 +20,42 @@ class Main extends Component {
     participants: ["Jan", "Brenda", "Gayle"],
     customAmounts: ["", "", ""],
     receipts: [],
+
+    matrix: [],
   };
 
   setEventNameAndParticipants = (e) => {
     const customAmounts = [];
     const len = e.participants.length;
-    var s = this.state.step;
+    var { step } = this.state;
 
     for (var i = 0; i < len; i++) {
       customAmounts.push("");
     }
 
-    s++;
+    step++;
     this.setState({
-      step: s,
+      step: step,
       title: e.title,
       participants: e.participants,
       customAmounts: customAmounts,
     });
   };
 
-  setReceipts = (e) => {
-    var s = this.state.step;
-    s++;
-    this.setState({ step: s, receips: e.receipts });
+  setReceiptsAndBuildMatrix = (e) => {
+    var { matrix, participants } = this.state;
+    var { step } = this.state;
+
+    matrix = buildMatrix(e.receipts, participants);
+    console.log("matrix :>> ", matrix);
+    step++;
+    this.setState({ step: step, receips: e.receipts, matrix: matrix });
   };
 
   render() {
-    switch (this.state.step) {
+    // console.log("this.state :>> ", this.state);
+    const { step, title } = this.state;
+    switch (step) {
       case 1:
         return (
           <div>
@@ -62,12 +71,12 @@ class Main extends Component {
       case 2:
         return (
           <div>
-            <h2 className="title">{this.state.title} Finance Organization</h2>
+            <h2 className="title">{title} Finance Organization</h2>
             <ReceiptInput
               participants={this.state.participants}
               customAmounts={this.state.customAmounts}
               details={this.state.receiptDetails}
-              onSubmit={this.setReceipts}
+              onSubmit={this.setReceiptsAndBuildMatrix}
             />
             <br />
             <div>
@@ -79,11 +88,13 @@ class Main extends Component {
         return (
           <div>
             <div>
-              <h2 style={{ textAlign: "center" }}>
-                {this.state.title} Finance Breakdown
-              </h2>
+              <h2 className="title">{title} Finance Breakdown</h2>
             </div>
-            <div>Render Breakdown</div>
+            <Breakdown />
+            <br />
+            <div>
+              <button onClick={this.nextStep}>STEP</button>
+            </div>
           </div>
         );
       default:
