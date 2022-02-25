@@ -1,16 +1,16 @@
 export const buildMatrix = (receipts, participants) => {
-  console.log("receipts :>> ", receipts);
-  const paidForArray = findRecieptsParticipantPaidFor(receipts, participants);
-  var oweAmountArray = createArrayOfOwedAmounts(receipts, participants);
-  oweAmountArray = populateSplitArray(receipts, participants, oweAmountArray);
-  console.log("oweAmountArray :>> ", oweAmountArray);
-  return ["hello", "world"];
+  const debtMatrix = createArrayOfOwedAmounts(receipts, participants);
+
+  populateSplitArray(receipts, participants, debtMatrix);
+  modifyMatrix(receipts, debtMatrix);
+
+  return debtMatrix;
 };
 
-const findRecieptsParticipantPaidFor = (receipts, participants) => {
+export const findPaidForReceipts = (receipts, participants) => {
   const rLen = receipts.length;
   const pLen = participants.length;
-  var objArr = [];
+  var paidForArray = [];
 
   for (var i = 0; i < pLen; i++) {
     var data = {
@@ -24,16 +24,16 @@ const findRecieptsParticipantPaidFor = (receipts, participants) => {
       }
     }
     data.name = participants[i];
-    objArr.push(data);
+    paidForArray.push(data);
   }
 
-  return objArr;
+  return paidForArray;
 };
 
 const createArrayOfOwedAmounts = (receipts, participants) => {
   const rLen = receipts.length;
   const pLen = participants.length;
-  var objArr = [];
+  var matrix = [];
 
   for (var i = 0; i < pLen; i++) {
     var owe = {
@@ -53,13 +53,13 @@ const createArrayOfOwedAmounts = (receipts, participants) => {
       owe.splitArray.push(data);
     }
 
-    objArr.push(owe);
+    matrix.push(owe);
   }
 
-  return objArr;
+  return matrix;
 };
 
-const populateSplitArray = (receipts, participants, oweAmountArray) => {
+const populateSplitArray = (receipts, participants, matrix) => {
   const rLen = receipts.length;
   const pLen = participants.length;
   var runningAmount;
@@ -76,19 +76,53 @@ const populateSplitArray = (receipts, participants, oweAmountArray) => {
 
     if (receipts[i].splitEven) {
       for (k = 0; k < pLen; k++) {
-        runningAmount = oweAmountArray[j].splitArray[k].amount;
+        runningAmount = matrix[j].splitArray[k].amount;
         runningAmount = runningAmount + receipts[i].splitEvenAmount;
-        oweAmountArray[j].splitArray[k].amount = runningAmount.toFixed(2);
+        matrix[j].splitArray[k].amount = runningAmount.toFixed(2);
       }
     } else {
       for (k = 0; k < pLen; k++) {
         var amountOwed = receipts[i].splitCustomAmounts[k];
-        runningAmount = oweAmountArray[j].splitArray[k].amount;
+        runningAmount = matrix[j].splitArray[k].amount;
         runningAmount = runningAmount + amountOwed;
-        oweAmountArray[j].splitArray[k].amount = runningAmount.toFixed(2);
+        matrix[j].splitArray[k].amount = runningAmount.toFixed(2);
       }
     }
   }
+};
 
-  return oweAmountArray;
+const modifyMatrix = (receipts, matrix) => {
+  const rLen = receipts.length;
+
+  var payer, ower, weight;
+  var payerAmount;
+  var owerAmount;
+
+  for (var i = 0; i < rLen; i++) {
+    payer = matrix[i].key;
+    for (var j = 0; j < rLen; j++) {
+      ower = matrix[i].splitArray[j].name;
+      if (payer === ower) {
+        matrix[i].splitArray[j].amount = 0;
+      } else {
+        payerAmount = matrix[i].splitArray[j].amount;
+        owerAmount = matrix[j].splitArray[i].amount;
+        weight = payerAmount - owerAmount;
+
+        if (weight < 0) {
+          weight = weight * -1;
+          matrix[i].splitArray[j].amount = 0;
+          matrix[j].splitArray[i].amount = weight.toFixed(2);
+        } else if (weight > 0) {
+          //situation where payer still owes ower money
+          matrix[i].splitArray[j].amount = weight.toFixed(2);
+          matrix[j].splitArray[i].amount = 0;
+        } else if (weight === 0) {
+          matrix[i].splitArray[j].amount = 0;
+          matrix[j].splitArray[i].amount = 0;
+        }
+        weight = 0;
+      }
+    }
+  }
 };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CreateEvent from "./CreateEvent";
 import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
-import { buildMatrix } from "./MatrixBuilder";
+import { buildMatrix, findPaidForReceipts } from "./MatrixBuilder";
 import "../styles/Main.css";
 
 class Main extends Component {
@@ -22,6 +22,7 @@ class Main extends Component {
     receipts: [],
 
     matrix: [],
+    paidForArray: [],
   };
 
   setEventNameAndParticipants = (e) => {
@@ -43,17 +44,17 @@ class Main extends Component {
   };
 
   setReceiptsAndBuildMatrix = (e) => {
-    var { matrix, participants } = this.state;
+    var { matrix, paidForArray, participants } = this.state;
     var { step } = this.state;
 
     matrix = buildMatrix(e.receipts, participants);
-    console.log("matrix :>> ", matrix);
+    paidForArray = findPaidForReceipts(e.receips, participants);
     step++;
+
     this.setState({ step: step, receips: e.receipts, matrix: matrix });
   };
 
   render() {
-    // console.log("this.state :>> ", this.state);
     const { step, title } = this.state;
     switch (step) {
       case 1:
