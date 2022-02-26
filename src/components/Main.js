@@ -3,6 +3,7 @@ import CreateEvent from "./CreateEvent";
 import ReceiptInput from "./ReceiptInput";
 import Breakdown from "./Breakdown";
 import { buildMatrix, findPaidForReceipts } from "./MatrixBuilder";
+import { buildChartData } from "./ChartBuilder";
 import "../styles/Main.css";
 
 class Main extends Component {
@@ -23,6 +24,7 @@ class Main extends Component {
 
     matrix: [],
     paidForArray: [],
+    chartData: [],
   };
 
   setEventNameAndParticipants = (e) => {
@@ -44,14 +46,23 @@ class Main extends Component {
   };
 
   setReceiptsAndBuildMatrix = (e) => {
-    var { matrix, paidForArray, participants } = this.state;
+    const receipts = e.receipts;
+    var { matrix, participants } = this.state;
     var { step } = this.state;
+    var paidForArray = [];
+    var chartData = [];
 
-    matrix = buildMatrix(e.receipts, participants);
-    paidForArray = findPaidForReceipts(e.receips, participants);
+    matrix = buildMatrix(receipts, participants);
+    paidForArray = findPaidForReceipts(receipts, participants);
+    chartData = buildChartData(receipts, participants);
     step++;
 
-    this.setState({ step: step, receips: e.receipts, matrix: matrix });
+    this.setState({
+      step: step,
+      receips: e.receipts,
+      matrix: matrix,
+      chartData: chartData,
+    });
   };
 
   render() {
@@ -91,7 +102,11 @@ class Main extends Component {
             <div>
               <h2 className="title">{title} Finance Breakdown</h2>
             </div>
-            <Breakdown />
+            <Breakdown
+              matrix={this.state.matrix}
+              paidFor={this.state.paidForArray}
+              chartData={this.state.chartData}
+            />
             <br />
             <div>
               <button onClick={this.nextStep}>STEP</button>

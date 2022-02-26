@@ -4,8 +4,13 @@ import Chart from "./Chart";
 import "./Breakdown.css";
 
 class Breakdown extends Component {
+  state = { chartData: this.props.chartData };
   render() {
-    return <div>Breakdown Page</div>;
+    return (
+      <div>
+        <Chart data={this.state.chartData} />
+      </div>
+    );
   }
   //   if (this.state.infoLoaded === true) {
   //     return (
@@ -37,41 +42,6 @@ class Breakdown extends Component {
   //   }
   // }
 
-  //this function creates the data set that is used
-  //to display the doughnut chart
-  mainData = () => {
-    // var data = {
-    //   labels: [],
-    //   datasets: [
-    //     {
-    //       data: [],
-    //       backgroundColor: [],
-    //       hoverbackgroundColor: [],
-    //     },
-    //   ],
-    // };
-    // var mem = this.state.members;
-    // var tmp = this.state.allReceipts;
-    // var rnum = 0;
-    // var i, j, color, name;
-    // for (i = 0; i < mem.length; i++) {
-    //   data.labels.push(mem[i]);
-    //   name = mem[i];
-    //   for (j = 0; j < tmp.length; j++) {
-    //     if (tmp[j].payer === name) {
-    //       rnum = rnum + parseFloat(tmp[j].amount);
-    //     }
-    //   }
-    //   color = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
-    //   rnum = parseFloat(rnum);
-    //   data.datasets[0].data.push(rnum);
-    //   data.datasets[0].backgroundColor.push(color);
-    //   data.datasets[0].hoverbackgroundColor.push(color);
-    //   rnum = 0;
-    // }
-    // this.setState({ main: data });
-  };
-
   changeColor = () => {
     // var data = this.state.main;
     // var len = this.state.members.length;
@@ -82,147 +52,6 @@ class Breakdown extends Component {
     //   data.datasets[0].hoverbackgroundColor[i] = newColor;
     // }
     // this.setState({ main: data });
-  };
-
-  generateReceiptList = () => {
-    var rList = []; //list containing receipts that each participant paid for
-    var i;
-    var j = 0;
-
-    var mem = this.state.members;
-    var rec = this.state.allReceipts;
-    var len = this.state.members.length;
-    var len2 = this.state.allReceipts.length;
-
-    //loop through members and populate data.name for rList
-    for (i = 0; i < len; i++) {
-      var data = {
-        name: "",
-        paidFor: [],
-        //amt: 0,
-      };
-
-      data.name = mem[i];
-      rList.push(data);
-    }
-
-    //loop through all receipts to find receipts that member paid for
-    for (i = 0; i < len2; i++) {
-      while (rec[i].payer !== rList[j].name) {
-        j++;
-      }
-      rList[j].paidFor.push(rec[i].name);
-      //rList[j].amt.push(rec[i].amount);
-      j = 0;
-    }
-
-    this.setState({ paidFor: rList });
-  };
-
-  determineDebt = () => {
-    var mem = this.state.members;
-    var rec = this.state.allReceipts;
-    var len = this.state.members.length;
-    var len2 = this.state.allReceipts.length;
-    var i, j, k;
-    var rnum = 0;
-    var rnum2 = 0;
-    var splitAmt = 0;
-    var objArr = [];
-    var p;
-
-    //loop through list of members and create owe object
-    //populate owe.key with member
-    for (i = 0; i < len; i++) {
-      var owe = {
-        key: "",
-        member: [],
-      };
-
-      owe.key = mem[i];
-      //loop through list of members and create data object
-      //populate owe.member with data objects
-      for (j = 0; j < len; j++) {
-        var data = {
-          name: "",
-          amt: 0,
-        };
-
-        data.name = mem[j];
-        owe.member.push(data);
-      }
-      objArr.push(owe);
-    }
-
-    //loop through all receipts
-    //receipt index: i
-    for (i = 0; i < len2; i++) {
-      p = rec[i].payer;
-      splitAmt = rec[i].evenSplit;
-
-      //find index of payer within member array
-      //index of payer: j
-      for (j = 0; j < len; j++) {
-        if (mem[j] === p) {
-          break;
-        }
-      }
-
-      //populate .amt with respective amounts
-      if (splitAmt !== 0) {
-        //when splitting evenly
-        for (k = 0; k < len; k++) {
-          rnum = objArr[j].member[k].amt;
-          rnum = rnum + splitAmt;
-          objArr[j].member[k].amt = parseFloat(rnum);
-        }
-      } else {
-        //when splitting custom
-        for (k = 0; k < len; k++) {
-          rnum = objArr[j].member[k].amt;
-          rnum2 = rec[i].custom[k].amt;
-          rnum = rnum + rnum2;
-          objArr[j].member[k].amt = parseFloat(rnum);
-        }
-      }
-    }
-
-    var payer, ower, weight;
-    var pAmt; //amount owed to payer
-    var oAmt; //amount to compare difference
-
-    //modify the 2D array
-    for (i = 0; i < len; i++) {
-      payer = objArr[i].key;
-      for (j = 0; j < len; j++) {
-        ower = objArr[i].member[j].name;
-        if (payer === ower) {
-          //if payer == ower then set amt = 0
-          objArr[i].member[j].amt = 0;
-        } else {
-          //measure weight
-          pAmt = objArr[i].member[j].amt;
-          oAmt = objArr[j].member[i].amt;
-          weight = pAmt - oAmt;
-          if (weight < 0) {
-            //situation where ower still owes payer money
-            weight = weight * -1;
-            objArr[i].member[j].amt = 0;
-            objArr[j].member[i].amt = weight.toFixed(2);
-          } else if (weight > 0) {
-            //situation where payer still owes ower money
-            objArr[i].member[j].amt = weight.toFixed(2);
-            objArr[j].member[i].amt = 0;
-          } else if (weight === 0) {
-            objArr[i].member[j].amt = 0;
-            objArr[j].member[i].amt = 0;
-          }
-          weight = 0;
-        }
-      }
-    }
-
-    this.setState({ oweMatrix: objArr, infoLoaded: true });
   };
 
   cardDisplay = () => {

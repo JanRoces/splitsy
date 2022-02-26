@@ -1,5 +1,5 @@
 export const buildMatrix = (receipts, participants) => {
-  const debtMatrix = createArrayOfOwedAmounts(receipts, participants);
+  const debtMatrix = createArrayOfOwedAmounts(participants);
 
   populateSplitArray(receipts, participants, debtMatrix);
   modifyMatrix(receipts, debtMatrix);
@@ -30,8 +30,7 @@ export const findPaidForReceipts = (receipts, participants) => {
   return paidForArray;
 };
 
-const createArrayOfOwedAmounts = (receipts, participants) => {
-  const rLen = receipts.length;
+const createArrayOfOwedAmounts = (participants) => {
   const pLen = participants.length;
   var matrix = [];
 
