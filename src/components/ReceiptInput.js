@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { TEST_AMOUNT } from "../util";
 import AmountOwed from "./AmountOwed";
 import ReceiptList from "./ReceiptList";
 import "./ReceiptInput.css";
-import { buildMatrix, findPaidForReceipts } from "./MatrixBuilder";
 
 class ReceiptInput extends Component {
   state = {
