@@ -1,14 +1,26 @@
 import React, { Component } from "react";
+import { changeChartColor } from "./ChartBuilder";
 import Chart from "./Chart";
-//import DebtDisplay from "./DebtDisplay";
 import "./Breakdown.css";
 
 class Breakdown extends Component {
   state = { chartData: this.props.chartData };
+
+  changeColor = () => {
+    const { chartData } = this.state;
+    var newColorChart = changeChartColor(chartData);
+    this.setState({ chartData: newColorChart });
+  };
+
   render() {
     return (
       <div>
         <Chart data={this.state.chartData} />
+        <div className="container-button">
+          <button className="ui button" onClick={this.changeColor}>
+            <i className="paint brush icon"></i>Change Color
+          </button>
+        </div>
       </div>
     );
   }
@@ -41,18 +53,6 @@ class Breakdown extends Component {
   //     );
   //   }
   // }
-
-  changeColor = () => {
-    // var data = this.state.main;
-    // var len = this.state.members.length;
-    // var i, newColor;
-    // for (i = 0; i < len; i++) {
-    //   newColor = "#" + Math.random().toString(16).slice(2, 8).toUpperCase();
-    //   data.datasets[0].backgroundColor[i] = newColor;
-    //   data.datasets[0].hoverbackgroundColor[i] = newColor;
-    // }
-    // this.setState({ main: data });
-  };
 
   cardDisplay = () => {
     // var m = this.state.oweMatrix;

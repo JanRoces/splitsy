@@ -46,3 +46,11 @@ const getRandomColors = (length) => {
 
   return colors;
 };
+
+export const changeChartColor = (data) => {
+  const len = data.labels.length;
+  const newColors = getRandomColors(len);
+  data.datasets[0].backgroundColor = newColors;
+
+  return data;
+};
