@@ -171,6 +171,23 @@ class ReceiptInput extends Component {
     );
   };
 
+  renderBreakdownButton = () => {
+    const { receipts } = this.state;
+
+    return receipts.length ? (
+      <div className="container-button">
+        <button
+          className="ui button"
+          type="button"
+          onClick={this.onFormComplete}>
+          <i className="dollar icon"></i>
+          Breakdown
+        </button>
+      </div>
+    ) : (
+      ""
+    );
+  };
   renderPaidByDropdown = () => {
     const { details } = this.state;
 
@@ -297,15 +314,7 @@ class ReceiptInput extends Component {
           </div>
           {this.renderAmountOwed()}
           {this.renderReceiptList()}
-          <div className="container-button">
-            <button
-              className="ui button"
-              type="button"
-              onClick={this.onFormComplete}>
-              <i className="dollar icon"></i>
-              Breakdown
-            </button>
-          </div>
+          {this.renderBreakdownButton()}
         </form>
       </div>
     );
