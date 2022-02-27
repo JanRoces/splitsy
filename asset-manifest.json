@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/splitsy/static/css/main.923b4c71.css",
-    "main.js": "/splitsy/static/js/main.798975b8.js",
+    "main.css": "/splitsy/static/css/main.77cb3b5d.css",
+    "main.js": "/splitsy/static/js/main.e67fc1dc.js",
     "index.html": "/splitsy/index.html",
-    "main.923b4c71.css.map": "/splitsy/static/css/main.923b4c71.css.map",
-    "main.798975b8.js.map": "/splitsy/static/js/main.798975b8.js.map"
+    "main.77cb3b5d.css.map": "/splitsy/static/css/main.77cb3b5d.css.map",
+    "main.e67fc1dc.js.map": "/splitsy/static/js/main.e67fc1dc.js.map"
   },
   "entrypoints": [
-    "static/css/main.923b4c71.css",
-    "static/js/main.798975b8.js"
+    "static/css/main.77cb3b5d.css",
+    "static/js/main.e67fc1dc.js"
   ]
 }
