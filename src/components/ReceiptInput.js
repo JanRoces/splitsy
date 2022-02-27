@@ -174,10 +174,7 @@ class ReceiptInput extends Component {
 
     return receipts.length ? (
       <div className="container-button">
-        <button
-          className="ui button"
-          type="button"
-          onClick={this.onFormComplete}>
+        <button className="ui button">
           <i className="dollar icon"></i>
           Breakdown
         </button>

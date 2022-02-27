@@ -24,7 +24,7 @@ class Breakdown extends Component {
 
       if (amount !== 0) {
         debtList.push(
-          <div className="ui label label-debt">
+          <div className="ui label label-debt" key={i}>
             {name} owes {key}
             <div className="detail">${amount}</div>
           </div>
@@ -63,7 +63,7 @@ class Breakdown extends Component {
 
     for (var i = 0; i < len; i++) {
       const receipt = receipts[i];
-      receiptList.push(<div>{receipt}</div>);
+      receiptList.push(<div key={i}>{receipt}</div>);
     }
 
     return receiptList;
