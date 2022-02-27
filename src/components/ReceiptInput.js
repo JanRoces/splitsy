@@ -3,22 +3,10 @@ import { TEST_AMOUNT } from "../util";
 import AmountOwed from "./AmountOwed";
 import ReceiptList from "./ReceiptList";
 import "./ReceiptInput.css";
+import { buildMatrix, findPaidForReceipts } from "./MatrixBuilder";
 
 class ReceiptInput extends Component {
   state = {
-    // TEST DETAILS
-    // details: {
-    //   id: "",
-    //   name: "",
-    //   amount: TEST_AMOUNT.amount,
-    //   paidBy: this.props.participants[0],
-    //   tip: TEST_AMOUNT.tip,
-    //   tax: TEST_AMOUNT.tax,
-    //   total: TEST_AMOUNT.total,
-    //   splitEvenAmount: TEST_AMOUNT.splitEven,
-    //   splitCustomAmounts: this.props.customAmounts,
-    // },
-
     details: {
       id: "",
       name: "",
@@ -36,45 +24,7 @@ class ReceiptInput extends Component {
     even: false,
     custom: false,
 
-    // receipts: [],
-    receipts: [
-      {
-        id: "Car Rental100",
-        name: "Car Rental",
-        amount: 100,
-        paidBy: this.props.participants[1],
-        tip: 20,
-        tax: 3,
-        total: 123,
-        splitEven: true,
-        splitEvenAmount: 41,
-        splitCustomAmounts: ["", "", ""],
-      },
-      {
-        id: "Air Bnb250",
-        name: "Air Bnb",
-        amount: 250,
-        paidBy: this.props.participants[2],
-        tip: 0,
-        tax: 8.5,
-        total: 258.5,
-        splitEven: false,
-        splitEvenAmount: 86.7,
-        splitCustomAmounts: [100, 75, 83.5],
-      },
-      {
-        id: "Tickets185",
-        name: "Tickets",
-        amount: 185,
-        paidBy: this.props.participants[0],
-        tip: 0,
-        tax: 9.15,
-        total: 194.15,
-        splitEven: true,
-        splitEvenAmount: 64.72,
-        splitCustomAmounts: ["", "", ""],
-      },
-    ],
+    receipts: [],
   };
 
   deleteReceipt = (id) => {
@@ -348,7 +298,10 @@ class ReceiptInput extends Component {
           {this.renderAmountOwed()}
           {this.renderReceiptList()}
           <div className="container-button">
-            <button className="ui button">
+            <button
+              className="ui button"
+              type="button"
+              onClick={this.onFormComplete}>
               <i className="dollar icon"></i>
               Breakdown
             </button>

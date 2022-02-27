@@ -2,7 +2,7 @@ export const buildMatrix = (receipts, participants) => {
   const debtMatrix = createArrayOfOwedAmounts(participants);
 
   populateSplitArray(receipts, participants, debtMatrix);
-  modifyMatrix(receipts, debtMatrix);
+  modifyMatrix(receipts, participants, debtMatrix);
 
   return debtMatrix;
 };
@@ -15,12 +15,12 @@ export const findPaidForReceipts = (receipts, participants) => {
   for (var i = 0; i < pLen; i++) {
     var data = {
       name: "",
-      paidFor: [],
+      receiptNames: [],
     };
 
     for (var j = 0; j < rLen; j++) {
       if (receipts[j].paidBy === participants[i]) {
-        data.paidFor.push(receipts[j].name);
+        data.receiptNames.push(receipts[j].name);
       }
     }
     data.name = participants[i];
@@ -77,29 +77,29 @@ const populateSplitArray = (receipts, participants, matrix) => {
       for (k = 0; k < pLen; k++) {
         runningAmount = matrix[j].splitArray[k].amount;
         runningAmount = runningAmount + receipts[i].splitEvenAmount;
-        matrix[j].splitArray[k].amount = runningAmount.toFixed(2);
+        matrix[j].splitArray[k].amount = runningAmount;
       }
     } else {
       for (k = 0; k < pLen; k++) {
         var amountOwed = receipts[i].splitCustomAmounts[k];
         runningAmount = matrix[j].splitArray[k].amount;
         runningAmount = runningAmount + amountOwed;
-        matrix[j].splitArray[k].amount = runningAmount.toFixed(2);
+        matrix[j].splitArray[k].amount = runningAmount;
       }
     }
   }
 };
 
-const modifyMatrix = (receipts, matrix) => {
-  const rLen = receipts.length;
+const modifyMatrix = (receipts, participants, matrix) => {
+  const pLen = participants.length;
 
   var payer, ower, weight;
   var payerAmount;
   var owerAmount;
 
-  for (var i = 0; i < rLen; i++) {
+  for (var i = 0; i < pLen; i++) {
     payer = matrix[i].key;
-    for (var j = 0; j < rLen; j++) {
+    for (var j = 0; j < pLen; j++) {
       ower = matrix[i].splitArray[j].name;
       if (payer === ower) {
         matrix[i].splitArray[j].amount = 0;

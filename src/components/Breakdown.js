@@ -12,6 +12,63 @@ class Breakdown extends Component {
     this.setState({ chartData: newColorChart });
   };
 
+  renderDebtOwed = (matrix, index) => {
+    const len = matrix.length;
+    const debtList = [];
+    const key = matrix[index].key;
+    const splitArray = matrix[index].splitArray;
+
+    for (var i = 0; i < len; i++) {
+      const name = splitArray[i].name;
+      const amount = splitArray[i].amount;
+
+      if (amount !== 0) {
+        debtList.push(
+          <div className="ui label label-debt">
+            {name} owes {key}
+            <div className="detail">${amount}</div>
+          </div>
+        );
+      }
+    }
+
+    return debtList;
+  };
+
+  renderDebtBreakdownCards = () => {
+    const { matrix, paidFor } = this.props;
+    const len = paidFor.length;
+    const cardList = [];
+
+    for (var i = 0; i < len; i++) {
+      const name = paidFor[i].name;
+      const receiptNames = paidFor[i].receiptNames;
+      cardList.push(
+        <div className="ui card" key={i}>
+          <div className="content">
+            <div className="header">{name}'s Receipts</div>
+            <div className="meta">{this.renderReceiptList(receiptNames)}</div>
+            <div className="description">{this.renderDebtOwed(matrix, i)}</div>
+          </div>
+        </div>
+      );
+    }
+
+    return <div>{cardList}</div>;
+  };
+
+  renderReceiptList = (receipts) => {
+    const len = receipts.length;
+    const receiptList = [];
+
+    for (var i = 0; i < len; i++) {
+      const receipt = receipts[i];
+      receiptList.push(<div>{receipt}</div>);
+    }
+
+    return receiptList;
+  };
+
   render() {
     return (
       <div>
@@ -21,102 +78,11 @@ class Breakdown extends Component {
             <i className="paint brush icon"></i>Change Color
           </button>
         </div>
+        <div className="container-cards">{this.renderDebtBreakdownCards()}</div>
+        <br />
       </div>
     );
   }
-  //   if (this.state.infoLoaded === true) {
-  //     return (
-  //       <div>
-  //         <div>
-  //           <Chart data={this.state.main} />
-  //           <div className="fields">
-  //             <button
-  //               className="ui icon button"
-  //               type="button"
-  //               onClick={this.changeColor}>
-  //               <i className="paint brush icon"></i>
-  //             </button>
-  //           </div>
-  //           <br />
-  //           {/*<div>{this.display()}</div>*/}
-  //           <div className="card-container">
-  //             <div className="ui four cards">{this.cardDisplay()}</div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div>
-  //         <h1>Loading...</h1>
-  //       </div>
-  //     );
-  //   }
-  // }
-
-  cardDisplay = () => {
-    // var m = this.state.oweMatrix;
-    // var len = this.state.oweMatrix.length;
-    // var i, x;
-    // var keyIndex = 0;
-    // var cards = [];
-    // for (i = 0; i < len; i++) {
-    //   x = m[i].key;
-    //   cards.push(
-    //     <div className="card" key={keyIndex}>
-    //       <div className="content">
-    //         <div className="center aligned header">{x}'s Receipts</div>
-    //         <div className="description">{this.receiptDisplay(i)}</div>
-    //       </div>
-    //       <div className="extra content">
-    //         <div className="description">{this.oweDisplay(i, x)}</div>
-    //       </div>
-    //     </div>
-    //   );
-    //   keyIndex++;
-    // }
-    // return <React.Fragment>{cards}</React.Fragment>;
-  };
-
-  receiptDisplay = (index) => {
-    // var p = this.state.paidFor;
-    // var len = p[index].paidFor.length;
-    // var i;
-    // var r = [];
-    // var keyIndex = 0;
-    // for (i = 0; i < len; i++) {
-    //   r.push(
-    //     <div className="item" key={keyIndex}>
-    //       {p[index].paidFor[i]}
-    //     </div>
-    //   );
-    //   keyIndex++;
-    // }
-    // return <div className="ui list">{r}</div>;
-  };
-
-  oweDisplay = (i, x) => {
-    //   var m = this.state.oweMatrix;
-    //   var len = m.length;
-    //   var y, j, amt;
-    //   var oweList = [];
-    //   var keyIndex = 0;
-    //   for (j = 0; j < len; j++) {
-    //     y = m[i].member[j].name;
-    //     amt = m[i].member[j].amt;
-    //     if (amt !== 0) {
-    //       oweList.push(
-    //         <div className="ui label" key={keyIndex}>
-    //           {y} owes {x} ${amt}
-    //         </div>
-    //       );
-    //     } else {
-    //       continue;
-    //     }
-    //     keyIndex++;
-    //   }
-    //   return <div className="ui large labels">{oweList}</div>;
-    // };
-  };
 }
+
 export default Breakdown;

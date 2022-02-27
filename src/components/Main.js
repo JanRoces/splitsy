@@ -7,24 +7,12 @@ import { buildChartData } from "./ChartBuilder";
 import "../styles/Main.css";
 
 class Main extends Component {
-  // state = {
-  //   step: 1,
-  //   title: "",
-  //   participants: [],
-  //   customAmounts: [],
-  //   receipts: [],
-  // };
-
   state = {
-    step: 2,
-    title: "Test",
-    participants: ["Jan", "Brenda", "Gayle"],
-    customAmounts: ["", "", ""],
+    step: 1,
+    title: "",
+    participants: [],
+    customAmounts: [],
     receipts: [],
-
-    matrix: [],
-    paidForArray: [],
-    chartData: [],
   };
 
   setEventNameAndParticipants = (e) => {
@@ -61,6 +49,7 @@ class Main extends Component {
       step: step,
       receips: e.receipts,
       matrix: matrix,
+      paidForArray: paidForArray,
       chartData: chartData,
     });
   };
@@ -75,9 +64,6 @@ class Main extends Component {
             <div>
               <CreateEvent onSubmit={this.setEventNameAndParticipants} />
             </div>
-            <div>
-              <button onClick={this.nextStep}>STEP</button>
-            </div>
           </div>
         );
       case 2:
@@ -90,10 +76,6 @@ class Main extends Component {
               details={this.state.receiptDetails}
               onSubmit={this.setReceiptsAndBuildMatrix}
             />
-            <br />
-            <div>
-              <button onClick={this.backStep}>STEP</button>
-            </div>
           </div>
         );
       case 3:
@@ -106,27 +88,14 @@ class Main extends Component {
               matrix={this.state.matrix}
               paidFor={this.state.paidForArray}
               chartData={this.state.chartData}
+              participants={this.state.participants}
             />
-            <br />
-            <div>
-              <button onClick={this.nextStep}>STEP</button>
-            </div>
           </div>
         );
       default:
-        console.log(this.state);
         return <div>u don goof'd</div>;
     }
   }
-
-  //temp methods
-  nextStep = () => {
-    this.setState({ step: 2 });
-  };
-
-  backStep = () => {
-    this.setState({ step: 1 });
-  };
 }
 
 export default Main;
