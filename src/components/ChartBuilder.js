@@ -25,7 +25,7 @@ const getExpenseDistribution = (receipts, participants) => {
       const paidBy = receipts[j].paidBy;
 
       if (name === paidBy) {
-        totalAmountPaidFor = totalAmountPaidFor + receipts[j].total;
+        totalAmountPaidFor = +totalAmountPaidFor + +receipts[j].total;
       }
     }
 

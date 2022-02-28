@@ -75,14 +75,14 @@ const populateSplitArray = (receipts, participants, matrix) => {
 
     if (receipts[i].splitEven) {
       for (k = 0; k < pLen; k++) {
-        runningAmount = matrix[j].splitArray[k].amount;
-        runningAmount = runningAmount + receipts[i].splitEvenAmount;
+        runningAmount = +matrix[j].splitArray[k].amount;
+        runningAmount = runningAmount + +receipts[i].splitEvenAmount;
         matrix[j].splitArray[k].amount = runningAmount;
       }
     } else {
       for (k = 0; k < pLen; k++) {
-        var amountOwed = receipts[i].splitCustomAmounts[k];
-        runningAmount = matrix[j].splitArray[k].amount;
+        var amountOwed = +receipts[i].splitCustomAmounts[k];
+        runningAmount = +matrix[j].splitArray[k].amount;
         runningAmount = runningAmount + amountOwed;
         matrix[j].splitArray[k].amount = runningAmount;
       }
@@ -113,7 +113,6 @@ const modifyMatrix = (receipts, participants, matrix) => {
           matrix[i].splitArray[j].amount = 0;
           matrix[j].splitArray[i].amount = weight.toFixed(2);
         } else if (weight > 0) {
-          //situation where payer still owes ower money
           matrix[i].splitArray[j].amount = weight.toFixed(2);
           matrix[j].splitArray[i].amount = 0;
         } else if (weight === 0) {

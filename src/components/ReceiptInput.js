@@ -15,7 +15,7 @@ class ReceiptInput extends Component {
       total: "",
       splitEven: false,
       splitEvenAmount: 0,
-      splitCustomAmounts: this.props.customAmounts,
+      splitCustomAmounts: ["", ""],
     },
 
     editMode: false,
@@ -150,8 +150,10 @@ class ReceiptInput extends Component {
   };
 
   renderAmountOwed = () => {
-    const { splitEvenAmount, splitCustomAmounts, total } = this.state.details;
+    const { name, splitEvenAmount, splitCustomAmounts, total } =
+      this.state.details;
     const { editMode, even, custom } = this.state;
+    const title = name;
 
     return even || custom ? (
       <AmountOwed
@@ -162,6 +164,7 @@ class ReceiptInput extends Component {
         splitEvenAmount={splitEvenAmount}
         splitCustomAmounts={splitCustomAmounts}
         total={total}
+        title={title}
         onAddReceipt={this.pushReceipt}
       />
     ) : (
