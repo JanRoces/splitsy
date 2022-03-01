@@ -9,6 +9,12 @@
   margin-bottom: 10px !important;
 }
 
+.description {
+  display: flex;
+  flex-direction: column;
+}
+
 .label-debt {
   margin: auto !important;
+  margin-left: 0 !important;
 }

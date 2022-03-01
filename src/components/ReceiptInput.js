@@ -15,7 +15,7 @@ class ReceiptInput extends Component {
       total: "",
       splitEven: false,
       splitEvenAmount: 0,
-      splitCustomAmounts: ["", ""],
+      splitCustomAmounts: [],
     },
 
     editMode: false,
