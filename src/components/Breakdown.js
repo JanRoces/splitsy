@@ -71,14 +71,25 @@ class Breakdown extends Component {
 
   render() {
     return (
-      <div>
-        <Chart data={this.state.chartData} />
-        <div className="container-button">
-          <button className="ui button" onClick={this.changeColor}>
-            <i className="paint brush icon"></i>Change Color
-          </button>
+      <div className="container-breakdown">
+        <div className="container-chart">
+          <Chart data={this.state.chartData} />
+          <div className="container-button">
+            <button className="ui button" onClick={this.changeColor}>
+              <i className="paint brush icon"></i>Change Color
+            </button>
+          </div>
         </div>
-        <div className="container-cards">{this.renderDebtBreakdownCards()}</div>
+        <div className="container-matrix">
+          <div className="container-label">
+            <h2 className="ui header">
+              Event Total: $ {this.props.eventTotal}
+            </h2>
+          </div>
+          <div className="container-cards">
+            {this.renderDebtBreakdownCards()}
+          </div>
+        </div>
         <br />
       </div>
     );

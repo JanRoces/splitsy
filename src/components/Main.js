@@ -13,6 +13,21 @@ class Main extends Component {
     participants: [],
     customAmounts: [],
     receipts: [],
+    matrix: [],
+    paidForArray: [],
+    chartData: {},
+    eventTotal: "",
+  };
+
+  calculateTotal = (receipts) => {
+    const len = receipts.length;
+    var eventTotal = 0;
+
+    for (var i = 0; i < len; i++) {
+      eventTotal = eventTotal += +receipts[i].total;
+    }
+
+    return eventTotal;
   };
 
   setEventNameAndParticipants = (e) => {
@@ -39,10 +54,13 @@ class Main extends Component {
     var { step } = this.state;
     var paidForArray = [];
     var chartData = [];
+    var eventTotal;
 
     matrix = buildMatrix(receipts, participants);
     paidForArray = findPaidForReceipts(receipts, participants);
     chartData = buildChartData(receipts, participants);
+    eventTotal = this.calculateTotal(receipts);
+
     step++;
 
     this.setState({
@@ -51,6 +69,7 @@ class Main extends Component {
       matrix: matrix,
       paidForArray: paidForArray,
       chartData: chartData,
+      eventTotal: eventTotal,
     });
   };
 
@@ -89,6 +108,7 @@ class Main extends Component {
               paidFor={this.state.paidForArray}
               chartData={this.state.chartData}
               participants={this.state.participants}
+              eventTotal={this.state.eventTotal}
             />
           </div>
         );

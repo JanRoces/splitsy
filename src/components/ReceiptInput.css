@@ -31,6 +31,10 @@
   width: 100px !important;
 }
 
+.breakdown {
+  padding-bottom: 10px;
+}
+
 .container-tag {
   text-align: center;
 }
