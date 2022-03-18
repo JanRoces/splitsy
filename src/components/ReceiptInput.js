@@ -176,7 +176,7 @@ class ReceiptInput extends Component {
     const { receipts } = this.state;
 
     return receipts.length ? (
-      <div className="container-button">
+      <div className="container-button breakdown">
         <button className="ui button">
           <i className="dollar icon"></i>
           Breakdown
@@ -186,6 +186,7 @@ class ReceiptInput extends Component {
       ""
     );
   };
+
   renderPaidByDropdown = () => {
     const { details } = this.state;
 

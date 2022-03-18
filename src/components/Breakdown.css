@@ -1,3 +1,29 @@
+/* desktop */
+@media (min-width: 835px) {
+  .container-breakdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .container-matrix {
+    margin-left: 20px;
+  }
+}
+
+/* mobile */
+@media (max-width: 834px) {
+  .container-breakdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+  }
+}
+
 .container-cards {
   margin-top: 10px;
   margin-left: 10px;
@@ -11,4 +37,10 @@
 
 .label-debt {
   margin: auto !important;
+}
+
+.container-label {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
