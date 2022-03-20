@@ -1,3 +1,9 @@
+.container-button {
+  display: flex !important;
+  justify-content: center !important;
+  margin: auto !important;
+}
+
 .container-button-add-receipt {
   text-align: center;
   margin-top: 10px;

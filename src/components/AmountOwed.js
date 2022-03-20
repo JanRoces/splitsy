@@ -140,6 +140,27 @@ class AmountOwed extends Component {
     );
   };
 
+  renderItemize = () => {
+    return (
+      <div>
+        <div className="inline field field-allocate">
+          <div className="ui right pointing label">Amount to Allocate</div>
+          <div className="ui icon input">
+            <input
+              className="input-allocate"
+              value={`$ ${this.calculateAllocation()}`}
+              readOnly></input>
+            <i className={this.allocateIcon()}></i>
+          </div>
+        </div>
+        <button className="ui compact button container-button" type="button">
+          <i className="plus icon"></i>
+          Add Item
+        </button>
+      </div>
+    );
+  };
+
   renderAddReceiptButton = (splitType) => {
     const { editMode, splitEvenAmount, title } = this.props;
     const zeroAmount = 0;
@@ -183,6 +204,8 @@ class AmountOwed extends Component {
           {this.renderAddReceiptButton("custom")}
         </div>
       );
+    } else if (this.props.itemizeSplit) {
+      return <div>{this.renderItemize()}</div>;
     } else {
       return "";
     }
