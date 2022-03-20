@@ -7,12 +7,23 @@ import { buildChartData } from "./ChartBuilder";
 import "../styles/Main.css";
 
 class Main extends Component {
+  // state = {
+  //   step: 1,
+  //   title: "",
+  //   participants: [],
+  //   customAmounts: [],
+  //   receipts: [],
+  //   matrix: [],
+  //   paidForArray: [],
+  //   chartData: {},
+  //   eventTotal: "",
+  // };
+
   state = {
-    step: 1,
-    title: "",
-    participants: [],
-    customAmounts: [],
-    receipts: [],
+    step: 2,
+    title: "Test",
+    participants: ["Jan", "Brenda", "Gayle"],
+    receiptDetails: [],
     matrix: [],
     paidForArray: [],
     chartData: {},

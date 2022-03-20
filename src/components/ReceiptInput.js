@@ -21,8 +21,60 @@ class ReceiptInput extends Component {
     editMode: false,
     even: false,
     custom: false,
+    itemize: true,
 
-    receipts: [],
+    // receipts: [],
+
+    receipts: [
+      {
+        id: "Tickets185",
+        name: "Tickets",
+        amount: "185",
+        paidBy: this.props.participants[0],
+        tip: "",
+        tax: "9.15",
+        total: "194.15",
+        splitEven: true,
+        splitEvenAmount: 64.72,
+        splitCustomAmounts: ["", "", ""],
+      },
+      {
+        id: "Food120",
+        name: "Food",
+        amount: "120",
+        paidBy: this.props.participants[0],
+        tip: "",
+        tax: "",
+        total: "120",
+        splitEven: true,
+        splitEvenAmount: 40,
+        splitCustomAmounts: ["", "", ""],
+      },
+      {
+        id: "Car Rental100",
+        name: "Car Rental",
+        amount: "100",
+        paidBy: this.props.participants[1],
+        tip: "20",
+        tax: "3",
+        total: "123",
+        splitEven: true,
+        splitEvenAmount: 41,
+        splitCustomAmounts: ["", "", ""],
+      },
+      {
+        id: "Air Bnb250",
+        name: "Air Bnb",
+        amount: "250",
+        paidBy: this.props.participants[2],
+        tip: "20",
+        tax: "8.5",
+        total: "258.5",
+        splitEven: false,
+        splitEvenAmount: 86.17,
+        splitCustomAmounts: ["100", "75", "83.5"],
+      },
+    ],
   };
 
   deleteReceipt = (id) => {
@@ -138,15 +190,39 @@ class ReceiptInput extends Component {
   };
 
   splitCustom = () => {
-    var d = this.state.details;
-    d.splitEven = false;
-    this.setState({ details: d, even: false, custom: true });
+    var { details } = this.state;
+    details.splitEven = false;
+
+    this.setState({
+      details: details,
+      even: false,
+      custom: true,
+      itemize: false,
+    });
   };
 
   splitEven = () => {
-    var d = this.state.details;
-    d.splitEven = true;
-    this.setState({ details: d, even: true, custom: false });
+    var { details } = this.state;
+    details.splitEven = true;
+
+    this.setState({
+      details: details,
+      even: true,
+      custom: false,
+      itemize: false,
+    });
+  };
+
+  splitItemize = () => {
+    var { details } = this.state;
+    details.splitEven = false;
+
+    this.setState({
+      details: details,
+      even: false,
+      custom: false,
+      itemize: true,
+    });
   };
 
   renderAmountOwed = () => {
@@ -230,7 +306,7 @@ class ReceiptInput extends Component {
   };
 
   render() {
-    const { details } = this.state;
+    const { details, even, custom, itemize } = this.state;
 
     return (
       <div>
@@ -295,18 +371,30 @@ class ReceiptInput extends Component {
           <div className="container-buttons">
             <div className="field">
               <label>Split</label>
-              <div className="two ui buttons">
+              <div className="three medium ui buttons">
                 <button
-                  className="ui button button-even"
+                  className={`ui toggle button width ${
+                    even ? "button-active" : ""
+                  }`}
                   type="button"
                   onClick={this.splitEven}>
                   Even
                 </button>
                 <button
-                  className="ui button button-custom"
+                  className={`ui toggle button width ${
+                    custom ? "button-active" : ""
+                  }`}
                   type="button"
                   onClick={this.splitCustom}>
                   Custom
+                </button>
+                <button
+                  className={`ui toggle button width ${
+                    itemize ? "button-active-alt" : ""
+                  }`}
+                  type="button"
+                  onClick={this.splitItemize}>
+                  Itemize
                 </button>
               </div>
             </div>
